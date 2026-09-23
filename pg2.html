@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="pg2.css">
     <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="dark-mode.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <title>Musical Escritor · Agenda</title>
 </head>
@@ -228,12 +230,18 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js"></script>
 
     <script src="auth.js"></script>
 
     <script src="data.js"></script>
+    <script src="loader.js"></script>
+    <script src="theme.js"></script>
+    <script src="global-search.js"></script>
+    <script src="messaging.js"></script>
 
-    <script src="admin.js"></script>
+<script src="admin.js"></script>
+    <script src="appx.js"></script>
 
 <script src="animations.js"></script>
     <script src="pg2-dados.js"></script>
@@ -284,6 +292,7 @@ function pad(n) { return (n < 10 ? '0' : '') + n; }
                     return '<li class="event">' +
                         '<div class="mini-calendar"><span class="d">' + DIAS3[d.getDay()] + '</span><strong>' + d.getDate() + '</strong><span class="m">' + mesAbr + '</span></div>' +
                         '<div class="event-info"><strong>' + escT(e.titulo) + '</strong>' +
+                        (String(e.d) === hj ? '<span class="pill is-hoje">HOJE</span>' : '') +
                         '<span><i class="bx bx-time"></i> ' + escT(e.hora) + (e.fim ? ' - ' + escT(e.fim) : '') + '</span>' +
                         '<span><i class="bx bx-map-pin"></i> ' + escT(e.local || '') + '</span></div>' +
                         '</li>';
@@ -566,6 +575,7 @@ if (btnMais) btnMais.style.display = ev ? '' : 'none';
                         tipo: ev.tipo || 'ev-ensaio',
                         hora: ev.hora || '13:30',
                         fim: ev.fim || '17:00',
+                        repeat: ev.repeat || '',
                         local: ev.local || '',
                         chip: ev.chip || '',
                         desc: ev.desc || ''
@@ -582,6 +592,11 @@ if (btnMais) btnMais.style.display = ev ? '' : 'none';
                         ] },
                         { name: 'hora', label: 'Início', type: 'time', half: true },
                         { name: 'fim', label: 'Fim', type: 'time', half: true },
+                        { name: 'repeat', label: 'Repetir', type: 'select', half: true, options: [
+                            { value: '', label: 'Não repetir' },
+                            { value: 'semanal', label: 'Toda semana' },
+                            { value: 'quinzenal', label: 'A cada 2 semanas' }
+                        ] },
                         { name: 'local', label: 'Local', placeholder: 'Ex.: Salão principal' },
                         { name: 'chip', label: 'Rótulo no calendário (opcional)', placeholder: 'Ex.: 13:30 · Ensaio' },
                         { name: 'desc', label: 'Descrição', type: 'textarea' }
@@ -592,10 +607,25 @@ if (btnMais) btnMais.style.display = ev ? '' : 'none';
                         valores.chip = (valores.hora || '') + ' · ' + String(valores.titulo).split(' - ')[0];
                     }
                     if (ehNovo) {
-                        AppDB.add('eventos', valores).then(function (criado) {
-                            AdminKit.toast('Evento criado.', 'ok');
-                            irParaData(valores.d, criado && criado._id);
-                        });
+                        var passos = valores.repeat === 'semanal' ? [7] : valores.repeat === 'quinzenal' ? [14] : [];
+                        if (!passos.length || !window.AppX) {
+                            AppDB.add('eventos', valores).then(function (criado) {
+                                AdminKit.toast('Evento criado.', 'ok');
+                                irParaData(valores.d, criado && criado._id);
+                            });
+                        } else {
+                            var chain = AppDB.add('eventos', valores);
+                            passos.forEach(function (pas) {
+                                var clone = {};
+                                for (var k in valores) clone[k] = valores[k];
+                                clone.d = AppX.somaDias(valores.d, pas);
+                                chain = chain.then(function () { return AppDB.add('eventos', clone); });
+                            });
+                            chain.then(function () {
+                                AdminKit.toast('Evento criado (' + (passos.length + 1) + ' datas).', 'ok');
+                                irParaData(valores.d);
+                            });
+                        }
                     } else {
                         AppDB.update('eventos', ev._id, valores).then(function () {
                             AdminKit.toast('Evento atualizado.', 'ok');

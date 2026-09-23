@@ -1,0 +1,19 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      "**/.*",
+      "**/node_modules/**",
+      "**/.git/**",
+      "páginas para fazer*",
+      "*.md",
+      "abrir.bat",
+      "*.exe",
+      "*.bat",
+      "*.cmd",
+      "*.msi"
+    ]
+  }
+}

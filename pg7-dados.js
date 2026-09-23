@@ -102,6 +102,20 @@ window.EQ = (function () {
         return String(id).charAt(0).toUpperCase() + String(id).slice(1);
     }
 
+    function personagemPorId(id) {
+        for (var i = 0; i < personagens.length; i++) {
+            if (personagens[i].id === id) return personagens[i];
+        }
+        return null;
+    }
+
+    function personagemNome(id) {
+        var p = personagemPorId(id);
+        if (p) return p.nome;
+        if (!id || id === 'nenhum') return '';
+        return String(id).charAt(0).toUpperCase() + String(id).slice(1);
+    }
+
     function membrosDaEquipe(id) {
         return membros.filter(function (m) {
             return (m.equipes || []).indexOf(id) > -1;
@@ -121,6 +135,8 @@ window.EQ = (function () {
         statusChip: statusChip,
         equipeNome: equipeNome,
         equipePorId: equipePorId,
+        personagemNome: personagemNome,
+        personagemPorId: personagemPorId,
         membrosDaEquipe: membrosDaEquipe,
         novaCor: novaCor
     };

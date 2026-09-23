@@ -11,6 +11,20 @@
     if (!window.AppDB || !window.AppAuth) return;
 
     var overlay = null;
+    var SKIP_KEY = 'musical_onb_skip';
+    var REABRIR_EM = 24 * 60 * 60 * 1000;
+
+    function registrarDescartar() {
+        try { localStorage.setItem(SKIP_KEY, String(Date.now())); } catch (e) { }
+    }
+
+    function deveMostrar() {
+        try {
+            var salvo = parseInt(localStorage.getItem(SKIP_KEY), 10);
+            if (salvo && (Date.now() - salvo) < REABRIR_EM) return false;
+        } catch (e) { }
+        return true;
+    }
 
     function esc(s) {
         return String(s == null ? '' : s)
@@ -32,6 +46,7 @@
     }
 
     function fechar() {
+        registrarDescartar();
         if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
         overlay = null;
         document.body.style.overflow = '';
@@ -169,6 +184,7 @@
     }
 
     window.AppAuth.ready.then(function () {
+        if (!deveMostrar()) return;
         var chave = chavePerfil();
         var per = null;
         window.AppDB.load('perfil').then(function (lista) {

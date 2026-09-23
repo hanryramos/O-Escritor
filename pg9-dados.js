@@ -45,16 +45,22 @@ window.MP = (function () {
         });
     }
 
+    function chavePrefs() {
+        var e = (window.AppAuth && window.AppAuth.user && window.AppAuth.user.email) || '';
+        if (!e) return 'pref';
+        return 'pref_' + String(e).toLowerCase().replace(/[^a-z0-9]/g, '_');
+    }
+
     var SEED_PREFERENCIA = {
         _id: 'pref',
-        email: true,
+        push: true,
         app: true,
         escuro: false,
         idioma: 'Português (BR)'
     };
 
     var preferencias = {
-        email: SEED_PREFERENCIA.email,
+        push: SEED_PREFERENCIA.push,
         app: SEED_PREFERENCIA.app,
         escuro: SEED_PREFERENCIA.escuro,
         idioma: SEED_PREFERENCIA.idioma
@@ -71,8 +77,14 @@ window.MP = (function () {
             funcoes = lista;
         });
         AppDB.onChange('preferencias', function (lista) {
-            var p = (lista && lista.length) ? lista[0] : null;
-            if (p) preferencias = p;
+            var minha = null;
+            var global = null;
+            (lista || []).forEach(function (p) {
+                if (p._id === chavePrefs()) minha = p;
+                if (p._id === 'pref') global = p;
+            });
+            if (minha) preferencias = minha;
+            else if (global) preferencias = global;
         });
     }
 
@@ -81,7 +93,21 @@ window.MP = (function () {
             preferencias[k] = patch[k];
         });
         if (window.AppDB) {
-            return AppDB.update('preferencias', preferencias._id || 'pref', patch);
+            var chave = chavePrefs();
+            var existe = AppDB.snapshot('preferencias').filter(function (p) { return p._id === chave; }).length > 0;
+            if (existe) {
+                return AppDB.update('preferencias', chave, patch);
+            }
+            var novo = {
+                _id: chave,
+                email: (window.AppAuth && window.AppAuth.user && window.AppAuth.user.email) || '',
+                push: true,
+                app: true,
+                escuro: false,
+                idioma: 'Português (BR)'
+            };
+            Object.keys(patch || {}).forEach(function (k) { novo[k] = patch[k]; });
+            return AppDB.add('preferencias', novo);
         }
         return Promise.resolve(preferencias);
     }

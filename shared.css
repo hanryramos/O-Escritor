@@ -1,0 +1,583 @@
+/* =====================================
+   SHARED — Componentes comuns a todas as páginas
+   (barra de carregamento, popups de notificação,
+    busca global, banner de permissão de notificação)
+===================================== */
+
+/* ---------- BARRA DE CARREGAMENTO ---------- */
+
+.page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.page-loader::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #B9853F, #C99B62);
+    animation: page-loader-run 1.1s ease-in-out infinite;
+}
+
+.page-loader.on {
+    opacity: 1;
+}
+
+@keyframes page-loader-run {
+    0%   { width: 0; }
+    60%  { width: 70%; }
+    100% { width: 100%; }
+}
+
+/* ---------- POPUP DE NOTIFICAÇÃO (in-app) ---------- */
+
+.inapp-wrap {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 9997;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: min(360px, 92vw);
+}
+
+.inapp-popup {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    padding: 12px 14px;
+
+    border: 1px solid #ead9bd;
+    border-radius: 14px;
+
+    background: #fffdf8;
+    color: #3a2c1c;
+
+    box-shadow: 0 14px 34px rgba(58, 33, 8, 0.18);
+
+    cursor: pointer;
+
+    transform: translateY(12px);
+    opacity: 0;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.inapp-popup.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.inapp-popup .inapp-ic {
+    flex: none;
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    font-size: 1.15rem;
+    color: #8a5a26;
+    background: #f3e6cf;
+    border-radius: 10px;
+}
+
+.inapp-popup strong {
+    display: block;
+    font-size: 0.82rem;
+    color: #241a10;
+    line-height: 1.25;
+}
+
+.inapp-popup span {
+    display: block;
+    font-size: 0.76rem;
+    color: #6d6152;
+    line-height: 1.35;
+    margin-top: 2px;
+}
+
+.inapp-close {
+    flex: none;
+    margin-left: auto;
+    padding: 2px;
+    border: none;
+    background: none;
+    color: #a3927e;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.inapp-close:hover {
+    color: #5b4c39;
+}
+
+/* ---------- BANNER DE PERMISSÃO DE NOTIFICAÇÃO ---------- */
+
+.push-banner {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translate(-50%, 16px);
+    z-index: 9996;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    max-width: min(560px, 92vw);
+    padding: 12px 14px;
+
+    border: 1px solid #ead9bd;
+    border-radius: 14px;
+
+    background: #fffdf8;
+    color: #3a2c1c;
+
+    box-shadow: 0 14px 34px rgba(58, 33, 8, 0.2);
+
+    opacity: 0;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.push-banner.show {
+    transform: translate(-50%, 0);
+    opacity: 1;
+}
+
+.push-banner p {
+    flex: 1;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.push-banner button {
+    flex: none;
+    padding: 0.5rem 0.9rem;
+    border: none;
+    border-radius: 9px;
+    background: linear-gradient(120deg, #C99B62, #8a5a26);
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.76rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.push-banner button.ghost {
+    background: transparent;
+    color: #8a7a67;
+}
+
+.push-banner button.ghost:hover {
+    color: #5b4c39;
+}
+
+/* ---------- BUSCA GLOBAL ---------- */
+
+.search-box {
+    position: relative;
+}
+
+.gs-drop {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 9995;
+
+    width: min(360px, 82vw);
+
+    max-height: 320px;
+    overflow-y: auto;
+
+    padding: 6px;
+
+    border: 1px solid #ead9bd;
+    border-radius: 12px;
+
+    background: #fffdf8;
+
+    box-shadow: 0 16px 40px rgba(58, 33, 8, 0.18);
+}
+
+.gs-empty {
+    padding: 14px;
+    text-align: center;
+    font-size: 0.78rem;
+    color: #a3927e;
+}
+
+.gs-title {
+    padding: 6px 10px 4px;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #b9853f;
+}
+
+.gs-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 10px;
+    border: none;
+    border-radius: 8px;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+.gs-item:hover {
+    background: #f3e6cf;
+}
+
+.gs-item i {
+    flex: none;
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    font-size: 1rem;
+    color: #8a5a26;
+    background: #f3e6cf;
+    border-radius: 8px;
+}
+
+.gs-item span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.8rem;
+    color: #3a2c1c;
+}
+
+@media (max-width: 720px) {
+    .inapp-wrap {
+        left: 12px;
+        right: 12px;
+        max-width: none;
+    }
+    .inapp-popup {
+        border-radius: 12px;
+    }
+}
+
+/* =====================================
+   MICRO-INTERAÇÕES (cards)
+===================================== */
+
+.page-enter {
+    animation: page-enter .5s cubic-bezier(.22, .61, .36, 1) both;
+}
+
+@keyframes page-enter {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-8vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(108vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.confetti-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.confetti {
+    position: absolute;
+    top: 0;
+    width: 9px;
+    height: 14px;
+    border-radius: 2px;
+    animation: confetti-fall 2.4s ease-in forwards;
+}
+
+/* =====================================
+   BADGES "HOJE" E PRÓXIMO
+===================================== */
+
+.pill.is-hoje,
+.badge.is-hoje {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    padding: .18rem .6rem;
+    font-size: .66rem;
+    font-weight: 800;
+    line-height: 1.4;
+    letter-spacing: .04em;
+    color: #fff;
+    background: linear-gradient(120deg, #b9853f, #8a5a26);
+    border: 1px solid #b9853f;
+    border-radius: 999px;
+    vertical-align: middle;
+}
+
+.pill.is-proximo,
+.badge.is-proximo {
+    color: #8a5a26;
+    background: #fbf3e3;
+    border: 1px solid #ead9bd;
+}
+
+.date.is-hoje {
+    color: #b9853f;
+    font-weight: 700;
+}
+
+/* =====================================
+   CONTADOR DE NOTIFICAÇÕES
+===================================== */
+
+.notif-btn {
+    position: relative;
+}
+
+.notif-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    min-width: 17px;
+    height: 17px;
+    display: grid;
+    place-items: center;
+    padding: 0 4px;
+    font-size: .62rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #fff;
+    background: #c0483b;
+    border: 2px solid #fff;
+    border-radius: 999px;
+}
+
+.notif-btn.has-unread .dot,
+.notif-btn.has-unread .notif-dot {
+    display: none;
+}
+
+.is-admin .notif-count {
+    border-color: #3a2c1c;
+}
+
+/* =====================================
+   BARRA DE PROGRESSO DE TAREFAS
+===================================== */
+
+.progress-block {
+    margin-top: .2rem;
+    padding-top: .9rem;
+    border-top: 1px dashed #ead9bd;
+}
+
+.progress-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: .45rem;
+    font-size: .72rem;
+    color: #8a5a26;
+}
+
+.progress-head strong {
+    font-weight: 800;
+}
+
+.progress-track {
+    height: 9px;
+    overflow: hidden;
+    background: #f0e2c8;
+    border-radius: 999px;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #b9853f, #d8a95c);
+    border-radius: 999px;
+    transition: width .8s cubic-bezier(.22, .61, .36, 1);
+}
+
+/* =====================================
+   BOTÃO "OUVIR"
+===================================== */
+
+.read-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .5rem .85rem;
+    border: 1px solid #ead9bd;
+    border-radius: 10px;
+    background: #fbf3e3;
+    color: #8a5a26;
+    font-family: inherit;
+    font-size: .78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s, transform .15s, box-shadow .2s;
+}
+
+.read-btn:hover {
+    background: #f3e6cf;
+    box-shadow: 0 6px 14px -6px rgba(58, 33, 8, .3);
+}
+
+.read-btn:active {
+    transform: scale(.96);
+}
+
+.read-btn.is-reading {
+    color: #fff;
+    background: linear-gradient(120deg, #b9853f, #8a5a26);
+    border-color: #b9853f;
+}
+
+.read-btn.is-reading:not(:active) {
+    animation: pulse-soft 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse-soft {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(185, 133, 63, .45); }
+    50% { box-shadow: 0 0 0 8px rgba(185, 133, 63, 0); }
+}
+
+/* =====================================
+   AÇÕES RÁPIDAS (PAINEL)
+===================================== */
+
+.dash-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.dash-actions a {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .55rem .95rem;
+    border-radius: 999px;
+    background: #fbf3e3;
+    border: 1px solid #ead9bd;
+    color: #8a5a26;
+    font-size: .78rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background .2s, transform .15s, box-shadow .2s;
+}
+
+.dash-actions a:hover {
+    background: #f3e6cf;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px -8px rgba(58, 33, 8, .35);
+}
+
+.dash-actions a i {
+    font-size: .95rem;
+}
+
+/* =====================================
+   ACESSIBILIDADE
+===================================== */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid #b9853f;
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-enter {
+        animation: none;
+    }
+    .confetti-layer {
+        display: none;
+    }
+    .read-btn.is-reading:not(:active) {
+        animation: none;
+    }
+    .card:hover {
+        transform: none !important;
+    }
+}
+
+/* =====================================
+   MODO ESCURO — NOVOS COMPONENTES
+===================================== */
+
+.modo-escuro .pill.is-hoje {
+    background: linear-gradient(120deg, #d8a95c, #8a5a26);
+}
+
+.modo-escuro .pill.is-proximo {
+    color: #e6c48f;
+    background: rgba(185, 133, 63, .12);
+    border-color: rgba(185, 133, 63, .4);
+}
+
+.modo-escuro .date.is-hoje {
+    color: #e6c48f;
+}
+
+.modo-escuro .progress-track {
+    background: rgba(185, 133, 63, .18);
+}
+
+.modo-escuro .progress-head {
+    color: #e6c48f;
+}
+
+.modo-escuro .read-btn {
+    color: #e6c48f;
+    background: rgba(185, 133, 63, .1);
+    border-color: rgba(185, 133, 63, .35);
+}
+
+.modo-escuro .read-btn:hover {
+    background: rgba(185, 133, 63, .2);
+}
+
+.modo-escuro .dash-actions a {
+    color: #e6c48f;
+    background: rgba(185, 133, 63, .1);
+    border-color: rgba(185, 133, 63, .35);
+}
+
+.modo-escuro .dash-actions a:hover {
+    background: rgba(185, 133, 63, .2);
+}
+
+@media (hover: none) {
+    .dash-actions a:active,
+    .read-btn:active {
+        transform: scale(.96);
+    }
+}

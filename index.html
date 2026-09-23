@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dark-mode.css">
+
+    <link rel="manifest" href="manifest.json">
 
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
@@ -53,23 +56,28 @@
 
             <div class="login-content">
 
-<img class="logo-lg" src="assets/tipografia.png" alt="Musical Escritor" data-anim="zoomIn" data-delay="0.05s">
+                <div class="login-content-inner">
 
+                    <div class="login-topo">
 
-                <div class="welcome">
+                    <img class="logo-lg" src="assets/tipografia.png" alt="Musical Escritor" data-anim="zoomIn" data-delay="0.05s">
 
-                    <h2 data-anim="fadeUp" data-delay="0.15s">
-                        bem - vindo(a)!
-                    </h2>
+                    <div class="welcome">
 
-                    <h1 data-anim="fadeUp" data-delay="0.25s">
-                        Faça seu <span>LOGIN</span>
-                    </h1>
+                        <h2 data-anim="fadeUp" data-delay="0.15s">
+                            bem - vindo(a)!
+                        </h2>
 
-                    <p data-anim="fadeUp" data-delay="0.35s">
-                        Acesse a área da equipe e continue<br>
-                        fazendo parte dessa história.
-                    </p>
+                        <h1 data-anim="fadeUp" data-delay="0.25s">
+                            Faça seu <span>LOGIN</span>
+                        </h1>
+
+                        <p data-anim="fadeUp" data-delay="0.35s">
+                            Acesse a área da equipe e continue<br>
+                            fazendo parte dessa história.
+                        </p>
+
+                    </div>
 
                 </div>
 
@@ -114,7 +122,13 @@
                 </form>
 
 
-                <img class="logo-MJ" src="assets/logo start.png" alt="START" data-anim="fadeUp" data-delay="1.05s">
+                <a class="logo-start" href="index.html" title="Voltar ao início" data-anim="fadeUp" data-delay="1.05s">
+
+                    <img class="logo-MJ" src="assets/logo start.png" alt="START">
+
+                </a>
+
+                </div>
 
             </div>
 
@@ -134,9 +148,10 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js"></script>
 
     <script src="auth.js"></script>
-
+    <script src="theme.js"></script>
     <script src="animations.js"></script>
 
 </body>

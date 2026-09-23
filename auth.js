@@ -9,17 +9,81 @@ const firebaseConfig = {
     projectId: "musical-escritor",
     storageBucket: "musical-escritor.firebasestorage.app",
     messagingSenderId: "946659031609",
-    appId: "1:946659031609:web:6f71a80bf7a88d7d496be8"
+    appId: "1:946659031609:web:6f71a80bf7a88d7d496be8",
+    vapidKey: "BJXAQNpvBWs-8-ApAbj3mMwbDpP5457XxusHPZciXrDR1y_2nF20LYMEPRtThM0xzund7gSnhKSXKlpW7vKt3ZU"
 };
+
+/* Chave VAPID (notificações push no celular com o app fechado):
+   1) Firebase Console -> Cloud Messaging -> aba "Configuração da Web";
+   2) "Chave de aplicativo" -> "Gerar chave";
+   3) cole o valor na linha vapidKey acima (entre as aspas). */
+window.firebaseConfig = firebaseConfig;
 
 /* =====================================
    PAPEL DE ADMINISTRADOR
-   (definido por e-mail; caixa baixa)
+   Lista inicial (fallback) + lista dinâmica
+   carregada do Firebase em 'admins'.
+   Para adicionar um admin sem mexer no
+   código, basta inserir o e-mail na
+   coleção 'admins' no Realtime Database.
 ===================================== */
 
 const ADMIN_EMAILS = [
 'admoescritor@musical.com'
 ];
+
+window.AdminSet = {};
+
+function emailEhAdmin(email) {
+    const e = String((email && email.trim) ? email.trim() : (email || '')).toLowerCase();
+    return ADMIN_EMAILS.indexOf(e) > -1 || !!window.AdminSet[e];
+}
+
+function definirAdmins(lista) {
+    window.AdminSet = {};
+    (lista || []).forEach(function (e) {
+        const s = String(e == null ? '' : e).toLowerCase().trim();
+        if (s) window.AdminSet[s] = true;
+    });
+}
+
+function adminsPraLista(obj) {
+    if (Array.isArray(obj)) return obj.slice();
+    if (!obj) return [];
+    return Object.keys(obj).map(function (k) {
+        const v = obj[k];
+        if (v && typeof v === 'object') return v.email || v._id || k;
+        return String(v);
+    });
+}
+
+function carregarAdmins() {
+    if (!(typeof firebase !== 'undefined' && firebase && firebase.database)) return Promise.resolve();
+    return firebase.database().ref('musical/admins').once('value').then(function (snap) {
+        if (snap.exists()) {
+            definirAdmins(adminsPraLista(snap.val()));
+            return;
+        }
+        // Se ainda não existe, o admin "de código" sementeia a lista no banco.
+        const u = window.AppAuth && window.AppAuth.user;
+        const ue = (u && u.email) ? String(u.email).toLowerCase().trim() : '';
+        if (ue && ADMIN_EMAILS.indexOf(ue) > -1) {
+            const seed = {};
+            ADMIN_EMAILS.forEach(function (e, i) { seed['k' + i] = e; });
+            firebase.database().ref('musical/admins').set(seed).catch(function (err) {
+                console.error('[auth] Falha ao gravar admins iniciais.', err);
+            });
+        }
+    }).catch(function (err) {
+        console.error('[auth] Falha ao carregar admins do Firebase.', err);
+    });
+}
+
+function chavePerfilUsuario(email) {
+    const e = String(email || '').toLowerCase();
+    if (!e) return 'perfil';
+    return 'perfil_' + e.replace(/[^a-z0-9]+/g, '_');
+}
 
 /* =====================================
    ESTADO GLOBAL DE AUTENTICAÇÃO
@@ -59,10 +123,6 @@ function formatName(name) {
     const trimmed = (name || '').trim();
     if (!trimmed) return 'Integrante';
     return trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
-}
-
-function emailEhAdmin(email) {
-    return ADMIN_EMAILS.indexOf(String(email || '').toLowerCase()) > -1;
 }
 
 /* =====================================
@@ -116,34 +176,42 @@ demoUser = { email: 'admoescritor@musical.com', displayName: 'Adm Escritor' };
     fireAuth.onAuthStateChanged(function (user) {
         const loginForm = document.getElementById('login-form');
 
-        if (primeiraVez) {
-            primeiraVez = false;
-            concluir(user);
-        } else {
-            window.AppAuth.user = user || null;
-            window.AppAuth.isAdmin = !!(user && emailEhAdmin(user.email));
-        }
-
-        if (loginForm) {
-            if (user) window.location.href = 'pg1.html';
-            return;
-        }
-
         if (!user) {
+            window.AppAuth.user = null;
+            window.AppAuth.isAdmin = false;
+            if (primeiraVez) { primeiraVez = false; concluir(null); }
+            if (loginForm) return;
             window.location.href = 'index.html';
             return;
         }
 
-        aplicarIdentidadeDeUsuario(user);
+        carregarAdmins().then(function () {
+            window.AppAuth.user = user;
+            window.AppAuth.isAdmin = emailEhAdmin(user.email);
 
-        const logoutBtn = document.getElementById('logoutBtn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', function () {
-                fireAuth.signOut().then(function () {
-                    window.location.href = 'index.html';
+            if (primeiraVez) {
+                primeiraVez = false;
+                concluir(user);
+            } else {
+                document.dispatchEvent(new CustomEvent('appauth:state', { detail: window.AppAuth }));
+            }
+
+            if (loginForm) {
+                if (user) window.location.href = 'pg1.html';
+                return;
+            }
+
+            aplicarIdentidadeDeUsuario(user);
+
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function () {
+                    fireAuth.signOut().then(function () {
+                        window.location.href = 'index.html';
+                    });
                 });
-            });
-        }
+            }
+        });
     });
 
     function primeiroNome(user) {
@@ -163,6 +231,29 @@ demoUser = { email: 'admoescritor@musical.com', displayName: 'Adm Escritor' };
         if (avatarEl) avatarEl.textContent = (display.charAt(0) || 'G').toUpperCase();
         if (avatarEl && window.AppAuth.isAdmin) avatarEl.classList.add('is-admin-avatar');
     }
+
+    /* --- Usa o nome escolhido no cadastro de boas-vindas (perfil) --- */
+    window.AppAuth.ready.then(function () {
+        if (!window.AppDB) return;
+        const email = (window.AppAuth.user && window.AppAuth.user.email) || '';
+        const chave = chavePerfilUsuario(email);
+
+        function aplicarPerfil(lista) {
+            let p = null;
+            (lista || []).forEach(function (x) { if (x._id === chave) p = x; });
+            if (!p || !p.nome) return;
+            const display = formatName(String(p.nome).split(/[\s@]+/)[0]);
+            const userNameEl = document.getElementById('userName');
+            const nameField = document.getElementById('profileName');
+            const avatarEl = document.getElementById('profileAvatar');
+            if (userNameEl) userNameEl.textContent = display;
+            if (nameField) nameField.textContent = display;
+            if (avatarEl) avatarEl.textContent = (display.charAt(0) || 'G').toUpperCase();
+        }
+
+        window.AppDB.onChange('perfil', aplicarPerfil);
+        window.AppDB.load('perfil').then(aplicarPerfil);
+    });
 })();
 
 /* =====================================
@@ -187,6 +278,16 @@ demoUser = { email: 'admoescritor@musical.com', displayName: 'Adm Escritor' };
     const passwordInput = document.getElementById('loginPassword');
     const errorBox = document.getElementById('loginError');
     const button = loginForm.querySelector('button[type="submit"]');
+    const lembrarCheck = loginForm.querySelector('.remember input');
+
+    /* --- Lembre-se de mim: restaura e-mail da última vez --- */
+    try {
+        if (localStorage.getItem('musical_lembrar') === '1') {
+            if (lembrarCheck) lembrarCheck.checked = true;
+            const lembrado = localStorage.getItem('musical_lembrar_email');
+            if (lembrado) emailInput.value = lembrado;
+        }
+    } catch (e) { }
 
     loginForm.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -203,14 +304,31 @@ demoUser = { email: 'admoescritor@musical.com', displayName: 'Adm Escritor' };
         button.disabled = true;
         button.style.opacity = '0.7';
 
-        window.fireAuth.signInWithEmailAndPassword(email, password)
+        const persistencia = (lembrarCheck && lembrarCheck.checked)
+            ? firebase.auth.Auth.Persistence.LOCAL
+            : firebase.auth.Auth.Persistence.SESSION;
+
+        window.fireAuth.setPersistence(persistencia)
             .then(function () {
+                return window.fireAuth.signInWithEmailAndPassword(email, password);
+            })
+            .then(function () {
+                try {
+                    if (lembrarCheck && lembrarCheck.checked) {
+                        localStorage.setItem('musical_lembrar', '1');
+                        localStorage.setItem('musical_lembrar_email', email);
+                    } else {
+                        localStorage.removeItem('musical_lembrar');
+                        localStorage.removeItem('musical_lembrar_email');
+                    }
+                } catch (e) { }
                 window.location.href = 'pg1.html';
             })
             .catch(function (err) {
+                console.error('[login] Falha na autenticação.', err && err.code, err);
                 button.disabled = false;
                 button.style.opacity = '';
-                errorBox.textContent = loginErrorMessage(err.code);
+                errorBox.textContent = loginErrorMessage(err && err.code);
             });
     });
 

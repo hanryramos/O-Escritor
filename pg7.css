@@ -886,6 +886,27 @@ a {
     margin: 0.8rem 0 0.7rem;
 }
 
+.memb-pers {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+
+    margin-top: 0.55rem;
+    padding: 0.22rem 0.55rem;
+
+    font-size: 0.67rem;
+    font-weight: 700;
+    color: var(--marrom);
+
+    background: var(--bege);
+    border: 1px dashed var(--dourado-claro);
+    border-radius: 999px;
+}
+
+.memb-pers i {
+    font-size: 0.82rem;
+}
+
 .memb-areas span {
     padding: 0.22rem 0.55rem;
 

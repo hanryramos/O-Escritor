@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="pg7.css">
     <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="dark-mode.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <title>Musical Escritor · Integrante</title>
 </head>
@@ -122,19 +124,22 @@
 
         <!-- ===== PERFIL ===== -->
 
-        <section class="card perfil-card" data-anim="fadeUp" data-delay="0.12s">
+<section class="card perfil-card" data-anim="fadeUp" data-delay="0.12s">
             <span id="avatarGrande"></span>
             <div class="perfil-info">
                 <h1 id="nomePerfil">—</h1>
                 <p id="linhaPerfil">—</p>
                 <p id="chipPerfil" style="margin-top:0.5rem;"></p>
+                <button class="read-btn" data-ler data-ler-target="detalheLayout" style="margin-top:.7rem;">
+                    <i class="bx bx-volume-full"></i> Ouvir perfil
+                </button>
             </div>
         </section>
 
 
         <!-- ===== INFORMAÇÕES · ENSAIOS · TAREFAS ===== -->
 
-        <section class="detalhe-layout" data-anim="fadeUp" data-delay="0.18s">
+        <section class="detalhe-layout" id="detalheLayout" data-anim="fadeUp" data-delay="0.18s">
 
             <div class="card det-card">
                 <h3>Informações</h3>
@@ -167,12 +172,18 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js"></script>
 
     <script src="auth.js"></script>
 
     <script src="data.js"></script>
+    <script src="loader.js"></script>
+    <script src="theme.js"></script>
+    <script src="global-search.js"></script>
+    <script src="messaging.js"></script>
 
     <script src="admin.js"></script>
+    <script src="appx.js"></script>
     <script src="animations.js"></script>
     <script src="pg7-dados.js"></script>
     <script>

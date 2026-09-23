@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="pg4.css">
     <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="dark-mode.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <title>Musical Escritor · Ensaios</title>
 </head>
@@ -275,9 +277,18 @@
                     </div>
                 </div>
 
-                <div class="form-row">
+<div class="form-row">
                     <label for="novoLocal">Local</label>
                     <input type="text" id="novoLocal" placeholder="Ex.: Salão principal" required>
+                </div>
+
+                <div class="form-row">
+                    <label for="novoRep">Repetir</label>
+                    <select id="novoRep">
+                        <option value="0">Não repetir</option>
+                        <option value="1">Toda semana</option>
+                        <option value="2">A cada 2 semanas</option>
+                    </select>
                 </div>
 
                 <div class="form-row">
@@ -303,10 +314,14 @@
     <div class="overlay" id="overlayDetalhe">
         <div class="modal">
 
-            <div class="modal-head">
+<div class="modal-head">
                 <h3>Detalhes do ensaio</h3>
                 <button class="icon-btn modal-close" id="fecharDetalhe" aria-label="Fechar"><i class="bx bx-x"></i></button>
             </div>
+
+            <button class="read-btn" data-ler data-ler-target="overlayDetalhe" style="margin-bottom:.7rem;">
+                <i class="bx bx-volume-full"></i> Ouvir detalhes
+            </button>
 
             <div class="det-row">
                 <span class="det-label">Nome</span>
@@ -342,12 +357,18 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js"></script>
 
     <script src="auth.js"></script>
 
     <script src="data.js"></script>
+    <script src="loader.js"></script>
+    <script src="theme.js"></script>
+    <script src="global-search.js"></script>
+    <script src="messaging.js"></script>
 
 <script src="admin.js"></script>
+    <script src="appx.js"></script>
 
     <script src="animations.js"></script>
     <script src="pg4-dados.js"></script>
@@ -421,12 +442,14 @@
             function cardHTML(en) {
                 var part = String(en.data).split('-');
                 var d = new Date(+part[0], +part[1] - 1, +part[2]);
+                var ehHoje = window.AppX && AppX.eqHoje(en.data);
                 var tagsHtml = (en.tags || []).map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('');
                 return '<article class="card rb-card" data-id="' + en._id + '" data-status="' + en.status + '"' +
                     ' data-nome="' + esc(en.nome) + '" data-dia="' + d.getDate() + '" data-horario="' + esc(en.ini + ' - ' + en.fim) + '"' +
                     ' data-local="' + esc(en.local) + '" data-tags="' + esc((en.tags || []).join(',')) + '">' +
                     '<div class="date-block"><span class="d">' + DIAS[d.getDay()] + '</span><strong class="num">' + ('0' + d.getDate()).slice(-2) + '</strong><span class="m">' + MESES[d.getMonth()] + '</span></div>' +
                     '<div class="rb-info"><strong class="rb-title">' + esc(en.nome) + '</strong>' +
+                    (ehHoje ? '<span class="pill is-hoje">HOJE</span> ' : '') +
                     '<div class="rb-meta"><span><i class="bx bx-time-five"></i>' + esc(en.ini + ' - ' + en.fim) + '</span><span><i class="bx bx-map"></i>' + esc(en.local) + '</span></div>' +
                     '<div class="tags">' + tagsHtml + '</div></div>' +
                     '<div class="rb-right"><span class="pill ' + pillCls(en.situacao) + '">' + esc(en.situacao) + '</span>' +
@@ -623,6 +646,7 @@
                 document.getElementById('novoInicio').value = en ? en.ini : '13:30';
                 document.getElementById('novoFim').value = en ? en.fim : '17:00';
                 document.getElementById('novoLocal').value = en ? en.local : '';
+                document.getElementById('novoRep').value = '0';
                 document.getElementById('novoTags').value = en ? (en.tags || []).join(', ') : '';
                 openOverlay(overlayNovo);
                 setTimeout(function () { document.getElementById('novoNome').focus(); }, 60);
@@ -704,9 +728,25 @@
                 } else {
                     dados.status = (d.getTime() < Date.now()) ? 'realizados' : 'proximos';
                     dados.situacao = (d.getTime() < Date.now()) ? 'Realizado' : 'Planejado';
-                    AppDB.add('ensaios', dados).then(function () {
-                        AdminKit.toast('Ensaio criado.', 'ok');
-                    });
+                    var rep = +document.getElementById('novoRep').value || 0;
+                    if (rep === 0 || !window.AppX) {
+                        AppDB.add('ensaios', dados).then(function () {
+                            AdminKit.toast('Ensaio criado.', 'ok');
+                        });
+                    } else {
+                        var passos = rep === 1 ? [7] : [14];
+                        var chain = AppDB.add('ensaios', dados);
+                        passos.forEach(function (pas) {
+                            var clone = {};
+                            for (var k in dados) clone[k] = dados[k];
+                            if (clone.tags) clone.tags = clone.tags.slice();
+                            clone.data = AppX.somaDias(dados.data, pas);
+                            chain = chain.then(function () { return AppDB.add('ensaios', clone); });
+                        });
+                        chain.then(function () {
+                            AdminKit.toast('Ensaio criado (' + (passos.length + 1) + ' datas).', 'ok');
+                        });
+                    }
                 }
 
                 closeNovo();

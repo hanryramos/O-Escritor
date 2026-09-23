@@ -1,0 +1,48 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null",
+
+    "musical": {
+
+      "admins": {
+        ".read": "auth != null",
+        ".write": "!data.exists() || root.child('musical/admins').child('k0').val() === auth.token.email"
+      },
+
+      "config": {
+        ".read": "auth != null",
+        ".write": "root.child('musical/admins').child('k0').val() === auth.token.email || !root.child('musical/admins').exists()"
+      },
+
+      "tokens": {
+        "$userId": {
+          ".read": "auth != null",
+          ".write": "auth.uid === $userId"
+        }
+      },
+
+      "$col": {
+
+        "perfil": {
+          "$doc": {
+            ".read": "auth != null",
+            ".write": "auth != null && (!data.exists() || newData.child('email').val() === auth.token.email || root.child('musical/admins').child('k0').val() === auth.token.email)"
+          }
+        },
+
+        "preferencias": {
+          "$doc": {
+            ".read": "auth != null",
+            ".write": "auth != null && (!data.exists() || newData.child('email').val() === auth.token.email || root.child('musical/admins').child('k0').val() === auth.token.email)"
+          }
+        },
+
+        "$tabela": {
+          ".read": "auth != null",
+          ".write": "root.child('musical/admins').child('k0').val() === auth.token.email"
+        }
+      }
+    }
+  }
+}

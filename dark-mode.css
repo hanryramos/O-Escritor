@@ -1,0 +1,303 @@
+/* =====================================
+   DARK MODE — aplicado com body.modo-escuro
+   (ligado nas preferências do Meu Perfil ou
+    pelo script compartilhado theme.js)
+===================================== */
+
+body.modo-escuro {
+    --branco: #17191e;
+    --off-white: #101114;
+    --cinza-claro: #20242a;
+    --cinza-medio: #8e949e;
+    --texto: #c9cfd8;
+    --marrom: #d7a76a;
+    --dourado: #c99b62;
+    --dourado-claro: #d9ad72;
+    --ativo: #dcb47b;
+    --bege: #1e2228;
+    --borda: #2b3038;
+
+    --adm-marrom: #d7a76a;
+    --adm-dourado: #c99b62;
+    --adm-dourado-claro: #d9ad72;
+    --adm-verde: #57b57b;
+    --adm-vermelho: #e0655a;
+    --adm-bege: #20242a;
+
+    background: #101114;
+    color: #c9cfd8;
+}
+
+body.modo-escuro,
+body.modo-escuro .content,
+body.modo-escuro .dashboard {
+    background: #101114;
+    color: #c9cfd8;
+}
+
+body.modo-escuro h1,
+body.modo-escuro h2,
+body.modo-escuro h3,
+body.modo-escuro h4,
+body.modo-escuro h5,
+body.modo-escuro .sec-title h3,
+body.modo-escuro .card-head h3,
+body.modo-escuro .crumb,
+body.modo-escuro .stat-label,
+body.modo-escuro .onb-topo h2,
+body.modo-escuro .gs-item span {
+    color: #e7ebf0;
+}
+
+body.modo-escuro p,
+body.modo-escuro span,
+body.modo-escuro li,
+body.modo-escuro td,
+body.modo-escuro small,
+body.modo-escuro .dash-empty span,
+body.modo-escuro .empty-state span,
+body.modo-escuro .eq-card p {
+    color: #aeb5bf;
+}
+
+/* SIDEBAR */
+body.modo-escuro .sidebar {
+    background: #14161a;
+    border-right: 1px solid #23272e;
+}
+
+body.modo-escuro .sidebar-menu a {
+    color: #aeb5bf;
+}
+
+body.modo-escuro .sidebar-menu a.active,
+body.modo-escuro .sidebar-menu a:hover {
+    color: #e0ad74;
+    background: rgba(185, 133, 63, 0.14);
+}
+
+body.modo-escuro .sidebar-quote p {
+    color: #8e949e;
+}
+
+body.modo-escuro .sidebar-close,
+body.modo-escuro .menu-toggle {
+    color: #aeb5bf;
+}
+
+/* CARDS E SUPERFÍCIES */
+body.modo-escuro .card {
+    background: #17191e;
+    border-color: #2b3038;
+    color: #c9cfd8;
+    box-shadow: none;
+}
+
+body.modo-escuro .stat-card,
+body.modo-escuro .progress-card,
+body.modo-escuro .sec-card,
+body.modo-escuro .resumo-bar .mini-stat {
+    background: #17191e;
+    border-color: #2b3038;
+}
+
+body.modo-escuro .stat-icon,
+body.modo-escuro .eq-ic,
+body.modo-escuro .inapp-popup .inapp-ic,
+body.modo-escuro .gs-item i,
+body.modo-escuro .notif-btn,
+body.modo-escuro .eq-minis,
+body.modo-escuro .mini-calendar {
+    background: #20242a;
+}
+
+/* INPUTS */
+body.modo-escuro input[type="text"],
+body.modo-escuro input[type="email"],
+body.modo-escuro input[type="password"],
+body.modo-escuro input[type="search"],
+body.modo-escuro input[type="number"],
+body.modo-escuro input[type="date"],
+body.modo-escuro input[type="time"],
+body.modo-escuro textarea,
+body.modo-escuro select {
+    background: #1b1e24;
+    border-color: #333a44;
+    color: #dde2ea;
+}
+
+body.modo-escuro input::placeholder,
+body.modo-escuro textarea::placeholder {
+    color: #6f7680;
+}
+
+body.modo-escuro .search-box i {
+    color: #8e949e;
+}
+
+body.modo-escuro .divider-v {
+    background: #333a44;
+}
+
+body.modo-escuro .profile-info strong,
+body.modo-escuro .profile-info span {
+    color: #c9cfd8;
+}
+
+body.modo-escuro .profile-avatar {
+    background: #20242a;
+    color: #e7ebf0;
+}
+
+body.modo-escuro .logout-btn,
+body.modo-escuro .notif-btn,
+body.modo-escuro .profile .bx-chevron-down {
+    color: #aeb5bf;
+}
+
+/* DIVERSOS COMPONENTES */
+body.modo-escuro .quote-deco p,
+body.modo-escuro .onb-intro {
+    color: #8e949e;
+}
+
+body.modo-escuro .badge-done,
+body.modo-escuro .st-chip,
+body.modo-escuro .prio,
+body.modo-escuro .chip,
+body.modo-escuro .sec-count,
+body.modo-escuro .onb-eq {
+    background: #20242a;
+    border-color: #333a44;
+    color: #d3bd9a;
+}
+
+body.modo-escuro .mini-calendar .d {
+    color: #b9853f;
+}
+
+body.modo-escuro .empty-state,
+body.modo-escuro .dash-empty {
+    color: #8e949e;
+}
+
+body.modo-escuro .empty-state strong,
+body.modo-escuro .dash-empty strong {
+    color: #e7ebf0;
+}
+
+body.modo-escuro .progress-fill {
+    background: linear-gradient(90deg, #b9853f, #d9ad72);
+}
+
+body.modo-escuro .progress-value,
+body.modo-escuro .progress-copy p {
+    color: #aeb5bf;
+}
+
+/* ADMIN (modais e overlay) */
+body.modo-escuro .adm-overlay {
+    background: rgba(6, 7, 9, 0.7);
+}
+
+body.modo-escuro .adm-modal {
+    background: #1b1e24;
+    border: 1px solid #2b3038;
+    color: #c9cfd8;
+}
+
+body.modo-escuro .adm-modal-head h3 {
+    color: #e7ebf0;
+}
+
+body.modo-escuro .adm-field label,
+body.modo-escuro .adm-confirm-msg {
+    color: #aeb5bf;
+}
+
+body.modo-escuro .adm-btn {
+    background: #20242a;
+    border-color: #333a44;
+    color: #c9cfd8;
+}
+
+body.modo-escuro .adm-btn.primary {
+    background: linear-gradient(120deg, #b9853f, #7e5222);
+    color: #fff;
+}
+
+body.modo-escuro .toast {
+    color: #fff;
+}
+
+/* ONBOARDING */
+body.modo-escuro .onboarding-card {
+    background: #1b1e24;
+}
+
+body.modo-escuro .onb-campo input,
+body.modo-escuro .onb-campo select,
+body.modo-escuro .onb-campo textarea {
+    background: #101114;
+    border-color: #333a44;
+    color: #dde2ea;
+}
+
+body.modo-escuro .onb-campo > span {
+    color: #d7a76a;
+}
+
+body.modo-escuro .onb-eq {
+    background: #20242a;
+    color: #d3bd9a;
+}
+
+body.modo-escuro .onb-personagem label {
+    color: #c9cfd8;
+}
+
+body.modo-escuro .onb-fechar {
+    background: #20242a;
+    color: #d7a76a;
+}
+
+/* POPUPS / BUSCA / LOADER (shared) */
+body.modo-escuro .inapp-popup,
+body.modo-escuro .push-banner,
+body.modo-escuro .gs-drop {
+    background: #1b1e24;
+    border-color: #333a44;
+    color: #c9cfd8;
+}
+
+body.modo-escuro .inapp-popup strong {
+    color: #e7ebf0;
+}
+
+body.modo-escuro .inapp-popup span {
+    color: #aeb5bf;
+}
+
+body.modo-escuro .inapp-close {
+    color: #8e949e;
+}
+
+body.modo-escuro .gs-item:hover {
+    background: #20242a;
+}
+
+body.modo-escuro .gs-title {
+    color: #d7a76a;
+}
+
+body.modo-escuro .gs-empty {
+    color: #8e949e;
+}
+
+body.modo-escuro .push-banner p {
+    color: #c9cfd8;
+}
+
+body.modo-escuro .push-banner button.ghost {
+    color: #8e949e;
+}

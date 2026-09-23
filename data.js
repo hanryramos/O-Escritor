@@ -94,7 +94,9 @@ window.AppDB = (function () {
         var c = garantir(col);
         if (c.iniciado) return c.iniciado;
 
-        c.iniciado = window.AppAuth.ready.then(function () {
+        document.dispatchEvent(new CustomEvent('appdb:start', { detail: col }));
+
+        var inicio = window.AppAuth.ready.then(function () {
             if (!temRTDB()) {
                 c.mode = 'local';
                 c.data = (lerLocal(col) || c.seed).slice();
@@ -127,12 +129,27 @@ window.AppDB = (function () {
             });
         });
 
+        c.iniciado = inicio.then(
+            function (v) {
+                document.dispatchEvent(new CustomEvent('appdb:end', { detail: col }));
+                return v;
+            },
+            function (e) {
+                document.dispatchEvent(new CustomEvent('appdb:end', { detail: col }));
+                throw e;
+            }
+        );
         return c.iniciado;
     }
 
     function load(col) {
         garantir(col);
         return iniciar(col);
+    }
+
+    function snapshot(col) {
+        var c = cols[col];
+        return c ? c.data.slice() : [];
     }
 
     function onChange(col, cb) {
@@ -152,7 +169,7 @@ window.AppDB = (function () {
         item = norm(item);
         if (c.mode === 'rtdb') {
             return ref(col).child(item._id).set(item).then(function () { return item; }).catch(function (err) {
-                console.warn('AppDB: falha ao gravar em "' + col + '" no Firebase, mantendo apenas localmente.', err);
+                console.error('AppDB: falha ao gravar "' + col + '" no Firebase. Automatizações seguem localmente.', err);
                 c.data.push(item);
                 salvarLocal(c);
                 emitir(col);
@@ -169,7 +186,7 @@ window.AppDB = (function () {
         var c = garantir(col);
         if (c.mode === 'rtdb') {
             return ref(col).child(id).update(patch).then(function () { return id; }).catch(function (err) {
-                console.warn('AppDB: falha ao atualizar "' + col + '/' + id + '" no Firebase, mantendo apenas localmente.', err);
+                console.error('AppDB: falha ao atualizar "' + col + '/' + id + '" no Firebase. Alteração mantida localmente.', err);
                 aplicarPatch(c.data, id, patch);
                 salvarLocal(c);
                 emitir(col);
@@ -186,7 +203,7 @@ window.AppDB = (function () {
         var c = garantir(col);
         if (c.mode === 'rtdb') {
             return ref(col).child(id).remove().then(function () { return id; }).catch(function (err) {
-                console.warn('AppDB: falha ao remover "' + col + '/' + id + '" no Firebase, mantendo apenas localmente.', err);
+                console.error('AppDB: falha ao remover "' + col + '/' + id + '" no Firebase. Remoção mantida localmente.', err);
                 c.data = c.data.filter(function (it) { return it._id !== id; });
                 salvarLocal(c);
                 emitir(col);
@@ -230,6 +247,7 @@ window.AppDB = (function () {
     return {
         register: register,
         load: load,
+        snapshot: snapshot,
         onChange: onChange,
         add: add,
         update: update,

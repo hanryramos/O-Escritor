@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="pg9.css">
     <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="dark-mode.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <title>Musical Escritor · Meu Perfil</title>
 </head>
@@ -405,12 +407,18 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js"></script>
 
     <script src="auth.js"></script>
 
     <script src="data.js"></script>
+    <script src="loader.js"></script>
+    <script src="theme.js"></script>
+    <script src="global-search.js"></script>
+    <script src="messaging.js"></script>
 
-    <script src="admin.js"></script>
+<script src="admin.js"></script>
+    <script src="appx.js"></script>
     <script src="animations.js"></script>
     <script src="pg9-dados.js"></script>
     <script>
@@ -652,8 +660,8 @@ var MP = window.MP;
 
             function montarPrefs() {
                 var pr = MP.preferencias;
-                var rap = switchComponente('email', 'bx-envelope', 'Notificações por e-mail', 'Receber avisos no e-mail', pr.email) +
-                    switchComponente('app', 'bx-mobile-alt', 'Notificações no aplicativo', 'Receber avisos no sistema', pr.app) +
+var rap = switchComponente('push', 'bxs-bell-ring', 'Notificações no celular', 'Receber avisos por popup no celular ou PC', pr.push) +
+                    switchComponente('app', 'bx-mobile-alt', 'Notificações no sistema', 'Ver avisos dentro da ferramenta', pr.app) +
                     switchComponente('escuro', 'bx-moon', 'Modo escuro', 'Diminuir o brilho das telas', pr.escuro) +
                     '<div class="pref-item">' +
                     '<span class="pref-label"><i class="bx bx-globe"></i><span><strong>Idioma</strong><span>Idioma das interfaces</span></span></span>' +
@@ -667,7 +675,12 @@ var MP = window.MP;
                 document.getElementById('prefCompletas').innerHTML = rap;
             }
 
-            function ligarPrefs() {
+function ligarPrefs() {
+                function parcial(id, ligado) {
+                    var p = {};
+                    p[id] = ligado;
+                    return p;
+                }
                 document.querySelectorAll('[data-switch]').forEach(function (s) {
                     s.addEventListener('click', function () {
                         var id = s.getAttribute('data-switch');
@@ -676,9 +689,8 @@ var MP = window.MP;
                         document.querySelectorAll('[data-switch="' + id + '"]').forEach(function (x) {
                             x.classList.toggle('on', ligado);
                         });
-                        if (id === 'escuro') {
-                            document.body.classList.toggle('modo-escuro', ligado);
-                        }
+                        if (id === 'escuro' && window.Theme) Theme.definir(ligado);
+                        MP.salvarPrefs(parcial(id, ligado));
                     });
                 });
                 var sel = document.getElementById('selIdioma');

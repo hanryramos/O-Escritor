@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="pg3.css">
     <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="dark-mode.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <title>Musical Escritor · Tarefas</title>
 </head>
@@ -199,10 +201,20 @@
                         <span class="summary-label">Em atraso</span>
                         <strong id="sumAtraso">1</strong>
                     </div>
-                    <div class="summary-item">
+<div class="summary-item">
                         <span class="status-dot st-concluida"></span>
                         <span class="summary-label">Concluídas</span>
                         <strong id="sumConcluidas">4</strong>
+                    </div>
+
+                    <div class="progress-block">
+                        <div class="progress-head">
+                            <span>Progresso</span>
+                            <strong id="taskProgNum">0%</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" id="taskProgFill"></div>
+                        </div>
                     </div>
 
                 </article>
@@ -301,12 +313,18 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js"></script>
 
     <script src="auth.js"></script>
 
     <script src="data.js"></script>
+    <script src="loader.js"></script>
+    <script src="theme.js"></script>
+    <script src="global-search.js"></script>
+    <script src="messaging.js"></script>
 
-    <script src="admin.js"></script>
+<script src="admin.js"></script>
+    <script src="appx.js"></script>
 
 <script src="pg3-dados.js"></script>
 
@@ -405,33 +423,39 @@
                 });
             }
 
-            function atualizarResumo() {
+function atualizarResumo() {
                 var lista = tasks;
                 function n(st) { return lista.filter(function (t) { return t.status === st; }).length; }
                 document.getElementById('sumPendentes').textContent = n('Pendente');
                 document.getElementById('sumAndamento').textContent = n('Em andamento');
                 document.getElementById('sumAtraso').textContent = n('Em atraso');
                 document.getElementById('sumConcluidas').textContent = n('Concluída');
+                var pct = lista.length ? Math.round(n('Concluída') / lista.length * 100) : 0;
+                if (window.AppX) {
+                    AppX.progresso(document.getElementById('taskProgFill'), pct, document.getElementById('taskProgNum'));
+                } else {
+                    var fill = document.getElementById('taskProgFill');
+                    if (fill) fill.style.width = pct + '%';
+                }
             }
 
             function rowHTML(t, idx) {
                 var r = DATA.respOf(t.resp);
                 var ci = 'check' + (t.status === 'Concluída' ? ' done' : '');
                 var nomeCls = 'task-name' + (t.status === 'Concluída' ? ' done' : '');
-                var prioText = t.status === 'Concluída' ? 'Concluída' : t.prio;
+var prioText = t.status === 'Concluída' ? 'Concluída' : t.prio;
                 var prioCls = t.status === 'Concluída' ? DATA.prioCls('Média') : DATA.prioCls(t.prio);
+                var ehHoje = window.AppX ? AppX.eqHoje(t.data) : false;
                 return '<tr data-id="' + t._id + '">' +
                     '<td><div class="task-cell">' +
                     '<button class="' + ci + '" data-concluir aria-label="Concluir tarefa"></button>' +
                     '<span class="' + nomeCls + '">' + DATA.esc(t.nome) + '</span></div></td>' +
                     '<td><div class="resp-cell"><span class="avatar ' + r.cor + '">' + r.init + '</span>' +
                     '<span class="resp-name">' + DATA.esc(t.resp) + '</span></div></td>' +
-                    '<td><span class="date">' + fmtData(t.data) + '</span></td>' +
+                    '<td><span class="date' + (ehHoje ? ' is-hoje' : '') + '">' + fmtData(t.data) + '</span></td>' +
                     '<td><span class="pill ' + DATA.catClsOf(t.cat) + '">' + t.cat + '</span></td>' +
                     '<td><span class="pill ' + DATA.statusCls(t.status) + '"><span class="pd"></span>' + t.status + '</span></td>' +
-                    '<td>' + (t.status === 'Concluída'
-                        ? '<span class="pill st-concluida">Concluída</span>'
-                        : '<span class="pill ' + prioCls + '">' + prioText + '</span>') + '</td>' +
+                    '<td><span class="pill ' + (t.status === 'Concluída' ? 'st-concluida' : prioCls) + '">' + (t.status === 'Concluída' ? 'Concluída' : prioText) + '</span></td>' +
                     '<td><button class="icon-btn" data-opts aria-label="Opções"><i class="bx bx-dots-horizontal-rounded"></i></button></td>' +
                     '</tr>';
             }
@@ -453,6 +477,7 @@
                 if (e.target.closest('[data-concluir]')) {
                     var novo = t.status === 'Concluída' ? 'Pendente' : 'Concluída';
                     AppDB.update('tarefas', t._id, { status: novo }).then(function () {
+                        if (novo === 'Concluída' && window.AppX) AppX.confetti();
                         toast(novo === 'Concluída' ? 'Tarefa concluída: ' + t.nome : 'Tarefa reaberta: ' + t.nome);
                     });
                     return;
@@ -500,6 +525,7 @@
                         AdminKit.guard(function () { abrirFormTarefa(t); })();
                     } else if (acao === 'concluir') {
                         AppDB.update('tarefas', t._id, { status: 'Concluída' }).then(function () {
+                            if (window.AppX) AppX.confetti();
                             toast('Tarefa concluída: ' + t.nome);
                         });
                     } else if (acao === 'excluir') {

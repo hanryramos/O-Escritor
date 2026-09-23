@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="pg1.css">
     <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="dark-mode.css">
     <link rel="stylesheet" href="onboarding.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <title>Musical Escritor · Painel</title>
@@ -112,7 +114,15 @@
                 <div class="divider-diamond" data-anim="fadeIn" data-delay="0.55s"><b></b></div>
             </div>
 
-        </header>
+</header>
+
+
+        <section class="dash-actions" data-anim="fadeUp" data-delay="0.3s" aria-label="Ações rápidas">
+            <a href="pg4.html"><i class="bx bx-music"></i> Agendar ensaio</a>
+            <a href="pg2.html"><i class="bx bx-calendar-event"></i> Novo evento</a>
+            <a href="pg3.html"><i class="bx bx-check-square"></i> Nova tarefa</a>
+            <a href="pg7.html"><i class="bx bx-group"></i> Gerenciar equipe</a>
+        </section>
 
 
         <!-- =================================
@@ -223,12 +233,18 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js"></script>
 
     <script src="auth.js"></script>
 
     <script src="data.js"></script>
+    <script src="loader.js"></script>
+    <script src="theme.js"></script>
+    <script src="global-search.js"></script>
+    <script src="messaging.js"></script>
 
-    <script src="admin.js"></script>
+<script src="admin.js"></script>
+    <script src="appx.js"></script>
 
 <script src="animations.js"></script>
     <script src="pg2-dados.js"></script>
@@ -323,6 +339,7 @@
                     '<p><i class="bx bx-time"></i> ' + esc(en.ini) + ' - ' + esc(en.fim) + '</p>' +
                     '<p><i class="bx bx-map-pin"></i> ' + esc(en.local || '') + '</p>' +
                     '</div>' +
+                    (window.AppX && AppX.eqHoje(en.data) ? '<span class="badge is-hoje">HOJE</span>' : '') +
                     '<span class="badge-done">' + esc(en.situacao || 'Planejado') + '</span>';
             }
 
@@ -351,6 +368,7 @@
                         if (t && t._id && window.AppDB) {
                             AppDB.update('tarefas', t._id, { status: 'Concluída', statusCls: 'st-concluida' });
                         }
+                        if (window.AppX) AppX.confetti();
                     });
                 });
             }
@@ -384,6 +402,7 @@
                         miniCalendar(e.d) +
                         '<div class="event-info">' +
                         '<strong>' + esc(e.titulo) + '</strong>' +
+                        (window.AppX && AppX.eqHoje(e.d) ? '<span class="pill is-hoje">HOJE</span>' : '') +
                         '<span><i class="bx bx-time"></i> ' + esc(e.hora) + (e.fim ? ' - ' + esc(e.fim) : '') + '</span>' +
                         '<span><i class="bx bx-map-pin"></i> ' + esc(e.local || '') + '</span>' +
                         '</div>' +

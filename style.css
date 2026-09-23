@@ -58,17 +58,29 @@ body {
 ===================================== */
 
 .login-card {
-    width: 82%;
-    height: 76%;
+    width: min(940px, 88%);
+    height: min(600px, 82vh);
 
     position: relative;
+
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow: 0 24px 60px rgba(58, 33, 8, 0.16);
+
+    background: #ffffff;
 
     z-index: 2;
 }
 
 
 /* =====================================
-   CONJUNTO DOS DOIS PAINÉIS
+   CAMADAS DE FUNDO (PAINÉIS)
 ===================================== */
 
 .login-background {
@@ -82,7 +94,6 @@ body {
     display: flex;
 
     align-items: stretch;
-    justify-content: center;
 
     gap: 0;
 
@@ -93,41 +104,30 @@ body {
 
 
 .translucid {
-    width: 50%;
-    height: 100%;
-
-    flex: 0 0 50%;
+    flex: 0 0 54%;
 
     position: relative;
-
-    z-index: 2;
-
-    overflow: visible;
-}
-
-
-.login-img {
-    width: 50%;
-    height: 100%;
-
-    flex: 0 0 50%;
-
-    position: relative;
-
-    z-index: 3;
 
     overflow: hidden;
-
-    border-radius: 2%;
 }
 
+
 .translucid img {
-    width: 115%;
+    width: 112%;
     height: 100%;
 
     display: block;
 
-    object-fit: fill;
+    object-fit: cover;
+}
+
+
+.login-img {
+    flex: 0 0 46%;
+
+    position: relative;
+
+    overflow: hidden;
 }
 
 
@@ -139,33 +139,71 @@ body {
 
     object-fit: cover;
 
-    object-position: center;
+    object-position: center top;
 }
+
+
+.login-img::after {
+    content: '';
+
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0) 22%);
+
+    pointer-events: none;
+}
+
+
 /* =====================================
    CONTEÚDO DO LOGIN
 ===================================== */
+
 .login-content {
-    width: 60%;
-    height: 100%;
+    flex: 0 0 54%;
 
-    position: absolute;
+    position: relative;
 
-    left: 0;
-    top: 0;
+    z-index: 4;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 4% 5.5%;
+}
+
+
+/* =====================================
+   GRUPO INTERNO (BLOCO DE LOGIN COMPACTO)
+===================================== */
+
+.login-content-inner {
+    width: 100%;
+
+    max-width: 400px;
 
     display: flex;
     flex-direction: column;
 
     align-items: center;
 
-    /* controla o posicionamento vertical */
-    padding-top: 2%;
-    padding-left: 13%;
-    padding-right: 13%;
+    gap: 2.4vh;
+}
 
-    overflow-y: auto;
 
-    z-index: 4;
+/* =====================================
+   TOPO (LOGO + TEXTOS DE BOAS-VINDAS)
+===================================== */
+
+.login-topo {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
 }
 
 
@@ -174,11 +212,17 @@ body {
 ===================================== */
 
 .logo-lg {
-    width: 26%;
+    width: 70%;
+
+    max-height: 9vh;
 
     height: auto;
 
-    margin-bottom: 2.5%;
+    object-fit: contain;
+
+    display: block;
+
+    margin-bottom: 2vh;
 }
 
 
@@ -189,39 +233,41 @@ body {
 .welcome {
     width: 100%;
 
-    margin-bottom: 2%;
+    text-align: center;
 }
 
 
 .welcome h2 {
     margin: 0;
 
-    font-size: 1.8vh;
+    font-size: clamp(13px, 2.3vh, 19px);
 
-    font-weight: 400;
+    font-weight: 500;
 
     line-height: 1;
 
-    color: #292929;
+    letter-spacing: 3px;
+
+    color: #6b5b48;
 }
 
 
 .welcome h1 {
-    margin: 0;
+    margin: 1.4vh 0 0;
 
     font-family: 'Milesdane', 'Montserrat', Georgia, 'Times New Roman', serif;
+
     font-style: italic;
-    font-weight: 400;
-
-    font-size: 2.9vh;
 
     font-weight: 400;
 
-    line-height: 1;
+    font-size: clamp(28px, 4.8vh, 46px);
+
+    line-height: 1.05;
 
     text-transform: uppercase;
 
-    color: #222;
+    color: #1f1a13;
 }
 
 
@@ -233,15 +279,15 @@ body {
 
 
 .welcome p {
-    width: 80%;
+    width: 92%;
 
-    margin-top: 1%;
+    margin: 1.8vh auto 0;
 
-    font-size: 1.35vh;
+    font-size: clamp(12px, 1.9vh, 15px);
 
-    line-height: 1.35;
+    line-height: 1.6;
 
-    color: #777;
+    color: #8a7a67;
 }
 
 
@@ -255,7 +301,7 @@ body {
     display: flex;
     flex-direction: column;
 
-    gap: 1vh;
+    gap: 1.7vh;
 }
 
 
@@ -265,7 +311,9 @@ body {
 
 .input-box {
     width: 100%;
-    height: 5.4vh;
+    height: 6.4vh;
+
+    min-height: 46px;
 
     position: relative;
 }
@@ -275,34 +323,38 @@ body {
     width: 100%;
     height: 100%;
 
-    padding: 0 12% 0 6%;
+    padding: 0 13% 0 5.5%;
 
-    border: 0.08vw solid #d2d2d2;
+    border: 1px solid #ddd3c2;
 
-    border-radius: 0.6vh;
+    border-radius: 12px;
 
     outline: none;
 
-    background: #ffffff;
+    background: #fffdf8;
 
-    color: #444;
+    color: #443d33;
 
     font-family: inherit;
 
-    font-size: 1.4vh;
+    font-size: clamp(13px, 2vh, 16px);
 
     box-shadow:
-        0 0.3vh 0.7vh rgba(0, 0, 0, 0.08);
+        0 2px 8px rgba(58, 33, 8, 0.04);
+
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 
 .input-box input::placeholder {
-    color: #aaa;
+    color: #a99b86;
 }
 
 
 .input-box input:focus {
     border-color: #bd915a;
+
+    box-shadow: 0 0 0 3px rgba(189, 145, 90, 0.15);
 }
 
 
@@ -313,14 +365,14 @@ body {
 .input-box i {
     position: absolute;
 
-    right: 4%;
+    right: 4.5%;
     top: 50%;
 
     transform: translateY(-50%);
 
-    color: #777;
+    color: #b9853f;
 
-    font-size: 2vh;
+    font-size: 2.3vh;
 }
 
 
@@ -333,21 +385,29 @@ body {
 
     align-items: center;
 
-    gap: 2%;
+    justify-content: flex-start;
 
-    margin-top: -1%;
+    gap: 8px;
 
-    color: #555;
+    padding-left: 3px;
 
-    font-size: 1.25vh;
+    color: #6d6152;
+
+    font-size: clamp(12px, 1.7vh, 14px);
 
     cursor: pointer;
 }
 
 
 .remember input {
-    width: 1.3vh;
-    height: 1.3vh;
+    flex: none;
+
+    width: 1.6vh;
+    height: 1.6vh;
+
+    accent-color: #bd915a;
+
+    cursor: pointer;
 }
 
 
@@ -357,31 +417,41 @@ body {
 
 .container-login button {
     width: 100%;
-    height: 5.2vh;
+    height: 6.6vh;
 
-    margin-top: 1.5%;
+    min-height: 48px;
+
+    margin-top: 0.6vh;
 
     border: none;
-    border-radius: 0.7vh;
+    border-radius: 12px;
 
-    background: #bd915a;
+    background: linear-gradient(120deg, #c99b62, #a97d48);
 
     color: #fff;
 
     font-family: inherit;
-    font-size: 1.45vh;
+    font-size: clamp(13px, 1.9vh, 16px);
+    font-weight: 800;
+    letter-spacing: 2px;
 
     cursor: pointer;
+
+    box-shadow: 0 10px 22px rgba(169, 125, 72, 0.3);
+
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 
 .container-login button:hover {
-    background: #a97d48;
+    transform: translateY(-1px);
+
+    box-shadow: 0 14px 28px rgba(169, 125, 72, 0.38);
 }
 
 
 /* =====================================
-   DIVISOR "OU" + BOTÃO GOOGLE
+   DIVISOR "OU" + BOTÃO GOOGLE (reservado)
 ===================================== */
 
 .google-divider {
@@ -470,26 +540,65 @@ body {
 .login-error {
     min-height: 1.4vh;
 
-    margin-top: 1vh;
+    margin-top: 0.4vh;
 
     text-align: center;
 
-    font-size: 1.25vh;
+    font-size: clamp(11px, 1.5vh, 13px);
 
     color: #c0392b;
 }
 
 
+.login-error:empty {
+    display: none;
+}
+
+
 /* =====================================
-   LOGO START
+   BOTÃO START
 ===================================== */
 
-.logo-MJ {
-    width: 20%;
+.logo-start {
+    display: inline-flex;
 
-    height: auto;
+    align-items: center;
+    justify-content: center;
 
-    margin-top: 2%;
+    gap: 8px;
+
+    margin-top: 0.4vh;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    opacity: 0.9;
+
+    transition: opacity 0.2s ease;
+}
+
+
+.logo-start:hover {
+    opacity: 0.65;
+}
+
+
+.logo-start img {
+    height: 3vh;
+
+    width: auto;
+
+    display: block;
+}
+
+
+.logo-start i {
+    font-size: 1.6vh;
+
+    color: #a97d48;
+
+    opacity: 0.75;
 }
 
 
@@ -500,7 +609,7 @@ body {
 .decoration {
     position: absolute;
 
-    width: 18%;
+    width: 7%;
     height: auto;
 
     pointer-events: none;
@@ -514,9 +623,8 @@ body {
 ===================================== */
 
 .decoration-top {
-    left: 0;
-
-    top: 0;
+    left: -2.5%;
+    top: -3.5%;
 }
 
 
@@ -525,9 +633,10 @@ body {
 ===================================== */
 
 .decoration-bottom {
-    left: 25%;
+    right: 6%;
+    bottom: -6%;
 
-    bottom: 0;
+    left: auto;
 }
 
 
@@ -535,79 +644,125 @@ body {
    RESPONSIVIDADE
 ===================================== */
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
+
+    .login-card {
+        width: 92%;
+    }
+
+    .login-content {
+        padding: 5% 7%;
+    }
+}
+
+
+@media (max-width: 900px) {
 
     body {
         overflow-y: auto;
     }
 
-
     .login-page {
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        padding: 0;
+    }
+
+    .login-card {
         width: 100%;
         height: auto;
 
         min-height: 100vh;
 
-        padding: 5%;
+        flex-direction: column;
+
+        border-radius: 0;
     }
-
-
-.login-card {
-    width: 86%;
-    height: 84%;
-
-    position: relative;
-
-    z-index: 2;
-}
-
 
     .login-background {
-        position: absolute;
+        position: relative;
+
+        inset: auto;
+
+        height: auto;
+        width: 100%;
 
         flex-direction: column;
-    }
 
+        flex: 0 0 auto;
+    }
 
     .translucid {
-        width: 100%;
-        height: 60%;
-
-        flex: none;
+        display: none !important;
     }
-
 
     .login-img {
-        width: 100%;
-        height: 40%;
+        display: block !important;
 
-        flex: none;
+        flex: 0 0 auto;
+
+        width: 100%;
+
+        height: clamp(220px, 30vh, 340px);
+
+        min-height: 220px;
+
+        overflow: hidden;
+
+        position: relative;
     }
 
+    .login-img img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+
+        object-position: center top;
+
+        display: block;
+    }
+
+    .login-img::after {
+        background: none;
+    }
 
     .login-content {
-        width: 100%;
-        height: auto;
+        flex: 1 1 auto;
 
-        min-height: 60%;
+        justify-content: flex-start;
 
-        padding: 10% 12%;
+        padding: 7vh 8% 6vh;
     }
 
-
-    .decoration {
-        width: 25%;
+    .login-content-inner {
+        max-width: 100%;
     }
 
-
-    .decoration-top {
-        left: -8%;
-        top: -3%;
+    .logo-lg {
+        width: 64%;
     }
 
+    .logo-start {
+        justify-content: center;
 
+        margin-top: 1.2vh;
+
+        margin-bottom: 3vh;
+
+        margin-bottom: max(3vh, env(safe-area-inset-bottom));
+    }
+
+    .logo-start img {
+        height: 4.6vh;
+
+        min-height: 30px;
+    }
+
+    .decoration,
+    .decoration-top,
     .decoration-bottom {
-        left: 20%;
-        bottom: -3%;
+        display: none !important;
     }
 }

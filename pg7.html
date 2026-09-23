@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="pg7.css">
     <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="dark-mode.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <title>Musical Escritor · Equipe</title>
 </head>
@@ -236,12 +238,18 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js"></script>
 
     <script src="auth.js"></script>
 
     <script src="data.js"></script>
+    <script src="loader.js"></script>
+    <script src="theme.js"></script>
+    <script src="global-search.js"></script>
+    <script src="messaging.js"></script>
 
 <script src="admin.js"></script>
+    <script src="appx.js"></script>
     <script src="animations.js"></script>
     <script src="pg4-dados.js"></script>
     <script src="pg7-dados.js"></script>
@@ -420,6 +428,7 @@
                         '<span class="memb-linha">' + EQ.esc(m.linha) + '</span>' +
                         '</span>' +
                         '</span>' +
+                        (m.personagem ? '<span class="memb-pers"><i class="bx bx-mask"></i>' + EQ.esc(EQ.personagemNome(m.personagem)) + '</span>' : '') +
                         '<span class="memb-areas">' + areas + '</span>' +
                         '<span class="memb-meta">' + meta + '</span>';
 
@@ -624,15 +633,17 @@
                     return;
                 }
                 var eqOpts = EQ.equipes.map(function (e) { return { value: e.id, label: e.nome }; });
+                var perOpts = [{ value: 'nenhum', label: 'Sem personagem' }].concat(EQ.personagens.map(function (p) { return { value: p.id, label: p.nome }; }));
                 AdminKit.modal({
                     title: 'Novo integrante',
                     submitLabel: 'Adicionar integrante',
-                    values: { nome: '', linha: '', status: 'ativo', area: eqOpts[0].value },
+                    values: { nome: '', linha: '', personagem: 'nenhum', status: 'ativo', area: eqOpts[0].value },
                     fields: [
                         { name: 'nome', label: 'Nome', required: true, placeholder: 'Ex.: João Paulo' },
                         { name: 'linha', label: 'Função', half: true, placeholder: 'Ex.: Música · Vocal' },
+                        { name: 'personagem', label: 'Personagem', type: 'select', half: true, options: perOpts },
                         { name: 'area', label: 'Área', type: 'select', half: true, options: eqOpts },
-                        { name: 'status', label: 'Status', type: 'select', options: [
+                        { name: 'status', label: 'Status', type: 'select', half: true, options: [
                             { value: 'ativo', label: 'Ativo' },
                             { value: 'ausente', label: 'Ausente' },
                             { value: 'inativo', label: 'Inativo' }
@@ -645,7 +656,8 @@
                         slug: slug,
                         nome: v.nome.trim(),
                         linha: v.linha.trim() || 'Integrante',
-                        equipes: [v.area],
+                        personagem: v.personagem && v.personagem !== 'nenhum' ? v.personagem : '',
+                        equipes: v.area ? [v.area] : [],
                         status: v.status,
                         cor: EQ.novaCor(),
                         tarefas: [],
