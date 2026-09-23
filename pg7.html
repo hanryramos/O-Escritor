@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pg7.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <title>Musical Escritor · Equipe</title>
+</head>
+
+<body>
+
+    <div class="backdrop" id="backdrop"></div>
+
+    <!-- ===== SIDEBAR ===== -->
+
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral">
+
+        <button class="sidebar-close" id="sidebarClose" aria-label="Fechar menu">
+            <i class="bx bx-x"></i>
+        </button>
+
+        <div class="sidebar-logo">
+            <img src="assets/tipografia.png" alt="Musical Escritor">
+        </div>
+
+        <div class="divider-diamond"><b></b></div>
+
+        <nav class="sidebar-menu">
+            <a href="pg1.html"><i class="bx bx-home"></i><span>Início</span></a>
+            <a href="pg2.html"><i class="bx bx-calendar"></i><span>Agenda</span></a>
+            <a href="pg3.html"><i class="bx bx-check-square"></i><span>Tarefas</span></a>
+            <a href="pg4.html"><i class="bx bx-music"></i><span>Ensaios</span></a>
+            <a href="pg5.html"><i class="bx bx-headphone"></i><span>Músicas</span></a>
+            <a href="pg6.html"><i class="bx bx-folder"></i><span>Arquivos e Links</span></a>
+            <a class="active" href="pg7.html"><i class="bx bx-group"></i><span>Equipe</span></a>
+            <a href="pg8.html"><i class="bx bx-bell"></i><span>Notificações</span></a>
+            <a href="pg9.html"><i class="bx bx-user"></i><span>Meu Perfil</span></a>
+        </nav>
+
+        <div class="sidebar-quote">
+            <div class="divider-diamond"><b></b></div>
+            <p>“Cada detalhe<br>conta uma<br>história.”</p>
+            <div class="divider-diamond"><b></b></div>
+        </div>
+
+    </aside>
+
+
+    <!-- ===== CONTEÚDO ===== -->
+
+    <main class="content">
+
+        <header class="dashboard-header">
+
+            <div class="header-top">
+
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" data-anim="zoomIn" data-delay="0s">
+                    <i class="bx bx-menu"></i>
+                </button>
+
+                <div class="header-intro">
+                    <span class="crumb" data-anim="fadeUp" data-delay="0.05s">Equipe</span>
+                    <h1 data-anim="fadeUp" data-delay="0.12s">Equipe</h1>
+                    <p data-anim="fadeUp" data-delay="0.2s">Conheça as pessoas que fazem parte dessa história.</p>
+                </div>
+
+                <div class="header-actions" data-anim="fadeIn" data-delay="0.26s">
+
+                    <div class="search-box">
+                        <i class="bx bx-search"></i>
+                        <input type="text" id="buscaTopo" placeholder="Buscar integrante...">
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="notif-btn" aria-label="Notificações">
+                        <i class="bx bx-bell"></i>
+                        <span class="notif-dot" data-pulse></span>
+                    </button>
+
+                    <span class="divider-v"></span>
+
+                    <div class="profile">
+                        <div class="profile-avatar" id="profileAvatar">G</div>
+                        <div class="profile-info">
+                            <strong id="profileName">Gustavo</strong>
+                            <span>Integrante</span>
+                        </div>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="logout-btn" id="logoutBtn" aria-label="Sair da conta">
+                        <i class="bx bx-log-out"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="quote-deco">
+                <p data-anim="fadeUp" data-delay="0.35s">“Cada voz escreve<br>um pedaço da história.”</p>
+                <div class="divider-diamond" data-anim="fadeIn" data-delay="0.5s"><b></b></div>
+            </div>
+
+        </header>
+
+
+        <!-- ===== RESUMO ===== -->
+
+        <section class="resumo-bar" data-anim="fadeUp" data-delay="0.08s">
+
+            <div class="card mini-stat">
+                <i class="bx bx-group"></i>
+                <div>
+                    <b id="resInt">0</b>
+                    <span>integrantes</span>
+                </div>
+            </div>
+
+            <div class="card mini-stat">
+                <i class="bx bx-shield-alt-2"></i>
+                <div>
+                    <b id="resEquipes">0</b>
+                    <span>equipes</span>
+                </div>
+            </div>
+
+            <div class="card mini-stat">
+                <i class="bx bx-check-square"></i>
+                <div>
+                    <b id="resTarefas">0</b>
+                    <span>tarefas atribuídas</span>
+                </div>
+            </div>
+
+            <div class="card mini-stat">
+                <i class="bx bx-calendar-event"></i>
+                <div>
+                    <b id="resEnsaios">0</b>
+                    <span>próximos ensaios</span>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ===== TOOLBAR ===== -->
+
+        <div class="eq-toolbar" data-anim="fadeUp" data-delay="0.12s">
+
+            <div class="search-rec">
+                <i class="bx bx-search"></i>
+                <input type="text" id="buscaMemb" placeholder="Buscar integrante...">
+            </div>
+
+<div class="tabs memb-tabs" id="filtrosArea">
+                <button class="active" data-area="todos">Todos</button>
+            </div>
+
+<button class="new-btn adm-inline" id="addMembroBtn" data-admin-only>
+                <i class="bx bx-plus"></i>
+                Adicionar integrante
+            </button>
+
+        </div>
+
+
+        <!-- ===== EQUIPES ===== -->
+
+        <section id="secaoEquipes" data-anim="fadeUp" data-delay="0.16s">
+
+<div class="sec-title">
+                <h3>Equipes</h3>
+                <span class="sec-title-actions">
+                    <span class="sec-count" id="eqCount">0</span>
+                    <button class="new-btn adm-inline" id="addEquipeBtn" data-admin-only>
+                        <i class="bx bx-plus"></i>
+                        Nova equipe
+                    </button>
+                </span>
+            </div>
+
+            <div class="eq-grid" id="gridEquipes"></div>
+
+        </section>
+
+
+        <!-- ===== INTEGRANTES ===== -->
+
+        <section id="secaoMembros" data-anim="fadeUp" data-delay="0.2s">
+
+            <div class="sec-title">
+                <h3>Integrantes</h3>
+                <span class="sec-count" id="membCount">0</span>
+            </div>
+
+            <div class="memb-grid" id="gridMembros"></div>
+
+            <div class="empty-state" id="membVazio">
+                <i class="bx bx-user-x"></i>
+                <strong>Nenhum integrante encontrado</strong>
+                <span>Ajuste a busca ou os filtros selecionados.</span>
+            </div>
+
+        </section>
+
+    </main>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+    <script src="auth.js"></script>
+
+    <script src="data.js"></script>
+
+<script src="admin.js"></script>
+    <script src="animations.js"></script>
+    <script src="pg4-dados.js"></script>
+    <script src="pg7-dados.js"></script>
+    <script>
+(function () {
+
+            var EQ = window.EQ;
+            var selArea = 'todos';
+            var buscaQ = '';
+            var ensaiosQtd = 0;
+
+            var gridEquipes = document.getElementById('gridEquipes');
+            var gridMembros = document.getElementById('gridMembros');
+            var countEq = document.getElementById('eqCount');
+            var countMemb = document.getElementById('membCount');
+            var vazio = document.getElementById('membVazio');
+
+            var ICONES = [
+                { value: 'bx-group', label: 'Equipe' },
+                { value: 'bx-music', label: 'Música' },
+                { value: 'bx-drama-masks', label: 'Teatro' },
+                { value: 'bx-clapperboard', label: 'Produção' },
+                { value: 'bx-slider-alt', label: 'Técnica' },
+                { value: 'bx-t-shirt', label: 'Figurino' },
+                { value: 'bx-palette', label: 'Cenografia' },
+                { value: 'bx-microphone', label: 'Vocal' },
+                { value: 'bx-keyboard', label: 'Teclado' },
+                { value: 'bx-speaker', label: 'Som' },
+                { value: 'bx-cog', label: 'Montagem' },
+                { value: 'bx-wrench', label: 'Manutenção' },
+                { value: 'bx-book-open', label: 'Roteiro' },
+                { value: 'bx-star', label: 'Destaque' },
+                { value: 'bx-camera', label: 'Registro' }
+            ];
+
+            function mostrarToast(msg) {
+                var t = document.getElementById('toast');
+                t.textContent = msg;
+                t.classList.add('show');
+                clearTimeout(mostrarToast._t);
+                mostrarToast._t = setTimeout(function () {
+                    t.classList.remove('show');
+                }, 2600);
+            }
+
+            function initResumo() {
+                var r = EQ.resumo;
+                document.getElementById('resInt').textContent = r.integrantes;
+                document.getElementById('resEquipes').textContent = r.equipes;
+                document.getElementById('resTarefas').textContent = r.tarefas;
+                document.getElementById('resEnsaios').textContent = ensaiosQtd;
+            }
+
+            AppDB.load('ensaios').then(function (lista) {
+                ensaiosQtd = lista.filter(function (e) { return e.status !== 'cancelados'; }).length;
+                initResumo();
+            });
+
+            function renderEquipes() {
+                gridEquipes.innerHTML = '';
+
+                if (!EQ.equipes.length) {
+                    var ph = document.createElement('div');
+                    ph.className = 'empty-state';
+                    ph.style.cssText = 'grid-column:1/-1;display:flex;';
+                    ph.innerHTML =
+                        '<i class="bx bx-group"></i>' +
+                        '<strong>Nenhuma equipe ainda</strong>' +
+                        '<span>Use "Nova equipe" acima para criar a primeira.</span>';
+                    gridEquipes.appendChild(ph);
+                }
+
+                EQ.equipes.forEach(function (eq) {
+                    var membros = EQ.membrosDaEquipe(eq.id);
+                    var card = document.createElement('div');
+                    card.className = 'card eq-card';
+                    card.setAttribute('role', 'button');
+                    card.setAttribute('tabindex', '0');
+
+                    var minis = '';
+                    for (var i = 0; i < Math.min(4, membros.length); i++) {
+                        minis += EQ.avatarHtml(membros[i]);
+                    }
+                    if (membros.length > 4) {
+                        minis += '<span class="avatar" style="background:#E8E8E8;color:#536176;font-style:normal;">+' + (membros.length - 4) + '</span>';
+                    }
+
+                    card.innerHTML =
+                        '<span class="eq-ic"><i class="bx ' + eq.icone + '"></i></span>' +
+                        '<span style="flex:1;min-width:0;">' +
+                        '<h4>' + EQ.esc(eq.nome) + '</h4>' +
+                        '<p>' + membros.length + ' integrante' + (membros.length === 1 ? '' : 's') + '</p>' +
+                        '<span class="eq-minis">' + minis + '</span>' +
+                        '</span>' +
+                        '<span class="eq-actions">' +
+                        '<button class="adm-inline eq-act" data-eq-edit data-admin-only aria-label="Editar equipe"><i class="bx bx-edit"></i></button>' +
+                        '<button class="adm-inline eq-act danger" data-eq-del data-admin-only aria-label="Excluir equipe"><i class="bx bx-trash"></i></button>' +
+                        '</span>';
+
+                    card.addEventListener('click', function (ev) {
+                        if (ev.target.closest('[data-eq-edit]') || ev.target.closest('[data-eq-del]')) return;
+                        selArea = eq.id;
+                        atualizarChips();
+                        renderMembros();
+                        var sec = document.getElementById('secaoMembros');
+                        sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    });
+
+                    card.querySelector('[data-eq-edit]').addEventListener('click', AdminKit.guard(function () {
+                        editarEquipe(eq);
+                    }));
+                    card.querySelector('[data-eq-del]').addEventListener('click', AdminKit.guard(function () {
+                        excluirEquipe(eq);
+                    }));
+
+                    gridEquipes.appendChild(card);
+                });
+
+                countEq.textContent = EQ.equipes.length;
+            }
+
+            function montarChips() {
+                var box = document.getElementById('filtrosArea');
+                var html = '<button class="active" data-area="todos">Todos</button>';
+                EQ.equipes.forEach(function (e) {
+                    html += '<button data-area="' + e.id + '">' + EQ.esc(e.nome) + '</button>';
+                });
+                box.innerHTML = html;
+                atualizarChips();
+            }
+
+            function atualizarChips() {
+                var botoes = document.querySelectorAll('#filtrosArea button');
+                for (var i = 0; i < botoes.length; i++) {
+                    botoes[i].classList.toggle('active', botoes[i].getAttribute('data-area') === selArea);
+                }
+            }
+
+            function filtrar() {
+                return EQ.membros.filter(function (m) {
+                    var okArea = selArea === 'todos' || (m.equipes || []).indexOf(selArea) > -1;
+                    var okBusca = !buscaQ || (m.nome || '').toLowerCase().indexOf(buscaQ) > -1;
+                    return okArea && okBusca;
+                });
+            }
+
+            function renderMembros() {
+                var lista = filtrar();
+                gridMembros.innerHTML = '';
+
+                lista.forEach(function (m) {
+                    var areas = '';
+                    (m.equipes || []).forEach(function (id) {
+                        areas += '<span>' + EQ.esc(EQ.equipeNome(id)) + '</span>';
+                    });
+
+                    var meta = '';
+                    if ((m.tarefas || []).length) {
+                        meta += '<span><i class="bx bx-check-square"></i> ' + m.tarefas.length + ' tarefa' + (m.tarefas.length === 1 ? '' : 's') + '</span>';
+                    } else {
+                        meta += '<span></span>';
+                    }
+                    meta += '<span><i class="bx bx-calendar-event"></i> ' + (m.ensaios || []).length + ' ensaio' + ((m.ensaios || []).length === 1 ? '' : 's') + '</span>';
+
+                    var card = document.createElement('button');
+                    card.className = 'card memb-card';
+
+                    card.innerHTML =
+                        '<span class="status-dot ' + EQ.statusInfo[m.status].dot + '" title="' + EQ.statusInfo[m.status].label + '"></span>' +
+                        '<span class="memb-top">' +
+                        EQ.avatarHtml(m) +
+                        '<span style="flex:1;min-width:0;text-align:left;">' +
+                        '<h4>' + EQ.esc(m.nome) + '</h4>' +
+                        '<span class="memb-linha">' + EQ.esc(m.linha) + '</span>' +
+                        '</span>' +
+                        '</span>' +
+                        '<span class="memb-areas">' + areas + '</span>' +
+                        '<span class="memb-meta">' + meta + '</span>';
+
+                    card.addEventListener('click', function () {
+                        window.location.href = 'pg7-detalhe.html?id=' + m.slug;
+                    });
+
+                    gridMembros.appendChild(card);
+                });
+
+                countMemb.textContent = lista.length;
+                vazio.style.display = lista.length ? 'none' : 'flex';
+            }
+
+            document.getElementById('filtrosArea').addEventListener('click', function (ev) {
+                var b = ev.target.closest('button');
+                if (!b) return;
+                selArea = b.getAttribute('data-area');
+                atualizarChips();
+                renderMembros();
+            });
+
+            var buscar = function (el, outro) {
+                el.addEventListener('input', function () {
+                    buscaQ = el.value.trim().toLowerCase();
+                    outro.value = el.value;
+                    renderMembros();
+                });
+            };
+            buscar(document.getElementById('buscaMemb'), document.getElementById('buscaTopo'));
+            buscar(document.getElementById('buscaTopo'), document.getElementById('buscaMemb'));
+
+            function novaEquipe() {
+                AdminKit.modal({
+                    title: 'Nova equipe',
+                    submitLabel: 'Criar equipe',
+                    values: { nome: '', icone: 'bx-group' },
+                    fields: [
+                        { name: 'nome', label: 'Nome da equipe', required: true, placeholder: 'Ex.: Produção' },
+                        { name: 'icone', label: 'Ícone', type: 'select', options: ICONES }
+                    ]
+                }).then(function (v) {
+                    if (!v) return;
+                    var id = String(v.nome).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'equipe';
+                    AppDB.add('equipes', { id: id, nome: v.nome.trim(), icone: v.icone }).then(function () {
+                        AdminKit.toast('Equipe criada.', 'ok');
+                    });
+                });
+            }
+
+            function editarEquipe(eq) {
+                AdminKit.modal({
+                    title: 'Editar equipe',
+                    submitLabel: 'Salvar alterações',
+                    values: { nome: eq.nome, icone: eq.icone },
+                    fields: [
+                        { name: 'nome', label: 'Nome da equipe', required: true, placeholder: 'Ex.: Produção' },
+                        { name: 'icone', label: 'Ícone', type: 'select', options: ICONES }
+                    ]
+                }).then(function (v) {
+                    if (!v) return;
+                    AppDB.update('equipes', eq._id, { nome: v.nome.trim(), icone: v.icone }).then(function () {
+                        AdminKit.toast('Equipe atualizada.', 'ok');
+                    });
+                });
+            }
+
+            function excluirEquipe(eq) {
+                AdminKit.confirm({
+                    title: 'Excluir equipe',
+                    message: 'A equipe "' + eq.nome + '" será removida. Os integrantes deixam de pertencer a ela.',
+                    danger: true,
+                    confirmLabel: 'Excluir'
+                }).then(function (ok) {
+                    if (!ok) return;
+                    AppDB.remove('equipes', eq._id).then(function () {
+                        var afetados = [];
+                        EQ.membros.forEach(function (m) {
+                            if ((m.equipes || []).indexOf(eq.id) > -1) afetados.push(m);
+                        });
+                        return Promise.all(afetados.map(function (m) {
+                            return AppDB.update('integrantes', m._id, {
+                                equipes: (m.equipes || []).filter(function (x) { return x !== eq.id; })
+                            });
+                        }));
+                    }).then(function () {
+                        if (selArea === eq.id) selArea = 'todos';
+                        AdminKit.toast('Equipe excluída.', 'ok');
+                        montarChips();
+                        renderEquipes();
+                        renderMembros();
+                        initResumo();
+                        atualizarChips();
+                    });
+                });
+            }
+
+            document.getElementById('addEquipeBtn').addEventListener('click', AdminKit.guard(novaEquipe));
+
+            document.getElementById('addMembroBtn').addEventListener('click', AdminKit.guard(function () {
+                if (!EQ.equipes.length) {
+                    AdminKit.toast('Crie uma equipe antes de adicionar integrantes.');
+                    return;
+                }
+                var eqOpts = EQ.equipes.map(function (e) { return { value: e.id, label: e.nome }; });
+                AdminKit.modal({
+                    title: 'Novo integrante',
+                    submitLabel: 'Adicionar integrante',
+                    values: { nome: '', linha: '', status: 'ativo', area: eqOpts[0].value },
+                    fields: [
+                        { name: 'nome', label: 'Nome', required: true, placeholder: 'Ex.: João Paulo' },
+                        { name: 'linha', label: 'Função', half: true, placeholder: 'Ex.: Música · Vocal' },
+                        { name: 'area', label: 'Área', type: 'select', half: true, options: eqOpts },
+                        { name: 'status', label: 'Status', type: 'select', options: [
+                            { value: 'ativo', label: 'Ativo' },
+                            { value: 'ausente', label: 'Ausente' },
+                            { value: 'inativo', label: 'Inativo' }
+                        ] }
+                    ]
+                }).then(function (v) {
+                    if (!v) return;
+                    var slug = String(v.nome).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'integrante';
+                    AppDB.add('integrantes', {
+                        slug: slug,
+                        nome: v.nome.trim(),
+                        linha: v.linha.trim() || 'Integrante',
+                        equipes: [v.area],
+                        status: v.status,
+                        cor: EQ.novaCor(),
+                        tarefas: [],
+                        ensaios: []
+                    }).then(function () {
+                        AdminKit.toast('Integrante adicionado.', 'ok');
+                    });
+                });
+            }));
+
+            AppDB.onChange('integrantes', function () {
+                initResumo();
+                renderEquipes();
+                renderMembros();
+            });
+
+            AppDB.onChange('equipes', function () {
+                montarChips();
+                renderEquipes();
+                renderMembros();
+                initResumo();
+            });
+
+            montarChips();
+            initResumo();
+            renderEquipes();
+            renderMembros();
+
+        })();
+    </script>
+
+</body>
+
+</html>

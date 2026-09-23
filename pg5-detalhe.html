@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pg5.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <title>Musical Escritor · Detalhes da Música</title>
+</head>
+
+<body>
+
+    <div class="backdrop" id="backdrop"></div>
+
+    <!-- ===== SIDEBAR ===== -->
+
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral">
+
+        <button class="sidebar-close" id="sidebarClose" aria-label="Fechar menu">
+            <i class="bx bx-x"></i>
+        </button>
+
+        <div class="sidebar-logo">
+            <img src="assets/tipografia.png" alt="Musical Escritor">
+        </div>
+
+        <div class="divider-diamond"><b></b></div>
+
+        <nav class="sidebar-menu">
+            <a href="pg1.html"><i class="bx bx-home"></i><span>Início</span></a>
+            <a href="pg2.html"><i class="bx bx-calendar"></i><span>Agenda</span></a>
+            <a href="pg3.html"><i class="bx bx-check-square"></i><span>Tarefas</span></a>
+            <a href="pg4.html"><i class="bx bx-music"></i><span>Ensaios</span></a>
+            <a class="active" href="pg5.html"><i class="bx bx-headphone"></i><span>Músicas</span></a>
+            <a href="pg6.html"><i class="bx bx-folder"></i><span>Arquivos e Links</span></a>
+            <a href="pg7.html"><i class="bx bx-group"></i><span>Equipe</span></a>
+            <a href="pg8.html"><i class="bx bx-bell"></i><span>Notificações</span></a>
+            <a href="pg9.html"><i class="bx bx-user"></i><span>Meu Perfil</span></a>
+        </nav>
+
+        <div class="sidebar-quote">
+            <div class="divider-diamond"><b></b></div>
+            <p>“Cada detalhe<br>conta uma<br>história.”</p>
+            <div class="divider-diamond"><b></b></div>
+        </div>
+
+    </aside>
+
+
+    <!-- ===== CONTEÚDO ===== -->
+
+    <main class="content">
+
+        <header class="dashboard-header">
+
+            <div class="header-top">
+
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" data-anim="zoomIn" data-delay="0s">
+                    <i class="bx bx-menu"></i>
+                </button>
+
+                <div class="header-intro">
+                    <nav class="breadcrumb" data-anim="fadeUp" data-delay="0.05s">
+                        <a href="pg5.html">Músicas</a>
+                        <i class="bx bx-chevron-right"></i>
+                        <span id="crumbNome"></span>
+                    </nav>
+<h1 id="tituloMusica" data-anim="fadeUp" data-delay="0.12s"></h1>
+                    <p id="artistaMusica" data-anim="fadeUp" data-delay="0.2s"></p>
+                </div>
+
+                <div class="header-actions" data-anim="fadeIn" data-delay="0.26s">
+
+                    <div class="search-box">
+                        <i class="bx bx-search"></i>
+                        <input type="text" placeholder="Buscar músicas...">
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="notif-btn" aria-label="Notificações">
+                        <i class="bx bx-bell"></i>
+                        <span class="notif-dot" data-pulse></span>
+                    </button>
+
+                    <span class="divider-v"></span>
+
+                    <div class="profile">
+                        <div class="profile-avatar" id="profileAvatar">G</div>
+                        <div class="profile-info">
+                            <strong id="profileName">Gustavo</strong>
+                            <span>Integrante</span>
+                        </div>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="logout-btn" id="logoutBtn" aria-label="Sair da conta">
+                        <i class="bx bx-log-out"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="quote-deco">
+                <p data-anim="fadeUp" data-delay="0.35s">“Música é ponte<br>entre o ensaio e o propósito.”</p>
+                <div class="divider-diamond" data-anim="fadeIn" data-delay="0.5s"><b></b></div>
+            </div>
+
+        </header>
+
+
+        <!-- ===== BARRA DE NAVEGAÇÃO DA MÚSICA ===== -->
+
+        <div class="song-nav" id="songNav" data-anim="fadeUp" data-delay="0.1s">
+            <div class="song-nav-links">
+                <button class="active" data-secao="visao-geral">Visão Geral</button>
+                <button data-secao="letra">Letra e Cifra</button>
+                <button data-secao="mapa">Mapa Vocal</button>
+                <button data-secao="kits">Kits de Voz</button>
+                <button data-secao="playback">Playback e Áudios</button>
+                <button data-secao="partitura">Partitura</button>
+                <button data-secao="observacoes">Observações</button>
+            </div>
+            <div class="song-nav-arrows">
+                <button class="nav-arrow" id="prevBtn" aria-label="Música anterior"><i class="bx bx-chevron-left"></i><span>Anterior</span></button>
+                <button class="nav-arrow" id="nextBtn" aria-label="Próxima música"><span>Próxima</span><i class="bx bx-chevron-right"></i></button>
+            </div>
+        </div>
+
+
+        <!-- ===== CONTEÚDO DOS DETALHES ===== -->
+
+        <section class="detalhe-layout">
+
+            <div class="detalhe-main">
+
+                <!-- VISÃO GERAL -->
+                <div data-conteudo-secao="visao-geral">
+
+                    <article class="card hero-card" data-anim="fadeUp" data-delay="0.18s">
+
+                        <div id="heroCapa"></div>
+
+                        <div class="hero-info">
+                            <div class="hero-status"><span class="pill" id="heroStatus"></span></div>
+<h2 id="heroNome"></h2>
+                            <p class="hero-artista" id="heroArtista"></p>
+                            <p class="hero-desc" id="heroDesc"></p>
+
+                            <div class="info-grid">
+                                <div class="info-cell"><span>Tom</span><strong id="iTom">D</strong></div>
+                                <div class="info-cell"><span>BPM</span><strong id="iBpm">72</strong></div>
+                                <div class="info-cell"><span>Duração</span><strong id="iDura">5:12</strong></div>
+                                <div class="info-cell"><span>Cena</span><strong id="iCena">Cena 1</strong></div>
+                                <div class="info-cell"><span>Estilo</span><strong id="iEstilo">Worship</strong></div>
+                            </div>
+                        </div>
+
+                    </article>
+
+                    <article class="card sobre-card" data-anim="fadeUp" data-delay="0.26s">
+
+                        <h3 class="card-title">Sobre a música</h3>
+                        <p id="sobreTexto" class="sobre-texto"></p>
+
+                        <div class="sobre-item">
+                            <h4><i class="bx bx-quote-left"></i>Trecho marcante</h4>
+                            <p id="sobreTrecho"></p>
+                        </div>
+
+                        <div class="sobre-item">
+                            <h4><i class="bx bx-mask"></i>Aplicação no musical</h4>
+                            <p id="sobreAplicacao"></p>
+                        </div>
+
+                        <div class="sobre-item">
+                            <h4><i class="bx bx-purchase-tag"></i>Tags</h4>
+                            <div class="tags" id="sobreTags"></div>
+                        </div>
+
+                    </article>
+
+                </div>
+
+                <!-- SEÇÕES AUXILIARES (placeholder) -->
+                <div data-conteudo-secao="letra" style="display:none">
+                    <article class="card secao-card" data-anim="fadeUp" data-delay="0.18s">
+                        <h3 class="card-title">Letra e Cifra</h3>
+                        <div class="empty-mini"><i class="bx bx-music"></i><strong>Conteúdo em breve</strong><span>A letra e a cifra desta música serão adicionadas pela equipe de direção musical.</span></div>
+                    </article>
+                </div>
+
+                <div data-conteudo-secao="mapa" style="display:none">
+                    <article class="card secao-card" data-anim="fadeUp" data-delay="0.18s">
+                        <h3 class="card-title">Mapa Vocal</h3>
+                        <div class="empty-mini"><i class="bx bx-microphone"></i><strong>Conteúdo em breve</strong><span>O mapa vocal com as divisões de naipe será disponibilizado em breve.</span></div>
+                    </article>
+                </div>
+
+                <div data-conteudo-secao="kits" style="display:none">
+                    <article class="card secao-card" data-anim="fadeUp" data-delay="0.18s">
+                        <h3 class="card-title">Kits de Voz</h3>
+                        <div class="file-block" id="kitsArquivos"></div>
+                    </article>
+                </div>
+
+                <div data-conteudo-secao="playback" style="display:none">
+                    <article class="card secao-card" data-anim="fadeUp" data-delay="0.18s">
+                        <h3 class="card-title">Playback e Áudios</h3>
+                        <div class="file-block" id="audioArquivos"></div>
+                    </article>
+                </div>
+
+                <div data-conteudo-secao="partitura" style="display:none">
+                    <article class="card secao-card" data-anim="fadeUp" data-delay="0.18s">
+                        <h3 class="card-title">Partitura</h3>
+                        <div class="file-block" id="partituraArquivos"></div>
+                    </article>
+                </div>
+
+                <div data-conteudo-secao="observacoes" style="display:none">
+                    <article class="card secao-card" data-anim="fadeUp" data-delay="0.18s">
+                        <h3 class="card-title">Observações</h3>
+                        <div class="empty-mini"><i class="bx bx-message-rounded-dots"></i><strong>Sem observações</strong><span>Nenhuma observação registrada para esta música até o momento.</span></div>
+                    </article>
+                </div>
+
+            </div>
+
+
+            <!-- COLUNA LATERAL -->
+            <aside class="detalhe-side" data-anim="fadeUp" data-delay="0.24s">
+
+                <article class="card dl-card">
+                    <div class="card-head">
+                        <h3>Downloads</h3>
+                    </div>
+                    <div id="downloadsArquivos"></div>
+                </article>
+
+                <article class="card dl-card">
+                    <div class="card-head">
+                        <h3>Outras informações</h3>
+                    </div>
+                    <div class="info-lines">
+                        <div class="info-line"><span>Artista</span><strong id="oArtista"></strong></div>
+                        <div class="info-line"><span>Compositor</span><strong id="oCompositor"></strong></div>
+                        <div class="info-line"><span>Idioma</span><strong id="oIdioma"></strong></div>
+                        <div class="info-line"><span>Ano</span><strong id="oAno"></strong></div>
+                    </div>
+                </article>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+    <script src="auth.js"></script>
+
+    <script src="data.js"></script>
+
+    <script src="admin.js"></script>
+
+    <script src="pg5-dados.js"></script>
+
+    <script src="animations.js"></script>
+
+    <script>
+        (function () {
+var M = window.MS;
+            var params = new URLSearchParams(window.location.search);
+            var atual = M.byId(params.get('id'));
+            if (!atual) { window.location.replace('pg5.html'); return; }
+
+            function aplicar(s, push) {
+                if (!s) return;
+                atual = s;
+                document.title = 'Musical Escritor · ' + s.nome;
+                document.getElementById('crumbNome').textContent = s.nome;
+                document.getElementById('tituloMusica').textContent = s.nome;
+                document.getElementById('artistaMusica').textContent = s.artista;
+
+                document.getElementById('heroCapa').innerHTML = M.coverHTML(s, 'cap cap-hero');
+                var st = document.getElementById('heroStatus');
+                st.className = 'pill ' + M.statusClass(s.status);
+                st.textContent = s.status;
+                document.getElementById('heroNome').textContent = s.nome;
+                document.getElementById('heroArtista').textContent = s.artista;
+                document.getElementById('heroDesc').textContent = s.desc;
+
+                document.getElementById('iTom').textContent = s.tom;
+                document.getElementById('iBpm').textContent = s.bpm;
+                document.getElementById('iDura').textContent = s.duracao;
+                document.getElementById('iCena').textContent = s.cena;
+                document.getElementById('iEstilo').textContent = s.estilo;
+
+                document.getElementById('sobreTexto').textContent = s.sobre;
+                document.getElementById('sobreTrecho').innerHTML = s.trecho;
+                document.getElementById('sobreAplicacao').textContent = s.aplicacao || '';
+                document.getElementById('sobreTags').innerHTML = M.tagsHTML(s);
+
+                /* arquivos por seção */
+                var arquivos = s.arquivos || [];
+                var kit = arquivos.filter(function (a) { return a.icone === 'bx-headphone'; });
+                var audio = arquivos.filter(function (a) { return a.icone === 'bx-play-circle' || a.icone === 'bx-microphone'; });
+                var part = arquivos.filter(function (a) { return a.nome.indexOf('Partitura') > -1; });
+
+                document.getElementById('kitsArquivos').innerHTML = M.arquivosHTML(s, kit);
+                document.getElementById('audioArquivos').innerHTML = M.arquivosHTML(s, audio);
+                document.getElementById('partituraArquivos').innerHTML = M.arquivosHTML(s, part);
+                document.getElementById('downloadsArquivos').innerHTML = M.arquivosHTML(s);
+
+                document.getElementById('oArtista').textContent = s.artista;
+                document.getElementById('oCompositor').textContent = s.compositor || s.artista;
+                document.getElementById('oIdioma').textContent = s.idioma;
+                document.getElementById('oAno').textContent = s.ano;
+
+                if (push) {
+                    history.pushState(null, '', 'pg5-detalhe.html?id=' + s.id);
+                }
+
+                /* garante aba Visão Geral após troca de música */
+                irParaSecao('visao-geral');
+            }
+
+            /* ---------- TABS DA MÚSICA ---------- */
+
+            function irParaSecao(secao) {
+                document.querySelectorAll('.song-nav-links button').forEach(function (b) {
+                    b.classList.toggle('active', b.getAttribute('data-secao') === secao);
+                });
+                document.querySelectorAll('[data-conteudo-secao]').forEach(function (d) {
+                    d.style.display = d.getAttribute('data-conteudo-secao') === secao ? '' : 'none';
+                });
+                document.querySelector('.content').scrollTop = 0;
+            }
+
+            document.querySelectorAll('.song-nav-links button').forEach(function (b) {
+                b.addEventListener('click', function () { irParaSecao(b.getAttribute('data-secao')); });
+            });
+
+            /* ---------- ANTERIOR / PRÓXIMA ---------- */
+
+            function vizinho(delta) {
+                var i = M.ids.indexOf(atual.id) + delta;
+                var n = M.ids.length;
+                return M.byId(M.ids[(i + n) % n]);
+            }
+
+            document.getElementById('prevBtn').addEventListener('click', function () { aplicar(vizinho(-1), true); });
+            document.getElementById('nextBtn').addEventListener('click', function () { aplicar(vizinho(1), true); });
+            window.addEventListener('popstate', function () {
+                aplicar(M.byId(params.get('id')), false);
+            });
+
+            /* ---------- DOWNLOADS ---------- */
+
+            function mostrarToast(txt) {
+                var el = document.createElement('div');
+                el.className = 'toast';
+                el.textContent = txt;
+                document.body.appendChild(el);
+                setTimeout(function () { el.classList.add('show'); }, 20);
+                setTimeout(function () {
+                    el.classList.remove('show');
+                    setTimeout(function () { el.remove(); }, 300);
+                }, 2400);
+            }
+
+            document.addEventListener('click', function (e) {
+                var dl = e.target.closest('.dl-btn');
+                if (dl) {
+                    e.preventDefault();
+                    mostrarToast('Download iniciado: ' + (dl.getAttribute('aria-label') || '').replace('Baixar ', ''));
+                }
+            });
+
+aplicar(atual, false);
+
+            /* ---------- DADOS AO VIVO ---------- */
+            AppDB.onChange('musicas', function () {
+                var s = M.byId(params.get('id'));
+                if (s) aplicar(s, false);
+            });
+        })();
+    </script>
+
+</body>
+
+</html>

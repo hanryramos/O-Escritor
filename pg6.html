@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pg6.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <title>Musical Escritor · Arquivos e Links</title>
+</head>
+
+<body>
+
+    <div class="backdrop" id="backdrop"></div>
+
+    <!-- ===== SIDEBAR ===== -->
+
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral">
+
+        <button class="sidebar-close" id="sidebarClose" aria-label="Fechar menu">
+            <i class="bx bx-x"></i>
+        </button>
+
+        <div class="sidebar-logo">
+            <img src="assets/tipografia.png" alt="Musical Escritor">
+        </div>
+
+        <div class="divider-diamond"><b></b></div>
+
+        <nav class="sidebar-menu">
+            <a href="pg1.html"><i class="bx bx-home"></i><span>Início</span></a>
+            <a href="pg2.html"><i class="bx bx-calendar"></i><span>Agenda</span></a>
+            <a href="pg3.html"><i class="bx bx-check-square"></i><span>Tarefas</span></a>
+            <a href="pg4.html"><i class="bx bx-music"></i><span>Ensaios</span></a>
+            <a href="pg5.html"><i class="bx bx-headphone"></i><span>Músicas</span></a>
+            <a class="active" href="pg6.html"><i class="bx bx-folder"></i><span>Arquivos e Links</span></a>
+            <a href="pg7.html"><i class="bx bx-group"></i><span>Equipe</span></a>
+            <a href="pg8.html"><i class="bx bx-bell"></i><span>Notificações</span></a>
+            <a href="pg9.html"><i class="bx bx-user"></i><span>Meu Perfil</span></a>
+        </nav>
+
+        <div class="sidebar-quote">
+            <div class="divider-diamond"><b></b></div>
+            <p>“Cada detalhe<br>conta uma<br>história.”</p>
+            <div class="divider-diamond"><b></b></div>
+        </div>
+
+    </aside>
+
+
+    <!-- ===== CONTEÚDO ===== -->
+
+    <main class="content">
+
+        <header class="dashboard-header">
+
+            <div class="header-top">
+
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" data-anim="zoomIn" data-delay="0s">
+                    <i class="bx bx-menu"></i>
+                </button>
+
+                <div class="header-intro">
+                    <span class="crumb" data-anim="fadeUp" data-delay="0.05s">Arquivos e Links</span>
+                    <h1 data-anim="fadeUp" data-delay="0.12s">Arquivos e Links</h1>
+                    <p data-anim="fadeUp" data-delay="0.2s">Encontre documentos, materiais e recursos importantes para o musical.</p>
+                </div>
+
+                <div class="header-actions" data-anim="fadeIn" data-delay="0.26s">
+
+                    <div class="search-box">
+                        <i class="bx bx-search"></i>
+                        <input type="text" id="buscaTopo" placeholder="Buscar arquivos...">
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="notif-btn" aria-label="Notificações">
+                        <i class="bx bx-bell"></i>
+                        <span class="notif-dot" data-pulse></span>
+                    </button>
+
+                    <span class="divider-v"></span>
+
+                    <div class="profile">
+                        <div class="profile-avatar" id="profileAvatar">G</div>
+                        <div class="profile-info">
+                            <strong id="profileName">Gustavo</strong>
+                            <span>Integrante</span>
+                        </div>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="logout-btn" id="logoutBtn" aria-label="Sair da conta">
+                        <i class="bx bx-log-out"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="quote-deco">
+                <p data-anim="fadeUp" data-delay="0.35s">“Cada material guarda<br>um passo da história.”</p>
+                <div class="divider-diamond" data-anim="fadeIn" data-delay="0.5s"><b></b></div>
+            </div>
+
+        </header>
+
+
+        <!-- ===== TOOLBAR ===== -->
+
+        <div class="rec-toolbar" data-anim="fadeUp" data-delay="0.1s">
+
+            <div class="search-rec">
+                <i class="bx bx-search"></i>
+                <input type="text" id="buscaRec" placeholder="Buscar arquivos...">
+            </div>
+
+            <div class="tabs" id="tabRec">
+                <button class="active" data-filtro="todos">Todos</button>
+                <button data-filtro="arquivos">Arquivos</button>
+                <button data-filtro="links">Links</button>
+            </div>
+
+<div class="new-rec-wrap" data-admin-only>
+                <button class="new-btn adm-inline" id="novoRecBtn">
+                    <i class="bx bx-plus"></i> Novo recurso
+                </button>
+                <div class="dropdown new-dd" id="novoRecDD">
+                    <button data-novo="arquivo"><i class="bx bx-file-blank"></i>Adicionar arquivo</button>
+                    <button data-novo="link"><i class="bx bx-link"></i>Adicionar link</button>
+                </div>
+            </div>
+
+            <button class="new-btn adm-inline" id="gerCatRec" data-admin-only title="Editar categorias de arquivos e links">
+                <i class="bx bx-cog"></i> Categorias
+            </button>
+
+        </div>
+
+
+        <!-- ===== LISTA + LATERAL ===== -->
+
+        <section class="recursos-layout">
+
+            <div class="recursos-main">
+
+                <div id="secaoArquivos" data-anim="fadeUp" data-delay="0.16s"></div>
+
+                <div id="secaoLinks" data-anim="fadeUp" data-delay="0.2s"></div>
+
+                <div class="empty-state card" id="emptyState" style="display:none">
+                    <i class="bx bx-folder-open"></i>
+                    <strong>Nenhum resultado encontrado</strong>
+                    <span>Tente ajustar a busca ou os filtros.</span>
+                </div>
+
+            </div>
+
+
+            <!-- COLUNA LATERAL -->
+            <aside class="recursos-side">
+
+                <article class="card cat-card" data-anim="fadeUp" data-delay="0.24s">
+
+                    <div class="card-head">
+                        <h3>Categorias</h3>
+                        <button class="link-btn" id="limparCat">Limpar</button>
+                    </div>
+
+                    <div id="listaCategorias" class="cat-list"></div>
+
+                </article>
+
+
+                <article class="card filt-card" data-anim="fadeUp" data-delay="0.3s">
+
+                    <div class="card-head">
+                        <h3>Filtros</h3>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Tipo</label>
+                        <div class="select-wrap">
+                            <select id="fTipo">
+                                <option value="todos">Todos</option>
+                                <option value="arquivos">Arquivos</option>
+                                <option value="links">Links</option>
+                            </select>
+                            <i class="bx bx-chevron-down"></i>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Categoria</label>
+                        <div class="select-wrap">
+                            <select id="fCategoria"></select>
+                            <i class="bx bx-chevron-down"></i>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Responsável</label>
+                        <div class="select-wrap">
+<select id="fResponsavel">
+                                <option value="todos">Todos</option>
+                            </select>
+                            <i class="bx bx-chevron-down"></i>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Data de atualização</label>
+                        <div class="select-wrap">
+                            <select id="fData">
+                                <option value="todos">Qualquer período</option>
+                                <option value="7d">Últimos 7 dias</option>
+                                <option value="30d">Últimos 30 dias</option>
+                                <option value="antigo">Mais de 30 dias</option>
+                            </select>
+                            <i class="bx bx-chevron-down"></i>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Ordenar por</label>
+                        <div class="select-wrap">
+                            <select id="fOrdem">
+                                <option value="recentes">Mais recentes</option>
+                                <option value="antigos">Mais antigos</option>
+                                <option value="nome">Nome A–Z</option>
+                            </select>
+                            <i class="bx bx-chevron-down"></i>
+                        </div>
+                    </div>
+
+                    <div class="filter-btns">
+                        <button class="btn-clear" id="limparFiltros">Limpar</button>
+                        <button class="btn-apply" id="aplicarFiltros">Aplicar filtros</button>
+                    </div>
+
+                </article>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+    <!-- ===== MODAL · NOVO ARQUIVO ===== -->
+
+    <div class="overlay" id="overlayArquivo">
+        <div class="modal">
+            <div class="modal-head">
+                <h3>Adicionar arquivo</h3>
+                <button class="icon-btn modal-close" id="fecharArquivo" aria-label="Fechar"><i class="bx bx-x"></i></button>
+            </div>
+            <form id="formArquivo">
+                <div class="form-row">
+                    <label for="arqNome">Nome do arquivo</label>
+                    <input type="text" id="arqNome" placeholder="Ex.: Notas do Ensaio — Cena 2.pdf" required>
+                </div>
+                <div class="form-row">
+                    <label for="arqTipo">Tipo</label>
+                    <div class="select-wrap">
+                        <select id="arqTipo">
+                            <option value="pdf">PDF</option>
+                            <option value="docx">Word</option>
+                            <option value="xlsx">Excel</option>
+                            <option value="pptx">Slides</option>
+                            <option value="mp3">Áudio</option>
+                            <option value="img">Imagem</option>
+                        </select>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="arqCategoria">Categoria</label>
+                    <div class="select-wrap">
+                        <select id="arqCategoria"></select>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="arqResponsavel">Responsável</label>
+                    <div class="select-wrap">
+                        <select id="arqResponsavel"></select>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="arqTamanho">Tamanho (opcional)</label>
+                    <input type="text" id="arqTamanho" placeholder="Ex.: 1,2 MB">
+                </div>
+                <div class="btn-row">
+                    <button type="button" class="btn-ghost" id="cancelarArquivo">Cancelar</button>
+                    <button type="submit" class="btn-gold">Adicionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ===== MODAL · NOVO LINK ===== -->
+
+    <div class="overlay" id="overlayLink">
+        <div class="modal">
+            <div class="modal-head">
+                <h3>Adicionar link</h3>
+                <button class="icon-btn modal-close" id="fecharLink" aria-label="Fechar"><i class="bx bx-x"></i></button>
+            </div>
+            <form id="formLink">
+                <div class="form-row">
+                    <label for="linkNome">Nome do recurso</label>
+                    <input type="text" id="linkNome" placeholder="Ex.: Spotify — Repertório do musical" required>
+                </div>
+                <div class="form-row">
+                    <label for="linkUrl">URL</label>
+                    <input type="url" id="linkUrl" placeholder="https://..." required>
+                </div>
+                <div class="form-row">
+                    <label for="linkCategoria">Categoria</label>
+                    <div class="select-wrap">
+                        <select id="linkCategoria"></select>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="linkResponsavel">Responsável</label>
+                    <div class="select-wrap">
+                        <select id="linkResponsavel"></select>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="btn-row">
+                    <button type="button" class="btn-ghost" id="cancelarLink">Cancelar</button>
+                    <button type="submit" class="btn-gold">Adicionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+    <script src="auth.js"></script>
+
+    <script src="data.js"></script>
+
+    <script src="admin.js"></script>
+
+<script src="pg6-dados.js"></script>
+
+    <script src="config-dados.js"></script>
+
+    <script src="animations.js"></script>
+
+    <script>
+        (function () {
+            var R = window.RC;
+
+            var secaoArq = document.getElementById('secaoArquivos');
+            var secaoLink = document.getElementById('secaoLinks');
+            var empty = document.getElementById('emptyState');
+            var busca = document.getElementById('buscaRec');
+            var buscaTopo = document.getElementById('buscaTopo');
+
+            var tabAtual = 'todos';
+            var catSel = null;
+            var tipoSel = 'todos';
+            var respSel = 'todos';
+            var dataSel = 'todos';
+            var ordemSel = 'recentes';
+
+            var ddNovo = document.getElementById('novoRecDD');
+            document.getElementById('novoRecBtn').addEventListener('click', function (e) {
+                e.stopPropagation();
+                ddNovo.classList.toggle('show');
+            });
+            document.addEventListener('click', function (e) {
+                if (!e.target.closest('.new-rec-wrap')) ddNovo.classList.remove('show');
+            });
+
+/* ---------- POPULATE SELECTS ---------- */
+            var selCatSel = document.getElementById('fCategoria');
+
+            function repopularCategorias() {
+                var atualFil = selCatSel.value;
+                selCatSel.innerHTML = '<option value="todos">Todas</option>' + R.categorias.map(function (c) {
+                    return '<option value="' + R.esc(c) + '"' + (atualFil === c ? ' selected' : '') + '>' + R.esc(c) + '</option>';
+                }).join('');
+                ['arqCategoria', 'linkCategoria'].forEach(function (idS) {
+                    var s = document.getElementById(idS);
+                    if (!s) return;
+                    var atual = s.value;
+                    s.innerHTML = R.categorias.map(function (c) {
+                        return '<option' + (atual === c ? ' selected' : '') + '>' + R.esc(c) + '</option>';
+                    }).join('');
+                });
+            }
+
+            document.getElementById('gerCatRec').addEventListener('click', AdminKit.guard(function () {
+                AdminKit.modal({
+                    title: 'Categorias de arquivos e links',
+                    submitLabel: 'Salvar categorias',
+                    values: { lista: R.categorias.join('\n') },
+                    fields: [{
+                        name: 'lista',
+                        label: 'Uma categoria por linha',
+                        type: 'textarea',
+                        required: true
+                    }]
+                }).then(function (v) {
+                    if (!v) return;
+                    var itens = String(v.lista || '').split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+                    AppDB.update('config', 'categorias_arquivos', { itens: itens }).then(function () {
+                        AdminKit.toast('Categorias atualizadas.', 'ok');
+                    });
+                });
+            }));
+
+            var responsaveis = [];
+
+            function nomeAtual() {
+                var el = document.getElementById('profileName');
+                var t = el ? el.textContent.trim() : '';
+                return t || 'Integrante';
+            }
+
+            function preencherResponsaveis() {
+                var selFil = document.getElementById('fResponsavel');
+                var selArq = document.getElementById('arqResponsavel');
+                var selLink = document.getElementById('linkResponsavel');
+                if (selFil) {
+                    var atual = selFil.value;
+                    while (selFil.options.length > 1) selFil.remove(1);
+                    responsaveis.forEach(function (m) {
+                        var o = document.createElement('option');
+                        o.textContent = m.nome;
+                        o.value = m.nome;
+                        selFil.appendChild(o);
+                    });
+                    if (atual && atual !== 'todos') selFil.value = atual;
+                }
+                [selArq, selLink].forEach(function (sel) {
+                    if (!sel) return;
+                    sel.innerHTML = '';
+                    if (!responsaveis.length) {
+                        var vazio = document.createElement('option');
+                        vazio.value = '';
+                        vazio.textContent = 'Sem responsável';
+                        sel.appendChild(vazio);
+                        return;
+                    }
+                    var eu = nomeAtual();
+                    responsaveis.forEach(function (m) {
+                        var o = document.createElement('option');
+                        o.textContent = m.nome;
+                        o.value = m.nome;
+                        if (m.nome === eu) o.selected = true;
+                        sel.appendChild(o);
+                    });
+                });
+            }
+
+            /* ---------- RENDER ---------- */
+
+            function dentroDaData(iso) {
+                if (dataSel === 'todos') return true;
+                var hoje = Date.now();
+                var t = new Date(iso + 'T12:00:00').getTime();
+                var days = Math.floor((hoje - t) / 86400000);
+                if (dataSel === '7d') return days >= 0 && days <= 7;
+                if (dataSel === '30d') return days >= 0 && days <= 30;
+                return days > 30;
+            }
+
+            function ordenar(lista) {
+                return lista.slice().sort(function (a, b) {
+                    if (ordemSel === 'nome') return a.nome.localeCompare(b.nome);
+                    return ordemSel === 'antigos'
+                        ? a.data.localeCompare(b.data)
+                        : b.data.localeCompare(a.data);
+                });
+            }
+
+            function aceito(item, ehLink) {
+                if (busca.value.trim() || buscaTopo.value.trim()) {
+                    var q = (busca.value + ' ' + buscaTopo.value).toLowerCase();
+                    if (item.nome.toLowerCase().indexOf(q) === -1) return false;
+                }
+                if (tabAtual !== 'todos') {
+                    var mm = tabAtual === 'arquivos' ? false : true;
+                    if (ehLink !== mm) return false;
+                }
+                if (tipoSel !== 'todos') {
+                    var tt = tipoSel === 'arquivos' ? false : true;
+                    if (ehLink !== tt) return false;
+                }
+                if (catSel && item.categoria !== catSel) return false;
+                if (respSel !== 'todos' && item.responsavel !== respSel) return false;
+                if (!dentroDaData(item.data)) return false;
+                return true;
+            }
+
+            function rowHTML(item, ehLink) {
+                var t = R.tipos[item.tipo] || R.tipos.pdf;
+                var meta = '<span class="rec-meta">' + R.esc(item.categoria) +
+                    ' · ' + R.esc(item.responsavel) +
+                    ' · ' + R.fmtData(item.data) + '</span>';
+                var acoes;
+                if (ehLink) {
+                    acoes = '<button class="abrir-btn" data-abrir="' + R.esc(item.url) + '"><i class="bx bx-link-external"></i>Abrir</button>';
+                } else {
+                    acoes = '<span class="file-size">' + R.esc(item.tamanho || '—') + '</span>' +
+                        '<button class="dl-btn" aria-label="Baixar"><i class="bx bx-download"></i></button>';
+                }
+                return '<div class="recurso-row" data-idx="">' +
+                    '<span class="tipo-box ' + t.cls + '"><i class="bx ' + t.icone + '"></i></span>' +
+                    '<div class="recurso-info">' +
+                    '<strong>' + R.esc(item.nome) + '</strong>' +
+                    meta +
+                    '</div>' +
+                    acoes +
+                    '<div class="kebab">' +
+                    '<button class="icon-btn kebab-open" aria-label="Opções"><i class="bx bx-dots-vertical-rounded"></i></button>' +
+                    '<div class="dropdown row-dd">' +
+                    (ehLink ? '<button data-ai="abrir"><i class="bx bx-link-external"></i>Abrir</button>' : '<button data-ai="baixar"><i class="bx bx-download"></i>Baixar</button>') +
+                    '<button data-ai="compartilhar"><i class="bx bx-share-alt"></i>Compartilhar</button>' +
+                    '<button data-ai="renomear"><i class="bx bx-edit"></i>Renomear</button>' +
+                    '<button data-ai="excluir"><i class="bx bx-trash"></i>Excluir</button>' +
+                    '</div></div></div>';
+            }
+
+            function secaoHTML(titulo, itens, ehLink) {
+                if (!itens.length) return '';
+                var cab = ehLink
+                    ? '<div class="sec-head"><h3>Links importantes</h3><span class="sec-count">' + itens.length + '</span></div>'
+                    : '<div class="sec-head"><h3>Arquivos</h3><span class="sec-count">' + itens.length + '</span></div>';
+                return '<article class="card sec-card"><div class="sec-head">' +
+                    '<h3>' + titulo + '</h3><span class="sec-count">' + itens.length + '</span>' +
+                    '</div><div class="sec-rows">' +
+                    itens.map(function (i) { return rowHTML(i, ehLink); }).join('') +
+                    '</div></article>';
+            }
+
+            function contagemGeral() {
+                var tec = R.tipos;
+                var ret = { arquivos: R.arquivos.length, links: R.links.length };
+                return 'arquivos=' + ret.arquivos + '&links=' + ret.links;
+            }
+
+            function render() {
+                var arq = ordenar(R.arquivos.filter(function (a) { return aceito(a, false); }));
+                var lin = ordenar(R.links.filter(function (l) { return aceito(l, true); }));
+                secaoArq.innerHTML = secaoHTML('Arquivos', arq, false);
+                secaoLink.innerHTML = secaoHTML('Links importantes', lin, true);
+                empty.style.display = (arq.length + lin.length) ? 'none' : 'flex';
+                bindRows();
+                renderCategorias();
+            }
+
+            /* ---------- CATEGORIAS ---------- */
+
+            function renderCategorias() {
+                var lista = document.getElementById('listaCategorias');
+                lista.innerHTML = R.categorias.map(function (c) {
+                    var n = R.contagem(c);
+                    var ativa = catSel === c ? ' active' : '';
+                    return '<button class="cat-item' + ativa + '" data-cat="' + c + '">' +
+                        '<i class="bx bxs-folder"></i><span>' + c + '</span><b>' + n + '</b></button>';
+                }).join('');
+                lista.querySelectorAll('.cat-item').forEach(function (b) {
+                    b.addEventListener('click', function () {
+                        busca.value = '';
+                        buscaTopo.value = '';
+                        catSel = b.getAttribute('data-cat');
+                        selCatSel.value = catSel;
+                        setTabAtual('todos');
+                        render();
+                    });
+                });
+            }
+
+            function limparCat() {
+                catSel = null;
+                selCatSel.value = 'todos';
+                render();
+            }
+
+            /* ---------- ABAS ---------- */
+
+            function setTabAtual(t) {
+                tabAtual = t;
+                document.querySelectorAll('#tabRec .tabs button, #tabRec button').forEach(function (b) {
+                    b.classList.toggle('active', b.getAttribute('data-filtro') === t);
+                });
+            }
+
+            document.querySelectorAll('#tabRec button').forEach(function (b) {
+                b.addEventListener('click', function () {
+                    setTabAtual(b.getAttribute('data-filtro'));
+                    render();
+                });
+            });
+
+            /* ---------- BUSCA ---------- */
+            busca.addEventListener('input', render);
+            buscaTopo.addEventListener('input', render);
+
+            /* ---------- FILTROS ---------- */
+            document.getElementById('aplicarFiltros').addEventListener('click', function () {
+                catSel = selCatSel.value === 'todos' ? null : selCatSel.value;
+                tipoSel = document.getElementById('fTipo').value;
+                respSel = document.getElementById('fResponsavel').value;
+                dataSel = document.getElementById('fData').value;
+                ordemSel = document.getElementById('fOrdem').value;
+                selCatSel.value = catSel || 'todos';
+                render();
+                document.querySelector('.content').scrollTop = 0;
+            });
+
+            document.getElementById('limparFiltros').addEventListener('click', function () {
+                tipoSel = 'todos';
+                respSel = 'todos';
+                dataSel = 'todos';
+                ordemSel = 'recentes';
+                document.getElementById('fTipo').value = 'todos';
+                document.getElementById('fResponsavel').value = 'todos';
+                document.getElementById('fData').value = 'todos';
+                document.getElementById('fOrdem').value = 'recentes';
+                limparCat();
+            });
+
+            /* ---------- ROWS · AÇÕES ---------- */
+
+            function toast(msg) {
+                var msgEl = document.createElement('div');
+                msgEl.className = 'toast';
+                msgEl.textContent = msg;
+                document.body.appendChild(msgEl);
+                setTimeout(function () { msgEl.classList.add('show'); }, 20);
+                setTimeout(function () {
+                    msgEl.classList.remove('show');
+                    setTimeout(function () { msgEl.remove(); }, 300);
+                }, 2400);
+            }
+
+            function bindRows() {
+                var sec = document.getElementById('secaoArquivos').querySelectorAll('.recurso-row');
+                var ls = document.getElementById('secaoLinks').querySelectorAll('.recurso-row');
+
+                function bind(lista, ehLink) {
+                    lista.forEach(function (rowEl, i) {
+                        var arr = ehLink ? R.links : R.arquivos;
+                        var idx = Array.prototype.indexOf.call(rowEl.parentNode.children, rowEl);
+                        // garante que a ação excluir remova o item certo
+                        var alvo;
+                        rowEl.addEventListener('kebab-open', function () { });
+                        var kbtn = rowEl.querySelector('.kebab-open');
+                        if (kbtn) kbtn.addEventListener('click', function (e) {
+                            e.stopPropagation();
+                            fecharOutros(rowEl);
+                            rowEl.classList.toggle('dd-open');
+                        });
+                        rowEl.querySelectorAll('.dropdown button[data-ai]').forEach(function (b) {
+                            b.addEventListener('click', function () {
+                                var acao = b.getAttribute('data-ai');
+                                var item = dadosDaRow(rowEl, ehLink);
+fecharOutros();
+                                if (acao === 'excluir') {
+                                    AdminKit.guard(function () {
+                                        AdminKit.confirm({
+                                            title: 'Excluir ' + (ehLink ? 'link' : 'arquivo'),
+                                            message: 'Excluir "' + item.nome + '"? Esta ação não pode ser desfeita.',
+                                            confirmLabel: 'Excluir',
+                                            danger: true
+                                        }).then(function (ok) {
+                                            if (!ok) return;
+                                            AppDB.remove(ehLink ? 'links' : 'arquivos', item._id).then(function () {
+                                                AdminKit.toast('Item excluído.', 'ok');
+                                            });
+                                        });
+                                    })();
+                                } else if (acao === 'baixar') {
+                                    toast('Download iniciado: ' + item.nome);
+                                } else if (acao === 'abrir') {
+                                    if (item.url) window.open(item.url, '_blank');
+                                } else if (acao === 'compartilhar') {
+                                    toast('Link de compartilhamento copiado.');
+} else if (acao === 'renomear') {
+                                    AdminKit.guard(function () {
+                                        AdminKit.modal({
+                                            title: 'Renomear',
+                                            submitLabel: 'Salvar',
+                                            values: { nome: item.nome || '' },
+                                            fields: [{ name: 'nome', label: 'Nome', required: true }]
+                                        }).then(function (v) {
+                                            if (!v) return;
+                                            AppDB.update(ehLink ? 'links' : 'arquivos', item._id, { nome: v.nome.trim() }).then(function () {
+                                                AdminKit.toast('Nome atualizado.', 'ok');
+                                            });
+                                        });
+                                    })();
+                                }
+                            });
+                        });
+                        var dl = rowEl.querySelector('.dl-btn');
+                        if (dl) dl.addEventListener('click', function (e) {
+                            e.stopPropagation();
+                            toast('Download iniciado.');
+                        });
+                        var abrir = rowEl.querySelector('.abrir-btn');
+                        if (abrir) abrir.addEventListener('click', function (e) {
+                            e.stopPropagation();
+                            window.open(abrir.getAttribute('data-abrir'), '_blank');
+                        });
+                    });
+                }
+
+                bind(sec, false);
+                bind(ls, true);
+            }
+
+            function dadosDaRow(rowEl, ehLink) {
+                var arr = ehLink ? R.links : R.arquivos;
+                var nome = rowEl.querySelector('.recurso-info strong').textContent;
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i].nome === nome) return arr[i];
+                }
+                return arr[0];
+            }
+
+            function fecharOutros(fora) {
+                document.querySelectorAll('.recurso-row.dd-open').forEach(function (r) {
+                    if (r !== fora) r.classList.remove('dd-open');
+                });
+            }
+
+            document.addEventListener('click', function (e) {
+                if (!e.target.closest('.recurso-row')) {
+                    document.querySelectorAll('.recurso-row.dd-open').forEach(function (r) { r.classList.remove('dd-open'); });
+                }
+            });
+
+            /* ---------- NOVO RECURSO ---------- */
+
+            var ovArq = document.getElementById('overlayArquivo');
+            var ovLink = document.getElementById('overlayLink');
+
+            function abrir(ov) { ov.classList.add('show'); document.body.style.overflow = 'hidden'; }
+            function fechar(ov) { ov.classList.remove('show'); document.body.style.overflow = ''; }
+
+ddNovo.querySelectorAll('[data-novo]').forEach(function (b) {
+                b.addEventListener('click', function () {
+                    ddNovo.classList.remove('show');
+                    AdminKit.guard(function () {
+                        if (b.getAttribute('data-novo') === 'arquivo') abrir(ovArq);
+                        else abrir(ovLink);
+                    })();
+                });
+            });
+
+            document.getElementById('fecharArquivo').addEventListener('click', function () { fechar(ovArq); });
+            document.getElementById('cancelarArquivo').addEventListener('click', function () { fechar(ovArq); });
+            document.getElementById('fecharLink').addEventListener('click', function () { fechar(ovLink); });
+            document.getElementById('cancelarLink').addEventListener('click', function () { fechar(ovLink); });
+            [ovArq, ovLink].forEach(function (ov) {
+                ov.addEventListener('click', function (e) { if (e.target === ov) fechar(ov); });
+            });
+
+document.getElementById('formArquivo').addEventListener('submit', function (e) {
+                e.preventDefault();
+                AppDB.add('arquivos', {
+                    nome: document.getElementById('arqNome').value.trim(),
+                    tipo: document.getElementById('arqTipo').value,
+                    categoria: document.getElementById('arqCategoria').value,
+                    responsavel: (document.getElementById('arqResponsavel') || {}).value || nomeAtual(),
+                    data: new Date().toISOString().slice(0, 10),
+                    tamanho: document.getElementById('arqTamanho').value.trim() || '—'
+                }).then(function () {
+                    AdminKit.toast('Arquivo adicionado.', 'ok');
+                });
+                setTabAtual('todos');
+                catSel = null;
+                selCatSel.value = 'todos';
+                fechar(ovArq);
+                e.target.reset();
+                preencherResponsaveis();
+            });
+
+document.getElementById('formLink').addEventListener('submit', function (e) {
+                e.preventDefault();
+                AppDB.add('links', {
+                    nome: document.getElementById('linkNome').value.trim(),
+                    url: document.getElementById('linkUrl').value.trim(),
+                    categoria: document.getElementById('linkCategoria').value,
+                    responsavel: (document.getElementById('linkResponsavel') || {}).value || nomeAtual(),
+                    data: new Date().toISOString().slice(0, 10)
+                }).then(function () {
+                    AdminKit.toast('Link adicionado.', 'ok');
+                });
+                setTabAtual('todos');
+                catSel = null;
+                selCatSel.value = 'todos';
+                fechar(ovLink);
+                e.target.reset();
+                preencherResponsaveis();
+            });
+
+/* ---------- PRIMER RENDER ---------- */
+            if (typeof R.onChange === 'function') R.onChange(render);
+            if (typeof R.onChange === 'function') R.onChange(repopularCategorias);
+            if (window.AppDB) {
+                AppDB.onChange('integrantes', function (lista) {
+                    responsaveis = lista;
+                    preencherResponsaveis();
+                });
+            }
+            repopularCategorias();
+            render();
+        })();
+    </script>
+
+</body>
+
+</html>

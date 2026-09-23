@@ -1,0 +1,295 @@
+/* =====================================
+   ONBOARDING — PRIMEIRO ACESSO
+   (exibido quando a pessoa ainda não
+    preencheu os dados principais)
+===================================== */
+
+.onboarding-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 4vw;
+
+    background: rgba(38, 25, 13, 0.55);
+    backdrop-filter: blur(4px);
+
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.onboarding-overlay.show {
+    opacity: 1;
+}
+
+.onboarding-card {
+    width: min(560px, 94vw);
+    max-height: 88vh;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 20px;
+
+    background: #fffdf8;
+
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+
+    overflow: hidden;
+}
+
+.onboarding-card .onb-fechar {
+    position: absolute;
+    right: 14px;
+    top: 14px;
+    z-index: 2;
+
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+    place-items: center;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #f1e8da;
+    color: #6F461B;
+
+    font-size: 1.3rem;
+
+    cursor: pointer;
+}
+
+.onboarding-card .onb-fechar:hover {
+    background: #e6d8c3;
+}
+
+.onb-topo {
+    padding: 26px 28px 0;
+}
+
+.onb-selo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+
+    padding: 0.35rem 0.8rem;
+
+    border-radius: 999px;
+
+    background: linear-gradient(120deg, #E8D3AC, #C99B62);
+    color: #4a2f12;
+
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.onb-topo h2 {
+    margin-top: 0.8rem;
+
+    font-family: 'Milesdane', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+
+    font-size: 1.7rem;
+
+    color: #241a10;
+}
+
+.onb-intro {
+    margin-top: 0.4rem;
+
+    font-size: 0.88rem;
+    line-height: 1.55;
+
+    color: #6d6152;
+}
+
+.onb-corpo {
+    padding: 18px 28px 6px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    overflow-y: auto;
+}
+
+.onb-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.onb-campo > span {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+
+    color: #6F461B;
+}
+
+.onb-campo > span i {
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+
+    color: #a3927e;
+}
+
+.onb-campo input[type="text"],
+.onb-campo input:not([type]),
+.onb-campo textarea {
+    width: 100%;
+
+    padding: 0.65rem 0.85rem;
+
+    border: 1px solid #e4d8c6;
+    border-radius: 10px;
+
+    background: #fff;
+
+    font-family: inherit;
+    font-size: 0.88rem;
+
+    color: #2b2013;
+
+    outline: none;
+}
+
+.onb-campo input:focus,
+.onb-campo textarea:focus {
+    border-color: #bd915a;
+}
+
+.onb-campo textarea {
+    resize: vertical;
+}
+
+.onb-equipes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.onb-eq {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 0.4rem 0.75rem;
+
+    border: 1px solid #e4d8c6;
+    border-radius: 999px;
+
+    background: #faf6ef;
+
+    font-size: 0.82rem;
+
+    color: #3a2c1c;
+
+    cursor: pointer;
+
+    transition: all 0.18s;
+}
+
+.onb-eq:has(input:checked) {
+    border-color: #b9853f;
+    background: #f3e6cf;
+    color: #4a2f12;
+}
+
+.onb-eq input {
+    accent-color: #b9853f;
+}
+
+.onb-empty {
+    width: 100%;
+
+    font-size: 0.78rem;
+
+    color: #a3927e;
+}
+
+.onb-personagem {
+    display: flex;
+    gap: 18px;
+}
+
+.onb-personagem label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: 0.86rem;
+
+    color: #4a3a28;
+
+    cursor: pointer;
+}
+
+.onb-personagem input {
+    accent-color: #b9853f;
+}
+
+.onb-acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    padding: 14px 28px 24px;
+}
+
+.onb-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    padding: 0.65rem 1.3rem;
+
+    border: none;
+    border-radius: 11px;
+
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.onb-ghost {
+    background: transparent;
+    color: #8a7a67;
+}
+
+.onb-ghost:hover {
+    color: #5b4c39;
+    background: #f4ede1;
+}
+
+.onb-primario {
+    background: linear-gradient(120deg, #C99B62, #8a5a26);
+    color: #fff;
+
+    box-shadow: 0 6px 16px rgba(138, 90, 38, 0.3);
+}
+
+.onb-primario:hover {
+    filter: brightness(1.05);
+}
+
+.onb-primario[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

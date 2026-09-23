@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pg7.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <title>Musical Escritor · Integrante</title>
+</head>
+
+<body>
+
+    <div class="backdrop" id="backdrop"></div>
+
+    <!-- ===== SIDEBAR ===== -->
+
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral">
+
+        <button class="sidebar-close" id="sidebarClose" aria-label="Fechar menu">
+            <i class="bx bx-x"></i>
+        </button>
+
+        <div class="sidebar-logo">
+            <img src="assets/tipografia.png" alt="Musical Escritor">
+        </div>
+
+        <div class="divider-diamond"><b></b></div>
+
+        <nav class="sidebar-menu">
+            <a href="pg1.html"><i class="bx bx-home"></i><span>Início</span></a>
+            <a href="pg2.html"><i class="bx bx-calendar"></i><span>Agenda</span></a>
+            <a href="pg3.html"><i class="bx bx-check-square"></i><span>Tarefas</span></a>
+            <a href="pg4.html"><i class="bx bx-music"></i><span>Ensaios</span></a>
+            <a href="pg5.html"><i class="bx bx-headphone"></i><span>Músicas</span></a>
+            <a href="pg6.html"><i class="bx bx-folder"></i><span>Arquivos e Links</span></a>
+            <a class="active" href="pg7.html"><i class="bx bx-group"></i><span>Equipe</span></a>
+            <a href="pg8.html"><i class="bx bx-bell"></i><span>Notificações</span></a>
+            <a href="pg9.html"><i class="bx bx-user"></i><span>Meu Perfil</span></a>
+        </nav>
+
+        <div class="sidebar-quote">
+            <div class="divider-diamond"><b></b></div>
+            <p>“Cada detalhe<br>conta uma<br>história.”</p>
+            <div class="divider-diamond"><b></b></div>
+        </div>
+
+    </aside>
+
+
+    <!-- ===== CONTEÚDO ===== -->
+
+    <main class="content">
+
+        <header class="dashboard-header">
+
+            <div class="header-top">
+
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" data-anim="zoomIn" data-delay="0s">
+                    <i class="bx bx-menu"></i>
+                </button>
+
+                <div class="header-intro">
+                    <nav class="breadcrumb" data-anim="fadeUp" data-delay="0.05s">
+                        <a href="pg7.html">Equipe</a>
+                        <i class="bx bx-chevron-right"></i>
+                        <span id="crumbNome">Integrante</span>
+                    </nav>
+                    <h1 id="tituloMembro" data-anim="fadeUp" data-delay="0.12s">Integrante</h1>
+                    <p id="linhaMembro" data-anim="fadeUp" data-delay="0.2s"></p>
+                </div>
+
+                <div class="header-actions" data-anim="fadeIn" data-delay="0.26s">
+
+                    <div class="search-box">
+                        <i class="bx bx-search"></i>
+                        <input type="text" placeholder="Buscar integrante...">
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="notif-btn" aria-label="Notificações">
+                        <i class="bx bx-bell"></i>
+                        <span class="notif-dot" data-pulse></span>
+                    </button>
+
+                    <span class="divider-v"></span>
+
+                    <div class="profile">
+                        <div class="profile-avatar" id="profileAvatar">G</div>
+                        <div class="profile-info">
+                            <strong id="profileName">Gustavo</strong>
+                            <span>Integrante</span>
+                        </div>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="logout-btn" id="logoutBtn" aria-label="Sair da conta">
+                        <i class="bx bx-log-out"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="quote-deco">
+                <p data-anim="fadeUp" data-delay="0.35s">“Cada voz escreve<br>um pedaço da história.”</p>
+                <div class="divider-diamond" data-anim="fadeIn" data-delay="0.5s"><b></b></div>
+            </div>
+
+        </header>
+
+
+        <button class="back-top" data-anim="fadeUp" data-delay="0.08s" onclick="window.location.href='pg7.html'">
+            <i class="bx bx-arrow-back"></i>
+            Voltar para Equipe
+        </button>
+
+
+        <!-- ===== PERFIL ===== -->
+
+        <section class="card perfil-card" data-anim="fadeUp" data-delay="0.12s">
+            <span id="avatarGrande"></span>
+            <div class="perfil-info">
+                <h1 id="nomePerfil">—</h1>
+                <p id="linhaPerfil">—</p>
+                <p id="chipPerfil" style="margin-top:0.5rem;"></p>
+            </div>
+        </section>
+
+
+        <!-- ===== INFORMAÇÕES · ENSAIOS · TAREFAS ===== -->
+
+        <section class="detalhe-layout" data-anim="fadeUp" data-delay="0.18s">
+
+            <div class="card det-card">
+                <h3>Informações</h3>
+                <div id="infoLista"></div>
+            </div>
+
+            <div class="card det-card">
+                <h3>Próximos ensaios</h3>
+                <div id="listaEnsaios"></div>
+            </div>
+
+            <div class="card det-card">
+                <h3>Tarefas</h3>
+                <div id="listaTarefas"></div>
+            </div>
+
+        </section>
+
+
+        <!-- ===== ANTERIOR / PRÓXIMA ===== -->
+
+        <div class="prev-next" data-anim="fadeUp" data-delay="0.24s">
+            <button class="pn" id="prevBtn"><i class="bx bx-chevron-left"></i> Anterior</button>
+            <span class="pn-tag" id="posTag">Integrante 1 de 24</span>
+            <button class="pn" id="nextBtn">Próxima <i class="bx bx-chevron-right"></i></button>
+        </div>
+
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+    <script src="auth.js"></script>
+
+    <script src="data.js"></script>
+
+    <script src="admin.js"></script>
+    <script src="animations.js"></script>
+    <script src="pg7-dados.js"></script>
+    <script>
+        (function () {
+
+            var EQ = window.EQ;
+            var indice = 0;
+
+            function getParam(nome) {
+                var params = new URLSearchParams(window.location.search);
+                var v = params.get(nome);
+                return v ? v : null;
+            }
+
+            function montar() {
+                var id = getParam('id');
+                var m = id && EQ.porId[id] ? EQ.porId[id] : null;
+                if (!m) {
+                    window.location.href = 'pg7.html';
+                    return;
+                }
+                indice = EQ.membros.indexOf(m);
+                renderMembro(m);
+            }
+
+            function renderMembro(m) {
+                document.title = 'Musical Escritor · ' + m.nome;
+                document.getElementById('crumbNome').textContent = m.nome;
+                document.getElementById('tituloMembro').textContent = m.nome;
+                document.getElementById('linhaMembro').textContent = m.linha;
+                document.getElementById('nomePerfil').textContent = m.nome;
+                document.getElementById('linhaPerfil').textContent = m.linha;
+                document.getElementById('chipPerfil').innerHTML = EQ.statusChip(m);
+                document.getElementById('avatarGrande').innerHTML = EQ.avatarHtml(m, 'lg');
+
+                var areas = [];
+                m.equipes.forEach(function (id) {
+                    areas.push(EQ.equipeNome(id));
+                });
+
+                document.getElementById('infoLista').innerHTML =
+                    '<div class="info-linha"><span>Equipe</span><strong>' + EQ.esc(EQ.equipeNome(m.equipes[0])) + '</strong></div>' +
+                    '<div class="info-linha"><span>Função</span><strong>' + EQ.esc(m.linha.split('·')[0].trim()) + '</strong></div>' +
+                    '<div class="info-linha"><span>Áreas</span><strong>' + EQ.esc(areas.join(', ')) + '</strong></div>' +
+                    '<div class="info-linha"><span>Participação</span><strong>Musical Escritor</strong></div>';
+
+                var ensaiosHtml = '';
+                m.ensaios.forEach(function (e) {
+                    ensaiosHtml +=
+                        '<div class="link-item">' +
+                        '<i class="bx bx-music"></i>' +
+                        '<span style="flex:1;min-width:0;">' +
+                        '<a href="pg4.html"><strong>' + EQ.esc(e.nome) + '</strong></a>' +
+                        '<span>' + EQ.esc(e.data) + '</span>' +
+                        '</span>' +
+                        '</div>';
+                });
+                if (!ensaiosHtml) {
+                    ensaiosHtml = '<p class="det-vazio">Nenhum ensaio marcado no momento.</p>';
+                }
+                document.getElementById('listaEnsaios').innerHTML = ensaiosHtml;
+
+                var tarefasHtml = '';
+                m.tarefas.forEach(function (t) {
+                    tarefasHtml +=
+                        '<div class="link-item">' +
+                        '<i class="bx bx-check-square"></i>' +
+                        '<span style="flex:1;min-width:0;">' +
+                        '<a href="pg3.html"><strong>' + EQ.esc(t) + '</strong></a>' +
+                        '<span>Ver em Tarefas</span>' +
+                        '</span>' +
+                        '</div>';
+                });
+                if (!tarefasHtml) {
+                    tarefasHtml = '<p class="det-vazio">Nenhuma tarefa atribuída.</p>';
+                }
+                document.getElementById('listaTarefas').innerHTML = tarefasHtml;
+
+                document.getElementById('posTag').textContent =
+                    'Integrante ' + (indice + 1) + ' de ' + EQ.membros.length;
+            }
+
+            function ir(delta) {
+                var nova = (indice + delta + EQ.membros.length) % EQ.membros.length;
+                var slug = EQ.membros[nova].slug;
+                history.pushState({ }, '', 'pg7-detalhe.html?id=' + slug);
+                montar();
+            }
+
+            document.getElementById('prevBtn').addEventListener('click', function () { ir(-1); });
+            document.getElementById('nextBtn').addEventListener('click', function () { ir(1); });
+            window.addEventListener('popstate', montar);
+
+            montar();
+
+        })();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pg1.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="onboarding.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <title>Musical Escritor · Painel</title>
+</head>
+
+<body>
+
+    <div class="backdrop" id="backdrop"></div>
+
+    <!-- =================================
+         SIDEBAR
+    ================================== -->
+
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral">
+
+        <button class="sidebar-close" id="sidebarClose" aria-label="Fechar menu">
+            <i class="bx bx-x"></i>
+        </button>
+
+        <div class="sidebar-logo">
+            <img src="assets/tipografia.png" alt="Musical Escritor">
+        </div>
+
+        <div class="divider-diamond"><b></b></div>
+
+        <nav class="sidebar-menu">
+            <a class="active" href="pg1.html"><i class="bx bx-home"></i><span>Início</span></a>
+            <a href="pg2.html"><i class="bx bx-calendar"></i><span>Agenda</span></a>
+            <a href="pg3.html"><i class="bx bx-check-square"></i><span>Tarefas</span></a>
+            <a href="pg4.html"><i class="bx bx-music"></i><span>Ensaios</span></a>
+            <a href="pg5.html"><i class="bx bx-headphone"></i><span>Músicas</span></a>
+            <a href="pg6.html"><i class="bx bx-folder"></i><span>Arquivos e Links</span></a>
+            <a href="pg7.html"><i class="bx bx-group"></i><span>Equipe</span></a>
+            <a href="pg8.html"><i class="bx bx-bell"></i><span>Notificações</span></a>
+            <a href="pg9.html"><i class="bx bx-user"></i><span>Meu Perfil</span></a>
+        </nav>
+
+        <div class="sidebar-quote">
+            <div class="divider-diamond"><b></b></div>
+            <p>“Cada detalhe<br>conta uma<br>história.”</p>
+            <div class="divider-diamond"><b></b></div>
+        </div>
+
+    </aside>
+
+
+    <!-- =================================
+         DASHBOARD
+    ================================== -->
+
+    <main class="dashboard">
+
+        <header class="dashboard-header">
+
+            <div class="header-top">
+
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" data-anim="zoomIn" data-delay="0s">
+                    <i class="bx bx-menu"></i>
+                </button>
+
+                <div class="welcome">
+                    <span data-anim="fadeUp" data-delay="0.06s">Bem-vindo de volta,</span>
+                    <h1 id="userName" data-anim="fadeUp" data-delay="0.14s">Gustavo</h1>
+                    <p data-anim="fadeUp" data-delay="0.22s">Que bom te ver por aqui. Vamos fazer acontecer!</p>
+                </div>
+
+                <div class="header-actions" data-anim="fadeIn" data-delay="0.28s">
+
+                    <div class="search-box">
+                        <i class="bx bx-search"></i>
+                        <input type="text" placeholder="Buscar no sistema...">
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="notif-btn" aria-label="Notificações">
+                        <i class="bx bx-bell"></i>
+                        <span class="dot" data-pulse></span>
+                    </button>
+
+                    <span class="divider-v"></span>
+
+                    <div class="profile">
+                        <div class="profile-avatar" id="profileAvatar">G</div>
+                        <div class="profile-info">
+                            <strong id="profileName">Gustavo</strong>
+                            <span>Integrante</span>
+                        </div>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="logout-btn" id="logoutBtn" aria-label="Sair da conta">
+                        <i class="bx bx-log-out"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="quote-deco">
+                <p data-anim="fadeUp" data-delay="0.4s">“Planejamento hoje,<br>palco extraordinário amanhã.”</p>
+                <div class="divider-diamond" data-anim="fadeIn" data-delay="0.55s"><b></b></div>
+            </div>
+
+        </header>
+
+
+        <!-- =================================
+             INDICADORES
+        ================================== -->
+
+        <section class="stats">
+
+            <article class="stat-card" data-anim="fadeUp" data-delay="0.05s">
+                <div class="stat-icon"><i class="bx bx-calendar"></i></div>
+                <div class="stat-info">
+<strong data-count="0">0</strong>
+                    <span class="stat-label">Próximo ensaio</span>
+                    <small class="stat-sub" id="statSub1"></small>
+                </div>
+            </article>
+
+            <article class="stat-card" data-anim="fadeUp" data-delay="0.12s">
+                <div class="stat-icon"><i class="bx bx-check-square"></i></div>
+                <div class="stat-info">
+<strong data-count="0">0</strong>
+                    <span class="stat-label">Tarefas pendentes</span>
+                    <small class="stat-sub gold" id="statSub2"></small>
+                </div>
+            </article>
+
+            <article class="stat-card" data-anim="fadeUp" data-delay="0.19s">
+                <div class="stat-icon"><i class="bx bx-headphone"></i></div>
+                <div class="stat-info">
+<strong data-count="0">0</strong>
+                    <span class="stat-label">Músicas no repertório</span>
+                    <small class="stat-sub" id="statSub3"></small>
+                </div>
+            </article>
+
+            <article class="stat-card" data-anim="fadeUp" data-delay="0.26s">
+                <div class="stat-icon"><i class="bx bx-group"></i></div>
+                <div class="stat-info">
+<strong data-count="0">0</strong>
+                    <span class="stat-label">Integrantes</span>
+                    <small class="stat-sub" id="equipesSub">em 0 equipes</small>
+                </div>
+            </article>
+
+        </section>
+
+
+        <!-- =================================
+             GRID DE CONTEÚDO
+        ================================== -->
+
+        <section class="dashboard-grid">
+
+            <article class="card next-rehearsal" data-anim="fadeUp" data-delay="0.08s">
+                <div class="card-head">
+                    <h3>Próximo ensaio</h3>
+                    <a href="pg4.html">Ver todos →</a>
+                </div>
+<div class="rehearsal-block" id="rehearsalBlock"></div>
+            </article>
+
+            <article class="card tasks" data-anim="fadeUp" data-delay="0.16s">
+                <div class="card-head">
+                    <h3>Minhas tarefas</h3>
+                    <a href="pg3.html">Ver todas →</a>
+                </div>
+<ul class="task-list" id="taskList"></ul>
+            </article>
+
+            <article class="card updates" data-anim="fadeUp" data-delay="0.12s">
+                <div class="card-head">
+                    <h3>Últimas atualizações</h3>
+                    <a href="pg8.html">Ver todas →</a>
+                </div>
+<ul class="update-list" id="updateList"></ul>
+            </article>
+
+            <article class="card events" data-anim="fadeUp" data-delay="0.2s">
+                <div class="card-head">
+                    <h3>Próximos eventos</h3>
+                    <a href="pg2.html">Ver todos →</a>
+                </div>
+<ul class="event-list" id="eventList"></ul>
+            </article>
+
+        </section>
+
+
+        <!-- =================================
+             PROGRESSO GERAL
+        ================================== -->
+
+        <section class="progress-card" data-anim="fadeUp" data-delay="0.28s">
+            <div class="progress-copy">
+                <h2>Progresso geral</h2>
+                <p>Acompanhamento do andamento do musical</p>
+            </div>
+<div class="progress-bar">
+                <div class="progress-fill" data-target="0"></div>
+            </div>
+            <strong class="progress-value" data-percent="0">0%</strong>
+        </section>
+
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+    <script src="auth.js"></script>
+
+    <script src="data.js"></script>
+
+    <script src="admin.js"></script>
+
+<script src="animations.js"></script>
+    <script src="pg2-dados.js"></script>
+    <script src="pg3-dados.js"></script>
+    <script src="pg4-dados.js"></script>
+    <script src="pg5-dados.js"></script>
+    <script src="pg7-dados.js"></script>
+
+    <script src="onboarding.js"></script>
+
+<script>
+        (function () {
+
+            var MESES_ABR = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'];
+            var DIAS_ABR = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
+            var hojeIso = (function () {
+                var d = new Date();
+                return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+            })();
+
+            function cap(s) {
+                return String(s == null ? '' : s).charAt(0) + String(s == null ? '' : s).slice(1).toLowerCase();
+            }
+
+            function proximoEnsaio() {
+                return (dados.ensaios || []).filter(function (e) { return e.status !== 'cancelados'; })
+                    .slice().sort(function (a, b) { return String(a.data).localeCompare(String(b.data)); })[0];
+            }
+
+            function fmtSubEnsaio(en) {
+                if (!en) return 'Nenhum ensaio agendado';
+                var p = String(en.data || '').split('-');
+                if (p.length !== 3) return '';
+                var d = new Date(+p[0], +p[1] - 1, +p[2]);
+                return cap(DIAS_ABR[d.getDay()]) + ', ' + d.getDate() + ' ' + cap(MESES_ABR[d.getMonth()]) + ' · ' + (en.ini || '');
+            }
+
+            function prazosProximos() {
+                var hj = new Date(hojeIso + 'T12:00:00');
+                var fim = new Date(hj); fim.setDate(hj.getDate() + 7);
+                var n = (dados.tarefas || []).filter(function (t) {
+                    if ((t.status || '') === 'Concluída') return false;
+                    var p = String(t.data || '').split('-');
+                    if (p.length !== 3) return false;
+                    var d = new Date(+p[0], +p[1] - 1, +p[2]);
+                    return d >= hj - 86400000 && d <= fim;
+                }).length;
+                return n ? (n + (n === 1 ? ' com prazo próximo' : ' com prazo próximo')) : 'Nenhum prazo próximo';
+            }
+
+            function esc(s) {
+                return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            }
+
+            function setCount(id, valor) {
+                var el = document.querySelector('[data-count="' + id + '"]');
+                if (el) {
+                    el.setAttribute('data-count', valor);
+                    el.textContent = valor;
+                }
+            }
+
+            function miniCalendar(dataIso, labelRegular) {
+                var p = String(dataIso || '').split('-');
+                if (p.length !== 3) return '';
+                var ano = parseInt(p[0], 10), mes = parseInt(p[1], 10), dia = parseInt(p[2], 10);
+                var dsem = DIAS_ABR[new Date(ano, mes - 1, dia).getDay()];
+                return '<div class="mini-calendar"><span class="d">' + dsem + '</span><strong>' + dia + '</strong><span class="m">' + MESES_ABR[mes - 1] + '</span></div>';
+            }
+
+            function fmtData(dataIso) {
+                var p = String(dataIso || '').split('-');
+                return p.length === 3 ? p[2] + '/' + p[1] : '';
+            }
+
+            function vazio(ic, titulo) {
+                return '<div class="dash-empty"><i class="bx ' + ic + '"></i><strong>' + esc(titulo) + '</strong><span>Ainda sem conteúdo registrado — as alterações aparecem aqui.</span></div>';
+            }
+
+            var dados = {};
+
+            function renderRehearsal() {
+                var box = document.getElementById('rehearsalBlock');
+                var l = (dados.ensaios || []).filter(function (e) { return e.status !== 'cancelados'; })
+                    .slice().sort(function (a, b) { return String(a.data).localeCompare(String(b.data)); });
+                var en = l[0];
+                if (!en) { box.innerHTML = vazio('bx-music', 'Nenhum ensaio agendado'); return; }
+                box.innerHTML =
+                    miniCalendar(en.data) +
+                    '<div class="rehearsal-info">' +
+                    '<h4>' + esc(en.nome) + '</h4>' +
+                    '<p><i class="bx bx-time"></i> ' + esc(en.ini) + ' - ' + esc(en.fim) + '</p>' +
+                    '<p><i class="bx bx-map-pin"></i> ' + esc(en.local || '') + '</p>' +
+                    '</div>' +
+                    '<span class="badge-done">' + esc(en.situacao || 'Planejado') + '</span>';
+            }
+
+            function renderTasks() {
+                var ul = document.getElementById('taskList');
+                var l = (dados.tarefas || []).filter(function (t) { return (t.status || '') !== 'Concluída'; }).slice(0, 5);
+                if (!l.length) { ul.innerHTML = '<li style="list-style:none;">' + vazio('bx-check-square', 'Nenhuma tarefa pendente') + '</li>'; return; }
+                ul.innerHTML = l.map(function (t) {
+                    var pc = t.prio === 'Alta' ? 'alta' : (t.prio === 'Média' ? 'media' : 'baixa');
+                    return '<li class="task">' +
+                        '<button class="check" aria-label="Marcar tarefa"></button>' +
+                        '<div class="task-main"><span class="task-name">' + esc(t.nome) + '</span><span class="task-date">' + fmtData(t.data) + '</span></div>' +
+                        '<span class="prio ' + pc + '">' + esc(t.prio || '') + '</span>' +
+                        '</li>';
+                }).join('');
+                ul.querySelectorAll('.task .check').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        var li = btn.closest('.task');
+                        var idx = Array.prototype.indexOf.call(ul.children, li);
+                        if (idx < 0) return;
+                        var t = l[idx];
+                        li.classList.add('feita');
+                        btn.classList.add('checado');
+                        var nome = li.querySelector('.task-name');
+                        if (nome) nome.classList.add('riscado');
+                        if (t && t._id && window.AppDB) {
+                            AppDB.update('tarefas', t._id, { status: 'Concluída', statusCls: 'st-concluida' });
+                        }
+                    });
+                });
+            }
+
+            var IC_TIPO = {
+                evento: 'bx-calendar-event', musica: 'bx-music', tarefa: 'bx-check',
+                equipe: 'bx-group', mencao: 'bx-at', arquivo: 'bx-file', sistema: 'bx-info-circle'
+            };
+            var AV_CLS = ['gold', 'green', 'blue', 'rose'];
+
+            function renderUpdates() {
+                var ul = document.getElementById('updateList');
+                var l = (dados.notificacoes || []).slice(0, 4);
+                if (!l.length) { ul.innerHTML = '<li style="list-style:none;">' + vazio('bx-window-close', 'Nenhuma atualização recente') + '</li>'; return; }
+                ul.innerHTML = l.map(function (n, i) {
+                    return '<li class="update">' +
+                        '<span class="update-avatar ' + AV_CLS[i % AV_CLS.length] + '"><i class="bx ' + (IC_TIPO[n.tipo] || 'bx-info-circle') + '"></i></span>' +
+                        '<div class="update-text"><strong>' + esc(n.titulo) + '</strong><span>' + esc(n.desc || '') + '</span></div>' +
+                        '<time>' + esc(n.tempo || '') + '</time>' +
+                        '</li>';
+                }).join('');
+            }
+
+            function renderEvents() {
+                var ul = document.getElementById('eventList');
+                var l = (dados.eventos || []).filter(function (e) { return String(e.d || '') >= hojeIso; })
+                    .slice().sort(function (a, b) { return String(a.d).localeCompare(String(b.d)); }).slice(0, 3);
+                if (!l.length) { ul.innerHTML = '<li style="list-style:none;">' + vazio('bx-calendar-event', 'Nenhum evento próximo') + '</li>'; return; }
+                ul.innerHTML = l.map(function (e) {
+                    return '<li class="event">' +
+                        miniCalendar(e.d) +
+                        '<div class="event-info">' +
+                        '<strong>' + esc(e.titulo) + '</strong>' +
+                        '<span><i class="bx bx-time"></i> ' + esc(e.hora) + (e.fim ? ' - ' + esc(e.fim) : '') + '</span>' +
+                        '<span><i class="bx bx-map-pin"></i> ' + esc(e.local || '') + '</span>' +
+                        '</div>' +
+                        '</li>';
+                }).join('');
+            }
+
+            function renderProgress() {
+                var t = dados.tarefas || [], e = dados.ensaios || [], m = dados.musicas || [];
+                var alvos = [];
+                if (t.length) alvos.push(t.filter(function (x) { return x.status === 'Concluída'; }).length / t.length);
+                if (e.length) alvos.push(e.filter(function (x) { return x.situacao === 'Realizado' || x.status === 'realizado'; }).length / e.length);
+                if (m.length) alvos.push(m.filter(function (x) { return x.status === 'Pronta'; }).length / m.length);
+                var val = alvos.length ? Math.round(alvos.reduce(function (a, b) { return a + b; }, 0) / alvos.length * 100) : 0;
+                var fill = document.querySelector('.progress-fill[data-target]');
+                var pvEl = document.querySelector('.progress-value');
+                if (fill) {
+                    fill.setAttribute('data-target', val);
+                    fill.style.transition = 'width 1.2s cubic-bezier(.22,.61,.36,1)';
+                    fill.style.width = val + '%';
+                }
+                if (pvEl) {
+                    pvEl.setAttribute('data-percent', val);
+                    pvEl.textContent = val + '%';
+                }
+            }
+
+            function renderAll() {
+                setCount(1, (dados.ensaios || []).filter(function (e) { return e.status !== 'cancelados'; }).length);
+                setCount(5, (dados.tarefas || []).filter(function (t) { return (t.status || '') !== 'Concluída'; }).length);
+                setCount(12, (dados.musicas || []).filter(function (m) { return m.status !== 'Arquivada'; }).length);
+                setCount(24, (dados.integrantes || []).length);
+                var sub = document.getElementById('equipesSub');
+                if (sub) sub.textContent = 'em ' + (dados.equipes || []).length + ' equipe' + ((dados.equipes || []).length === 1 ? '' : 's');
+                var s1 = document.getElementById('statSub1');
+                if (s1) s1.textContent = fmtSubEnsaio(proximoEnsaio());
+                var s2 = document.getElementById('statSub2');
+                if (s2) s2.textContent = prazosProximos();
+                var s3 = document.getElementById('statSub3');
+                if (s3) s3.textContent = (dados.musicas || []).filter(function (m) { return m.status === 'Em andamento'; }).length + ' em andamento';
+                renderRehearsal();
+                renderTasks();
+                renderUpdates();
+                renderEvents();
+                renderProgress();
+            }
+
+            if (window.AppDB) {
+                var colunas = ['ensaios', 'tarefas', 'musicas', 'integrantes', 'equipes', 'eventos', 'notificacoes'];
+                colunas.forEach(function (c) {
+                    AppDB.onChange(c, function (lista) {
+                        dados[c] = lista;
+                        renderAll();
+                    });
+                });
+            } else {
+                renderAll();
+            }
+
+        })();
+    </script>
+
+</body>
+
+</html>

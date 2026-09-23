@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pg8.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <title>Musical Escritor · Notificações</title>
+</head>
+
+<body>
+
+    <div class="backdrop" id="backdrop"></div>
+
+    <!-- ===== SIDEBAR ===== -->
+
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral">
+
+        <button class="sidebar-close" id="sidebarClose" aria-label="Fechar menu">
+            <i class="bx bx-x"></i>
+        </button>
+
+        <div class="sidebar-logo">
+            <img src="assets/tipografia.png" alt="Musical Escritor">
+        </div>
+
+        <div class="divider-diamond"><b></b></div>
+
+        <nav class="sidebar-menu">
+            <a href="pg1.html"><i class="bx bx-home"></i><span>Início</span></a>
+            <a href="pg2.html"><i class="bx bx-calendar"></i><span>Agenda</span></a>
+            <a href="pg3.html"><i class="bx bx-check-square"></i><span>Tarefas</span></a>
+            <a href="pg4.html"><i class="bx bx-music"></i><span>Ensaios</span></a>
+            <a href="pg5.html"><i class="bx bx-headphone"></i><span>Músicas</span></a>
+            <a href="pg6.html"><i class="bx bx-folder"></i><span>Arquivos e Links</span></a>
+            <a href="pg7.html"><i class="bx bx-group"></i><span>Equipe</span></a>
+            <a class="active" href="pg8.html"><i class="bx bx-bell"></i><span>Notificações</span></a>
+            <a href="pg9.html"><i class="bx bx-user"></i><span>Meu Perfil</span></a>
+        </nav>
+
+        <div class="sidebar-quote">
+            <div class="divider-diamond"><b></b></div>
+            <p>“Cada detalhe<br>conta uma<br>história.”</p>
+            <div class="divider-diamond"><b></b></div>
+        </div>
+
+    </aside>
+
+
+    <!-- ===== CONTEÚDO ===== -->
+
+    <main class="content">
+
+        <header class="dashboard-header">
+
+            <div class="header-top">
+
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" data-anim="zoomIn" data-delay="0s">
+                    <i class="bx bx-menu"></i>
+                </button>
+
+                <div class="header-intro">
+                    <span class="crumb" data-anim="fadeUp" data-delay="0.05s">Notificações</span>
+                    <h1 data-anim="fadeUp" data-delay="0.12s">Notificações</h1>
+                    <p data-anim="fadeUp" data-delay="0.2s">Fique por dentro de tudo que acontece no musical.</p>
+                </div>
+
+                <div class="header-actions" data-anim="fadeIn" data-delay="0.26s">
+
+                    <div class="search-box">
+                        <i class="bx bx-search"></i>
+                        <input type="text" id="buscaNotif" placeholder="Buscar notificações...">
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="notif-btn" aria-label="Notificações">
+                        <i class="bx bx-bell"></i>
+                        <span class="notif-dot" data-pulse></span>
+                    </button>
+
+                    <span class="divider-v"></span>
+
+                    <div class="profile">
+                        <div class="profile-avatar" id="profileAvatar">G</div>
+                        <div class="profile-info">
+                            <strong id="profileName">Gustavo</strong>
+                            <span>Integrante</span>
+                        </div>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="logout-btn" id="logoutBtn" aria-label="Sair da conta">
+                        <i class="bx bx-log-out"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="quote-deco">
+                <p data-anim="fadeUp" data-delay="0.35s">“Cada aviso é<br>um passo da história.”</p>
+                <div class="divider-diamond" data-anim="fadeIn" data-delay="0.5s"><b></b></div>
+            </div>
+
+        </header>
+
+
+        <!-- ===== BARRA DE CATEGORIAS ===== -->
+
+        <div class="notif-toolbar" data-anim="fadeUp" data-delay="0.1s">
+
+            <div class="tabs" id="barraCategorias">
+                <button class="active" data-filtro="todos">Todas</button>
+                <button data-filtro="naolidas">Não lidas</button>
+                <button data-filtro="mencoes">Menções</button>
+                <button data-filtro="tarefas">Tarefas</button>
+                <button data-filtro="eventos">Eventos</button>
+                <button data-filtro="arquivos">Arquivos</button>
+                <button data-filtro="sistema">Sistema</button>
+            </div>
+
+<button class="marcar-btn" id="marcarTodas">
+                <i class="bx bx-check-double"></i>
+                <span>Marcar todas como lidas</span>
+            </button>
+
+            <span class="divider-v"></span>
+
+            <button class="adm-btn primary adm-inline" id="novaNotifBtn" data-admin-only>
+                <i class="bx bx-plus"></i>
+                Nova notificação
+            </button>
+
+        </div>
+
+
+        <!-- ===== LISTA + LATERAL ===== -->
+
+        <div class="notif-layout">
+
+            <div class="notif-main" data-anim="fadeUp" data-delay="0.16s">
+
+                <div class="card n-lista" id="listaNotif"></div>
+
+                <div class="empty-state" id="notifVazio">
+                    <i class="bx bx-bell-off"></i>
+                    <strong>Nenhuma notificação encontrada</strong>
+                    <span>Ajuste a busca ou a categoria selecionada.</span>
+                </div>
+
+            </div>
+
+            <aside class="notif-side" data-anim="fadeUp" data-delay="0.2s">
+
+                <div class="card quote-card">
+                    <div class="bq-ic"><i class="bx bxs-quote-alt-left"></i></div>
+                    <p>“Pequenas atualizações<br>geram grandes avanços.”</p>
+                    <div class="divider-diamond"><b></b></div>
+                </div>
+
+                <div class="card filt-card">
+                    <div class="card-head">
+                        <h3>Filtros rápidos</h3>
+                    </div>
+                    <div class="filt-list" id="listFiltros"></div>
+                </div>
+
+                <div class="card recent-card">
+                    <div class="card-head">
+                        <h3>Notificações mais recentes</h3>
+                        <button class="link-btn" id="verTodas">Ver todas →</button>
+                    </div>
+                    <div class="recent-list" id="listRecentes"></div>
+                </div>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+    <script src="auth.js"></script>
+
+    <script src="data.js"></script>
+
+    <script src="admin.js"></script>
+    <script src="animations.js"></script>
+    <script src="pg8-dados.js"></script>
+    <script>
+        (function () {
+
+            var NTF = window.NTF;
+            var selFiltro = 'todos';
+            var buscaQ = '';
+
+            var listaEl = document.getElementById('listaNotif');
+            var vazio = document.getElementById('notifVazio');
+
+            function mostrarToast(msg) {
+                var t = document.getElementById('toast');
+                t.textContent = msg;
+                t.classList.add('show');
+                clearTimeout(mostrarToast._t);
+                mostrarToast._t = setTimeout(function () {
+                    t.classList.remove('show');
+                }, 2600);
+            }
+
+            function categorias() {
+                return NTF.categorias;
+            }
+
+            function filtradas() {
+                return NTF.lista.filter(function (n) {
+                    var okCat = selFiltro === 'todos' ||
+                        (selFiltro === 'naolidas' ? !n.lida : n.cats.indexOf(selFiltro) > -1);
+                    var okBusca = !buscaQ ||
+                        (n.titulo.toLowerCase().indexOf(buscaQ) > -1 ||
+                            n.desc.toLowerCase().indexOf(buscaQ) > -1);
+                    return okCat && okBusca;
+                });
+            }
+
+            function blocoItem(n) {
+                var tipos = NTF.tipos;
+                var t = tipos[n.tipo];
+                var avatarHtml = '';
+
+                if (n.pessoa) {
+                    var p = NTF.pessoas[n.pessoa];
+                    avatarHtml = '<span class="avatar ' + p.cor + '">' + p.init + '</span>';
+                } else {
+                    avatarHtml = '<i class="bx ' + t.ic + '"></i>';
+                }
+
+                var labelMarcar = n.lida ? 'Marcar como não lida' : 'Marcar como lida';
+
+                return '' +
+                    '<div class="n-item' + (n.lida ? '' : ' nao-lida') + '" data-id="' + n._id + '">' +
+                    '<span class="n-avatar ' + (n.pessoa ? '' : ('n-ic ' + t.cl)) + '">' + avatarHtml + '</span>' +
+                    '<span class="n-corpo">' +
+                    '<strong>' + NTF.esc(n.titulo) + '</strong>' +
+                    '<p>' + NTF.esc(n.desc) + '</p>' +
+                    '<span class="n-rodape">' +
+                    '<span class="n-tempo">' + NTF.esc(n.tempo) + '</span>' +
+                    (n.lida ? '' : '<span class="n-dot"></span>') +
+                    '</span>' +
+                    '</span>' +
+                    '<span class="n-kebab" aria-label="Opções">' +
+                    '<i class="bx bx-dots-vertical-rounded"></i>' +
+                    '<span class="row-dd">' +
+                    '<button data-acao="abrir"><i class="bx bx-link-external"></i> Abrir</button>' +
+                    '<button data-acao="marcar"><i class="bx bx-check-double"></i> ' + labelMarcar + '</button>' +
+                    '<button data-acao="remover" class="remover"><i class="bx bx-trash"></i> Remover</button>' +
+                    '</span>' +
+                    '</span>' +
+                    '</div>';
+            }
+
+            function renderLista() {
+                var lista = filtradas();
+                listaEl.innerHTML = lista.map(blocoItem).join('');
+                vazio.style.display = lista.length ? 'none' : 'flex';
+
+listaEl.querySelectorAll('.n-item').forEach(function (item) {
+                    var n = NTF.lista.find(function (x) { return String(x._id) === item.getAttribute('data-id'); }) || null;
+
+                    item.addEventListener('click', function (e) {
+                        if (e.target.closest('.n-kebab')) return;
+                        if (n && !n.lida) {
+                            AppDB.update('notificacoes', n._id, { lida: true });
+                        }
+                        if (n) {
+                            window.location.href = n.link;
+                        }
+                    });
+                });
+
+                listaEl.querySelectorAll('.n-kebab').forEach(function (k) {
+                    k.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        var aberto = k.parentElement.classList.contains('dd-open');
+                        fecharMenus();
+                        if (!aberto) k.parentElement.classList.add('dd-open');
+                    });
+                });
+
+listaEl.querySelectorAll('.row-dd button').forEach(function (b) {
+                    b.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        var item = b.closest('.n-item');
+                        var n = NTF.lista.find(function (x) { return String(x._id) === item.getAttribute('data-id'); });
+                        if (!n) return;
+
+                        var acao = b.getAttribute('data-acao');
+                        if (acao === 'abrir') {
+                            window.location.href = n.link;
+                            return;
+                        }
+                        if (acao === 'marcar') {
+                            AppDB.update('notificacoes', n._id, { lida: !n.lida });
+                            fecharMenus();
+                            return;
+                        }
+                        if (acao === 'remover') {
+                            fecharMenus();
+                            AdminKit.guard(function () {
+                                AdminKit.confirm({
+                                    titulo: 'Remover notificação',
+                                    mensagem: 'Tem certeza que deseja remover "' + NTF.esc(n.titulo) + '"?'
+                                }).then(function (ok) {
+                                    if (ok) {
+                                        AppDB.remove('notificacoes', n._id).then(function () {
+                                            AdminKit.toast('Notificação removida.', 'ok');
+                                        });
+                                    }
+                                });
+                            })();
+                            return;
+                        }
+                    });
+                });
+            }
+
+            function fecharMenus() {
+                document.querySelectorAll('.n-item.dd-open').forEach(function (i) {
+                    i.classList.remove('dd-open');
+                });
+            }
+
+            function renderFiltros() {
+                var html = '';
+                NTF.categorias.forEach(function (c) {
+                    html +=
+                        '<button class="filt-item' + (selFiltro === c.id ? ' active' : '') + '" data-filtro="' + c.id + '">' +
+                        '<i class="bx ' + c.ic + ' ' + c.cl + '"></i>' +
+                        '<span>' + NTF.esc(c.nome) + '</span>' +
+                        '<b>' + NTF.conta(c.id) + '</b>' +
+                        '</button>';
+                });
+                document.getElementById('listFiltros').innerHTML = html;
+
+                document.querySelectorAll('.filt-item').forEach(function (f) {
+                    f.addEventListener('click', function () {
+                        selFiltro = f.getAttribute('data-filtro');
+                        atualizarAba();
+                        renderFiltros();
+                        renderLista();
+                    });
+                });
+            }
+
+            function renderRecentes() {
+                var recentes = NTF.lista.slice(0, 3);
+                var html = '';
+                recentes.forEach(function (n) {
+                    var tipos = NTF.tipos;
+                    var t = tipos[n.tipo];
+                    var ic = '';
+                    if (n.pessoa) {
+                        var p = NTF.pessoas[n.pessoa];
+                        ic = '<span class="avatar ' + p.cor + '" style="vertical-align:middle;">' + p.init + '</span>';
+                    } else {
+                        ic = '<i class="bx ' + t.ic + ' ' + t.cl + '"></i>';
+                    }
+                    html +=
+                        '<button class="recent-item" data-link="' + n.link + '">' +
+                        '<span class="n-avatar n-ic ' + t.cl + '">' + ic + '</span>' +
+                        '<strong>' + NTF.esc(n.titulo) + '</strong>' +
+                        '<span>' + NTF.esc(n.tempo) + '</span>' +
+                        '</button>';
+                });
+                document.getElementById('listRecentes').innerHTML = html;
+
+                document.querySelectorAll('.recent-item').forEach(function (r) {
+                    r.addEventListener('click', function () {
+                        window.location.href = r.getAttribute('data-link');
+                    });
+                });
+            }
+
+            function atualizarAba() {
+                document.querySelectorAll('#barraCategorias button').forEach(function (b) {
+                    b.classList.toggle('active', b.getAttribute('data-filtro') === selFiltro);
+                });
+            }
+
+            function renderTodos() {
+                renderFiltros();
+                renderLista();
+                renderRecentes();
+            }
+
+            document.querySelectorAll('#barraCategorias button').forEach(function (b) {
+                b.addEventListener('click', function () {
+                    selFiltro = b.getAttribute('data-filtro');
+                    atualizarAba();
+                    renderTodos();
+                });
+            });
+
+            document.getElementById('buscaNotif').addEventListener('input', function () {
+                buscaQ = this.value.trim().toLowerCase();
+                renderLista();
+            });
+
+document.getElementById('marcarTodas').addEventListener('click', function () {
+                var pendentes = NTF.lista.filter(function (n) { return !n.lida; });
+                if (!pendentes.length) {
+                    mostrarToast('Tudo já está lido.');
+                    return;
+                }
+                pendentes.forEach(function (n) { AppDB.update('notificacoes', n._id, { lida: true }); });
+                var btn = this;
+                btn.classList.add('ok');
+                btn.innerHTML = '<i class="bx bx-check"></i><span>Todas marcadas como lidas</span>';
+                mostrarToast(pendentes.length + ' notificações marcadas como lidas.');
+                renderTodos();
+                setTimeout(function () {
+                    btn.classList.remove('ok');
+                    btn.innerHTML = '<i class="bx bx-check-double"></i><span>Marcar todas como lidas</span>';
+                }, 2600);
+            });
+
+            document.getElementById('verTodas').addEventListener('click', function () {
+                selFiltro = 'todos';
+                atualizarAba();
+                renderTodos();
+            });
+
+document.getElementById('novaNotifBtn').addEventListener('click', AdminKit.guard(function () {
+                var tipos = NTF.tipos;
+                var opts = Object.keys(tipos).map(function (k) { return { value: k, label: tipos[k].nome }; });
+                AdminKit.modal({
+                    title: 'Nova notificação',
+                    submitLabel: 'Criar notificação',
+                    values: { tipo: 'sistema', titulo: '', desc: '' },
+                    fields: [
+                        { name: 'tipo', label: 'Tipo', type: 'select', half: true, options: opts },
+                        { name: 'titulo', label: 'Título', required: true, half: true, placeholder: 'Ex.: Novo ensaio na agenda' },
+                        { name: 'desc', label: 'Descrição', type: 'textarea', placeholder: 'Detalhe da notificação...' }
+                    ]
+                }).then(function (v) {
+                    if (!v) return;
+                    AppDB.add('notificacoes', {
+                        tipo: v.tipo,
+                        cats: [v.tipo],
+                        pessoa: null,
+                        titulo: v.titulo.trim(),
+                        desc: (v.desc || '').trim(),
+                        tempo: 'Agora há pouco',
+                        lida: false,
+                        link: null
+                    }).then(function () {
+                        AdminKit.toast('Notificação criada.', 'ok');
+                    });
+                });
+            }));
+
+window.addEventListener('click', fecharMenus);
+
+            if (window.AppDB) {
+                AppDB.onChange('notificacoes', renderTodos);
+            }
+
+            renderTodos();
+
+        })();
+    </script>
+
+</body>
+
+</html>

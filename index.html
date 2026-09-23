@@ -1,707 +1,157 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Plataforma Integrada CCO 4.0 - VALE</title>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
-  <link rel="stylesheet" href="style.css?v=20">
-  <link rel="stylesheet" href="mobile.css?v=1">
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <title>Musical Escritor</title>
 </head>
-<body class="pre-login">
-<!-- Modal Login -->
-<div class="game-modal-overlay" id="game-login-modal">
-  <div class="game-login-bg" aria-hidden="true">
-    <svg class="login-scene-svg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <defs>
-        <linearGradient id="lgSky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#04060d"/>
-          <stop offset="0.55" stop-color="#0a1526"/>
-          <stop offset="0.72" stop-color="#0e2036"/>
-        </linearGradient>
-        <linearGradient id="lgGround" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#0c1626"/>
-          <stop offset="1" stop-color="#05080f"/>
-        </linearGradient>
-        <radialGradient id="lgHorizon" cx="0.5" cy="0" r="1">
-          <stop offset="0" stop-color="#38bdf8" stop-opacity="0.30"/>
-          <stop offset="0.5" stop-color="#1d4ed8" stop-opacity="0.10"/>
-          <stop offset="1" stop-color="#1d4ed8" stop-opacity="0"/>
-        </radialGradient>
-        <linearGradient id="lgRail" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#d3e6fb" stop-opacity="0.95"/>
-          <stop offset="1" stop-color="#5f83ad" stop-opacity="0.7"/>
-        </linearGradient>
-        <linearGradient id="lgBeam" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stop-color="#7dd3fc" stop-opacity="0.85"/>
-          <stop offset="1" stop-color="#7dd3fc" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
 
-      <rect width="1200" height="700" fill="url(#lgSky)"/>
+<body>
 
-      <g fill="#dbeafe" opacity="0.7">
-        <circle cx="180" cy="60" r="1.4"/>
-        <circle cx="340" cy="120" r="1"/>
-        <circle cx="520" cy="45" r="1.2"/>
-        <circle cx="760" cy="90" r="1.3"/>
-        <circle cx="940" cy="40" r="1"/>
-        <circle cx="1080" cy="140" r="1.5"/>
-        <circle cx="700" cy="30" r="1"/>
-        <circle cx="250" cy="185" r="0.9"/>
-        <circle cx="1020" cy="205" r="1.1"/>
-      </g>
+    <main class="login-page">
 
-      <rect y="380" width="1200" height="320" fill="url(#lgGround)"/>
-      <ellipse cx="600" cy="390" rx="430" ry="215" fill="url(#lgHorizon)"/>
+        <!-- =================================
+             CONJUNTO GERAL
+        ================================== -->
 
-      <g stroke="#38bdf8" opacity="0.07" fill="none">
-        <path d="M600 390 L-70 700"/>
-        <path d="M600 390 L130 700"/>
-        <path d="M600 390 L300 700"/>
-        <path d="M600 390 L450 700"/>
-        <path d="M600 390 L750 700"/>
-        <path d="M600 390 L900 700"/>
-        <path d="M600 390 L1070 700"/>
-        <path d="M600 390 L1270 700"/>
-      </g>
+        <div class="login-card">
 
-      <polygon points="588,390 612,390 1060,700 140,700" fill="#0d1a2c" opacity="0.92"/>
+            <!-- =================================
+                 FUNDO GERAL
+            ================================== -->
 
-      <g stroke="#aec8e8" opacity="0.28" stroke-width="6" stroke-linecap="round">
-        <line x1="537" y1="389.5" x2="663" y2="389.5"/>
-        <line x1="502" y1="397.6" x2="698" y2="397.6"/>
-        <line x1="467" y1="409.7" x2="733" y2="409.7"/>
-        <line x1="427" y1="428.1" x2="773" y2="428.1"/>
-        <line x1="388" y1="451.6" x2="812" y2="451.6"/>
-        <line x1="348" y1="480.3" x2="852" y2="480.3"/>
-        <line x1="308" y1="514" x2="892" y2="514"/>
-        <line x1="269" y1="553" x2="931" y2="553"/>
-        <line x1="229" y1="596.9" x2="971" y2="596.9"/>
-        <line x1="194" y1="640.2" x2="1006" y2="640.2"/>
-        <line x1="168" y1="675.2" x2="1032" y2="675.2"/>
-        <line x1="150" y1="700" x2="1050" y2="700"/>
-      </g>
+            <div class="login-background">
 
-      <path d="M588 390 L140 700" stroke="url(#lgRail)" stroke-width="3" fill="none"/>
-      <path d="M612 390 L1060 700" stroke="url(#lgRail)" stroke-width="3" fill="none"/>
-      <path d="M588 390 L140 700" stroke="#eaf4ff" stroke-width="1.4" fill="none" opacity="0.85"/>
-      <path d="M612 390 L1060 700" stroke="#eaf4ff" stroke-width="1.4" fill="none" opacity="0.85"/>
+                <!-- PAINEL ESQUERDO -->
+                <div class="translucid">
 
-      <polygon points="600,505 470,700 730,700" fill="#38bdf8" opacity="0.08"/>
-      <polygon points="600,505 525,700 675,700" fill="#7dd3fc" opacity="0.07"/>
+                    <img src="assets/BOXtranslucid.svg" alt="" data-anim="fadeIn" data-delay="0.15s">
 
-      <g id="login-loco" aria-hidden="true">
-        <polygon points="156,-26 400,-96 400,44" fill="url(#lgBeam)" opacity="0.55"/>
-        <path d="M118 -12 L118 -44 L158 -26 Z" fill="#0e1a2b"/>
-        <rect x="-118" y="-66" width="236" height="54" rx="7" fill="#16304f" stroke="#2b4a6d" stroke-width="2"/>
-        <rect x="-118" y="-82" width="44" height="20" rx="4" fill="#1b3a5e"/>
-        <rect x="-112" y="-79" width="32" height="10" rx="2" fill="#102c49" stroke="rgba(56,189,248,.55)" stroke-width="1.4"/>
-        <rect x="-108" y="-77" width="24" height="6.5" rx="1.5" fill="#38bdf8" opacity="0.85"/>
-        <circle class="login-beacon" cx="-97" cy="-90" r="3.4" fill="#38bdf8"/>
-        <rect x="78" y="-76" width="12" height="10" rx="3" fill="#0e1a2b"/>
-        <polygon points="26,-38 33,-50 40,-38 36,-38 33,-44 30,-38" fill="#eaf4ff" opacity="0.9"/>
-        <circle cx="156" cy="-26" r="6.5" fill="#eaf8ff"/>
-        <circle cx="156" cy="-26" r="13" fill="none" stroke="rgba(234,248,255,.4)" stroke-width="2"/>
-        <g fill="#0b1524" stroke="#2b4a6d" stroke-width="2.5">
-          <circle cx="-100" cy="-15" r="15"/>
-          <circle cx="-50" cy="-15" r="15"/>
-          <circle cx="0" cy="-15" r="15"/>
-          <circle cx="50" cy="-15" r="15"/>
-        </g>
-        <g fill="#22364e">
-          <circle cx="-100" cy="-15" r="5.5"/>
-          <circle cx="-50" cy="-15" r="5.5"/>
-          <circle cx="0" cy="-15" r="5.5"/>
-          <circle cx="50" cy="-15" r="5.5"/>
-        </g>
-        <rect x="-122" y="-4" width="284" height="6" rx="2" fill="#0a1523"/>
-      </g>
-    </svg>
-
-    <div class="login-scene-vignette"></div>
-    <div class="game-login-rail"></div>
-  </div>
-
-  <header class="login-brand" aria-hidden="true">
-    <svg class="login-vale-mark" viewBox="0 0 64 64" aria-hidden="true">
-      <path d="M32 7 54 55 H42 L32 34 L22 55 H10 Z" fill="#ffffff"/>
-    </svg>
-    <div class="login-brand-name">CCO <em>4.0</em></div>
-    <div class="login-brand-tag">PLATAFORMA INTEGRADA</div>
-  </header>
-
-  <div class="game-modal-card">
-    <h2>ACESSO OPERACIONAL CCO 4.0</h2>
-    <p class="game-login-subtitle">Informe seu e-mail corporativo para ingressar na simulação.</p>
-
-    <div id="game-login-error" class="game-login-error" role="alert" hidden></div>
-
-    <div class="game-input-group">
-      <label for="game-user-email">E-mail Corporativo Vale:</label>
-      <div class="game-input-wrap">
-        <span class="game-input-icon">✉️</span>
-        <input type="email" id="game-user-email" placeholder="nome.sobrenome@vale.com" autocomplete="email" spellcheck="false" autofocus />
-        <button type="button" id="game-email-hint" class="game-email-hint" hidden>@vale.com ↵</button>
-      </div>
-    </div>
-
-    <label class="game-remember">
-      <input type="checkbox" id="game-remember-email" checked />
-      <span>Lembrar meu e-mail neste dispositivo</span>
-    </label>
-
-    <button class="btn-game-primary" id="game-login-btn" onclick="realizarLoginGame()">
-      <span class="game-btn-label">ACESSAR SIMULADOR</span>
-      <span class="game-btn-spinner" hidden></span>
-    </button>
-
-    <div class="game-login-divider"><span>ou</span></div>
-
-    <button type="button" class="btn-game-admin" id="game-login-admin" onclick="window.location.href='admin_game_v2.html'">
-      ACESSAR COMO ADM
-    </button>
-
-    <div class="game-login-status" id="game-login-status">
-      <span class="game-status-dot pending"></span>
-      <span id="game-login-status-text">Conectando ao Firebase...</span>
-    </div>
-  </div>
-</div>
-<div id="game-cards-container"></div>
-<div id="cco-tutorial-overlay" class="cco-tutorial-overlay" aria-hidden="true">
-  <div class="cco-tutorial-backdrop"></div>
-  <div class="cco-tutorial-card" role="dialog" aria-modal="true" aria-labelledby="cco-tutorial-title">
-    <div class="cco-tutorial-kicker">CCO 4.0 • GUIA RÁPIDO</div>
-    <div class="cco-tutorial-progress"><span id="cco-tutorial-progress-fill"></span></div>
-    <div class="cco-tutorial-icon" id="cco-tutorial-icon">👋</div>
-    <h2 id="cco-tutorial-title">Bem-vindo ao CCO 4.0</h2>
-    <p id="cco-tutorial-text">Vamos conhecer rapidamente as principais funções da plataforma.</p>
-    <div id="cco-tutorial-extra" class="cco-tutorial-extra"></div>
-    <div class="cco-tutorial-actions">
-      <div class="cco-tutorial-nav">
-        <button type="button" class="cco-tutorial-prev" id="cco-tutorial-prev">← Voltar</button>
-        <button type="button" class="cco-tutorial-next" id="cco-tutorial-next">Próximo →</button>
-      </div>
-    </div>
-    <label class="cco-tutorial-never" id="cco-tutorial-never-wrap">
-      <input type="checkbox" id="cco-tutorial-never">
-      <span>Não mostrar este tutorial novamente</span>
-    </label>
-  </div>
-</div>
-<dialog class="game-rules-overlay" id="game-rules-modal" aria-labelledby="game-rules-title">
-  <div class="game-rules-card">
-    <div class="game-rules-kicker">GAME OFICIAL • CCO 4.0</div>
-    <h2>🚦 Regras da partida</h2>
-    <p class="game-rules-intro">O Administrador iniciou o Game Oficial. Leia as regras antes de começar.</p>
-    <div class="game-rules-grid">
-      <div><strong>🎲 Ocorrências</strong><span>Cada operador recebe ocorrências aleatórias e independentes.</span></div>
-      <div><strong>🎴 Um card por vez</strong><span>Uma nova ocorrência aparece somente após a anterior ser resolvida.</span></div>
-      <div><strong>⏱️ Tempo</strong><span>Você terá 40 segundos para tomar a decisão apresentada.</span></div>
-      <div><strong>✅ Acerto</strong><span>Decisão correta soma os pontos indicados na ocorrência.</span></div>
-      <div><strong>❌ Erro</strong><span>Decisão incorreta gera penalidade e pode bloquear o operador.</span></div>
-      <div><strong>🔒 Bloqueio</strong><span>Enquanto estiver bloqueado, você não poderá administrar ou resolver ocorrências. Se tentar clicar, receberá um aviso. O cronômetro da ocorrência continua correndo.</span></div>
-      <div><strong>⏱️ Tempo durante o bloqueio</strong><span>O tempo não é pausado nem reiniciado. Quando o bloqueio terminar, você só poderá resolver a ocorrência se ela ainda estiver disponível.</span></div>
-      <div><strong>⚡ Executar Ação</strong><span>Confirma a decisão escolhida. Se estiver correta, você recebe os pontos da ocorrência; se estiver errada, sofre a penalidade indicada e pode ser bloqueado.</span></div>
-      <div><strong>⏳ Aguardar</strong><span>Adia temporariamente a ocorrência. Ela fica na lista de <b>Ocorrências aguardadas</b> e volta depois que você tratar a próxima ocorrência.</span></div>
-      <div><strong>🎯 Gestão de prioridades</strong><span>Ao escolher Aguardar, observe a chance de o próximo alerta ser crítico. Se você adiar uma ocorrência mais crítica e a próxima for menos crítica, perde <b>50 pontos</b> por priorização inadequada.</span></div>
-      <div><strong>🎲 Probabilidade</strong><span>Antes de aguardar, o card informa a probabilidade atual de o próximo alerta ser crítico, calculada a partir do banco de ocorrências da partida.</span></div>
-    </div>
-    <div class="game-rules-warning">⚠️ Segurança e operação responsável devem sempre prevalecer sobre a tentativa de ganhar pontos.</div>
-    <div class="game-rules-session">Sessão: <span data-session>—</span></div>
-    <button type="button" class="btn-game-rules-confirm" id="btn-confirm-rules" aria-label="Confirmar leitura das regras">✓ Li as regras e estou pronto</button>
-  </div>
-</dialog>
-
-<div id="operator-block-overlay" style="display: none;">
-  <span>⚙️ EXECUÇÃO DE CAMPO EM ANDAMENTO... AGUARDE <b id="block-timer-count">8</b>s</span>
-</div>
+                </div>
 
 
-<!-- REPASSE — DESAFIO -->
-<dialog id="challenge-dialog" class="challenge-dialog" aria-labelledby="challenge-title">
-  <div class="challenge-shell">
-    <div class="challenge-header">
-      <div>
-        <span class="challenge-kicker">⚔️ REPASSE</span>
-        <h2 id="challenge-title">Desafio entre operadores</h2>
-      </div>
-      <button type="button" class="challenge-close" onclick="fecharPainelDesafio()">✕</button>
-    </div>
+                <!-- IMAGEM DIREITA -->
+                <div class="login-img">
 
-    <div id="challenge-list-view">
-      <p class="challenge-intro">Escolha um operador que esteja online para iniciar um desafio.</p>
-      <div id="challenge-operators-list" class="challenge-operators-list">
-        <div class="challenge-empty">Carregando operadores online...</div>
-      </div>
-    </div>
+                    <img src="assets/img-login.png" alt="Equipe do musical" data-anim="fadeIn" data-delay="0.4s">
 
-    <div id="challenge-invite-view" class="challenge-subview" hidden>
-      <div class="challenge-invite-card">
-        <div class="challenge-big-icon">⚔️</div>
-        <h3 id="challenge-invite-title">Desafio recebido</h3>
-        <p id="challenge-invite-text"></p>
-        <div class="challenge-actions">
-          <button class="challenge-btn danger" id="challenge-reject-btn">Recusar</button>
-          <button class="challenge-btn primary" id="challenge-accept-btn">Aceitar desafio</button>
-        </div>
-      </div>
-    </div>
+                </div>
 
-    <div id="challenge-active-view" class="challenge-subview" hidden>
-      <div class="challenge-match-head">
-        <div class="challenge-player">
-          <strong id="challenge-me-name">Você</strong>
-          <span id="challenge-me-score">0 pts</span>
-          <div class="challenge-hitbar"><div id="challenge-me-bar" class="challenge-hitbar-fill"></div></div>
-        </div>
-        <div class="challenge-vs">VS</div>
-        <div class="challenge-player">
-          <strong id="challenge-op-name">Adversário</strong>
-          <span id="challenge-op-score">0 pts</span>
-          <div class="challenge-hitbar"><div id="challenge-op-bar" class="challenge-hitbar-fill"></div></div>
-        </div>
-      </div>
-      <div class="challenge-progress" id="challenge-progress">Ocorrência 1 de 10</div>
-      <div class="challenge-card">
-        <div class="challenge-card-meta" id="challenge-card-meta">OCORRÊNCIA</div>
-        <h3 id="challenge-card-title">Aguardando...</h3>
-        <p id="challenge-card-description"></p>
-        <div id="challenge-card-options" class="challenge-card-options"></div>
-        <div id="challenge-feedback" class="challenge-feedback" hidden></div>
-      <div class="challenge-card-footer">
-          <span id="challenge-card-timer">30s</span>
-          <button class="challenge-btn primary" id="challenge-answer-btn" disabled>Responder</button>
-        </div>
-      </div>
-      <p class="challenge-note">Os dois operadores recebem as mesmas ocorrências. Sua pontuação do desafio é separada da pontuação acumulada.</p>
-    </div>
-
-    <div id="challenge-result-view" class="challenge-subview" hidden>
-      <div class="challenge-result">
-        <div id="challenge-result-icon" class="challenge-big-icon">🏆</div>
-        <h3 id="challenge-result-title">Desafio encerrado</h3>
-        <p id="challenge-result-text"></p>
-        <button class="challenge-btn primary" onclick="fecharPainelDesafio()">Voltar ao CCO</button>
-      </div>
-    </div>
-  </div>
-</dialog>
-
-<!-- Container Principal do CCO -->
-<div class="cco-container">
-  
-  <div id="notification-modal" class="notification-popup">
-    <div id="popup-icon" class="popup-icon">🛡️</div>
-    <div id="popup-title" class="popup-title">ALERTA DISPARADO PARA O CCO</div>
-    <div id="popup-body" class="popup-body">Conteúdo da notificação.</div>
-    <button class="popup-btn" onclick="confirmarEIrParaCCO()">Ciente / Ir para Central CCO ➔</button>
-  </div>
-
-  <div class="header-section">
-    <div class="cco-brand"><span class="cco-brand-icon">🛰️</span><strong>CCO <em>4.0</em></strong></div>
-    <div class="user-header-group">
-      <div class="user-header-tag" id="user-operator-tag">
-        PLATAFORMA INTEGRADA CCO 4.0 | AGUARDANDO LOGIN
-      </div>
-      <div class="user-score-tag" id="user-score-tag" aria-label="Pontuação do operador">
-        <span class="user-score-label">PONTOS</span>
-        <strong id="user-score">0</strong>
-      </div>
-      <button type="button" class="cco-sound-trigger" id="btn-sound" onclick="alternarSomAlerta()" title="Ativar/desativar som de alerta">🔊</button>
-      <button type="button" class="cco-tutorial-trigger" id="btn-open-tutorial" onclick="abrirTutorialCCO(true)" title="Rever tutorial">❔ Tutorial</button>
-      <button type="button" class="cco-challenge-trigger" id="btn-open-challenge" onclick="abrirPainelDesafio()" title="Desafiar operador">⚔️ Desafio</button>
-      <button type="button" class="cco-logout-trigger" id="btn-logout" onclick="realizarLogout()" title="Encerrar sessão">⏻ Sair</button>
-    </div>
-    <div class="nav-tabs">
-      <button class="tab-btn active" onclick="switchTab('mod-malha', this)">1. Malha & RAMP</button>
-      <button class="tab-btn" onclick="switchTab('mod-ia', this)">2. IA Preditiva</button>
-      <button class="tab-btn" onclick="switchTab('mod-eco', this)">3. Eco-Driving</button>
-      <button class="tab-btn" onclick="switchTab('mod-descarrilamento', this)">4. Prevenção Descarrilamento</button>
-      <button id="tab-cco-center" class="tab-btn tab-cco-btn" onclick="switchTab('mod-cco-center', this)">
-        🖥️ 5. CENTRAL CCO
-        <span id="cco-badge" class="badge">0</span>
-      </button>
-      <span class="tab-slider" id="tab-slider" aria-hidden="true"></span>
-    </div>
-  </div>
-
-  <div class="content-area">
-    <div id="module-loader" class="module-loader" aria-hidden="true"></div>
-    
-    <!-- MÓDULO 1: MALHA & RAMP -->
-    <div id="mod-malha" class="module active">
-      <svg viewBox="0 0 800 270" preserveAspectRatio="xMidYMid meet">
-        <defs>
-          <pattern id="grid-m1" width="15" height="15" patternUnits="userSpaceOnUse">
-            <path d="M 15 0 L 0 0 0 15" fill="none" stroke="#090d16" stroke-width="1"/>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#grid-m1)" />
-        
-        <path d="M 20 30 L 780 30" class="track-bg" />
-        <path d="M 20 30 L 780 30" class="track-active" />
-
-        <path d="M 20 70 L 250 70 L 450 50 L 780 50" class="track-bg" />
-        <path id="problem-track-1" d="M 20 70 L 250 70 L 450 50 L 780 50" class="track-active" />
-        <path id="ramp-pulse" class="ramp-pulse" pathLength="1.0" d="M 20 70 L 250 70 L 450 50 L 780 50" />
-
-        <path d="M 20 110 L 780 110" class="track-bg" />
-        <path d="M 20 110 L 780 110" class="track-active" style="animation-direction: reverse;" />
-
-        <path d="M 20 150 L 320 150 L 550 170 L 780 170" class="track-bg" />
-        <path d="M 20 150 L 320 150 L 550 170 L 780 170" class="track-active" />
-
-        <path d="M 20 210 L 780 210" class="track-bg" />
-        <path d="M 20 210 L 780 210" class="track-active" />
-
-        <path d="M 20 250 L 780 250" class="track-bg" />
-        <path d="M 20 250 L 780 250" class="track-active" style="animation-direction: reverse;" />
-
-        <circle cx="350" cy="60" r="5" class="station-node" />
-        <text x="310" y="42" fill="#00f2fe" font-size="8" font-weight="bold">PÁTIO RAMP (KM 42)</text>
-
-        <circle cx="430" cy="160" r="5" class="station-node" />
-        <text x="390" y="145" fill="#f59e0b" font-size="8" font-weight="bold">SENSOR WILD (KM 108)</text>
-
-        <rect id="ramp-zone" x="260" y="35" width="180" height="45" rx="6" class="alert-zone" />
-
-        <g id="ramp-signals">
-          <circle cx="272" cy="68" r="4" class="signal-dot"/>
-          <circle cx="332" cy="62" r="4" class="signal-dot"/>
-          <circle cx="396" cy="56" r="4" class="signal-dot"/>
-          <rect x="168" y="72" width="18" height="7" rx="2" class="queued-train" fill="#cbd5e1" opacity=".85"/>
-          <rect x="190" y="72" width="18" height="7" rx="2" class="queued-train" fill="#94a3b8" opacity=".85"/>
-          <rect x="146" y="72" width="18" height="7" rx="2" class="queued-train" fill="#64748b" opacity=".85"/>
-        </g>
-
-        <g id="train1" class="train-map train-1" transform="translate(0, 30)"><rect width="24" height="8" rx="2" y="24" /><text y="24" x="0" fill="#10b981" font-size="7">VL-102</text></g>
-        <g id="train2" class="train-map train-2" transform="translate(0, 70)"><rect width="24" height="8" rx="2" y="64" /><text y="64" x="0" fill="#10b981" font-size="7">EFVM-80</text></g>
-        <g class="train-map train-3" transform="translate(0, 110)"><rect width="24" height="8" rx="2" y="104" /><text y="104" x="0" fill="#3b82f6" font-size="7">PASS-04</text></g>
-        <g id="train4" class="train-map train-4" transform="translate(0, 150)"><rect width="28" height="8" rx="2" y="144" /><text y="144" x="0" fill="#f59e0b" font-size="7">MIN-99</text></g>
-        <g class="train-map train-5" transform="translate(0, 210)"><rect width="24" height="8" rx="2" y="204" /><text y="204" x="0" fill="#ec4899" font-size="7">VL-501</text></g>
-        <g class="train-map train-6" transform="translate(0, 250)"><rect width="24" height="8" rx="2" y="245" /><text y="245" x="0" fill="#8b5cf6" font-size="7">EFVM-12</text></g>
-      </svg>
-    </div>
-
-    <!-- MÓDULO 2: IA PREDITIVA -->
-    <div id="mod-ia" class="module">
-      <div class="dashboard-grid ia-dashboard">
-        <div class="cards-grid">
-          <div class="card">
-            <div class="card-header">
-              <h3>Temperatura do Rolamento (HotBox)</h3>
-              <span id="hotbox-label" class="badge-success">Ideal</span>
             </div>
-            <div class="metric-value">
-              <span id="hotbox-val">42 °C</span>
-              <span id="hotbox-unit" class="metric-unit">(Nominal)</span>
-            </div>
-            <p class="metric-subtext">Limite operacional: 85 °C</p>
-            <div class="gauge-container" style="margin-top: 15px;">
-              <div style="background:#1e293b;height:8px;border-radius:4px;overflow:hidden;">
-                <div id="hotbox-bar" style="background:#10b981;width:45%;height:100%;transition:all .5s;"></div>
-              </div>
-            </div>
-          </div>
 
-          <div class="card">
-            <div class="card-header">
-              <h3>Impacto de Roda (Detector WILD)</h3>
-              <span id="wild-label" class="badge-success">Normal</span>
-            </div>
-            <div class="metric-value">
-              <span id="wild-val">0.2 mm</span>
-              <span id="wild-unit" class="metric-unit">(Ideal)</span>
-            </div>
-            <div id="wild-alert-box" style="margin-top:10px;padding:10px;background:rgba(245,158,11,.1);border-left:3px solid #f59e0b;border-radius:4px;">
-              <p id="wild-box-title" style="font-size:11px;font-weight:bold;color:#f59e0b;">⚠️ ANÁLISE PREDITIVA DA IA</p>
-              <p id="wild-box-text" style="font-size:11px;color:#94a3b8;">Previsão de intervenção em <strong>100 km</strong> (Vagão VL-862).</p>
-            </div>
-          </div>
 
-          <div class="card">
-            <div class="card-header">
-              <h3>Saúde da Composição</h3>
-              <span id="saude-badge" class="badge-info">Alta Confiabilidade</span>
+            <!-- =================================
+                 CONTEÚDO DO LOGIN
+            ================================== -->
+
+            <div class="login-content">
+
+<img class="logo-lg" src="assets/tipografia.png" alt="Musical Escritor" data-anim="zoomIn" data-delay="0.05s">
+
+
+                <div class="welcome">
+
+                    <h2 data-anim="fadeUp" data-delay="0.15s">
+                        bem - vindo(a)!
+                    </h2>
+
+                    <h1 data-anim="fadeUp" data-delay="0.25s">
+                        Faça seu <span>LOGIN</span>
+                    </h1>
+
+                    <p data-anim="fadeUp" data-delay="0.35s">
+                        Acesse a área da equipe e continue<br>
+                        fazendo parte dessa história.
+                    </p>
+
+                </div>
+
+
+                <form class="container-login" action="pg1.html" id="login-form">
+
+                    <div class="input-box" data-anim="fadeUp" data-delay="0.5s">
+
+                        <input type="email" id="loginEmail" placeholder="Seu e-mail">
+
+                        <i class="bx bx-user"></i>
+
+                    </div>
+
+
+                    <div class="input-box" data-anim="fadeUp" data-delay="0.6s">
+
+                        <input type="password" id="loginPassword" placeholder="Senha">
+
+                        <i class="bx bx-show"></i>
+
+                    </div>
+
+
+                    <label class="remember" data-anim="fadeUp" data-delay="0.72s">
+
+                        <input type="checkbox">
+
+                        <span>
+                            Lembre-se de mim
+                        </span>
+
+                    </label>
+
+
+                    <button type="submit" data-anim="zoomIn" data-delay="0.85s">
+                        LOGIN
+                    </button>
+
+                    <div class="google-divider" data-anim="fadeIn" data-delay="0.95s">
+                        <span>ou</span>
+                    </div>
+
+                    <button type="button" class="btn-google" id="loginGoogle" data-anim="zoomIn" data-delay="1s">
+                        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                            <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+                            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+                            <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/>
+                            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09C6.22 6.86 8.87 4.75 12 4.75z"/>
+                        </svg>
+                        Entrar com Google
+                    </button>
+
+                    <p class="login-error" id="loginError" role="alert"></p>
+
+                </form>
+
+
+                <img class="logo-MJ" src="assets/logo start.png" alt="START" data-anim="fadeUp" data-delay="1.05s">
+
             </div>
-            <div class="metric-value"><span id="saude-val">98.4%</span></div>
-            <p class="metric-subtext">Risco de Falha em Via: <strong id="risco-val" style="color:#10b981;">-70%</strong></p>
-          </div>
+
         </div>
 
-        <div class="cards-grid ia-extra-grid">
-          <div class="card">
-            <div class="card-header">
-              <h3>Previsão de Manutenção</h3>
-              <span class="badge-info">IA ATIVA</span>
-            </div>
-            <div class="metric-value" style="font-size:21px;">72 h</div>
-            <p class="metric-subtext">Janela estimada para inspeção preventiva do vagão VL-862.</p>
-            <div class="ai-progress">
-              <div class="ai-progress-label"><span>Confiança da previsão</span><strong>94%</strong></div>
-              <div class="ai-progress-track"><div class="ai-progress-fill" style="width:94%;"></div></div>
-            </div>
-          </div>
 
-          <div class="card">
-            <div class="card-header">
-              <h3>Monitoramento dos Sensores</h3>
-              <span class="badge-success">Online</span>
-            </div>
-            <div class="sensor-status-list">
-              <div><span>HotBox</span><strong>24/24</strong></div>
-              <div><span>WILD</span><strong>18/18</strong></div>
-              <div><span>Temperatura</span><strong>12/12</strong></div>
-              <div><span>Vibração</span><strong>8/8</strong></div>
-            </div>
-          </div>
+        <!-- =================================
+             DECORAÇÕES
+        ================================== -->
 
-          <div class="card">
-            <div class="card-header">
-              <h3>Recomendação Operacional</h3>
-              <span class="badge-success">Baixo Risco</span>
-            </div>
-            <p class="metric-subtext ai-recommendation">A IA recomenda manter a velocidade operacional e programar inspeção preventiva antes do próximo ciclo da composição.</p>
-            <div class="ai-footer">Última análise: agora • Modelo preditivo CCO 4.0</div>
-          </div>
-        </div>
+        <img class="decoration decoration-top" src="assets/Ellipse 3.svg" alt="" data-anim="fadeIn" data-float="slow" data-delay="0.1s">
 
-        <div class="ia-analysis-strip">
-          <div><span>Modelo</span><strong>CCO Predictive 4.0</strong></div>
-          <div><span>Dados analisados</span><strong>1.248 leituras</strong></div>
-          <div><span>Confiança geral</span><strong>96,2%</strong></div>
-          <div><span>Status</span><strong class="status-online">MONITORAMENTO CONTÍNUO</strong></div>
-        </div>
-      </div>
-    </div>
-<div id="mod-eco" class="module">
-      <div class="dashboard-grid">
-        <div class="cards-grid">
-          <div class="card">
-            <div class="card-header">
-              <h3>Consumo de Combustível</h3>
-              <span id="badge-fuel" class="badge-success">Meta Atingida</span>
-            </div>
-            <div id="val-fuel" class="metric-value" style="color: #10b981;">- 14.2% L/tkm</div>
-            <p class="metric-subtext">Economia acumulada no trecho atual</p>
-          </div>
+        <img class="decoration decoration-bottom" src="assets/Ellipse 2.png" alt="" data-anim="fadeIn" data-float="slow" data-delay="0.55s">
 
-          <div class="card">
-            <div class="card-header">
-              <h3>Modo de Operação</h3>
-              <span id="badge-mode" class="badge-success">Ativo</span>
-            </div>
-            <div id="val-mode" class="metric-value" style="color: #10b981; font-size: 18px;">IA Eco-Assist Ativa</div>
-            <p id="val-notch" class="metric-subtext" style="color: #10b981;">Notch 4 (Otimizado)</p>
-          </div>
+    </main>
 
-          <div class="card">
-            <div class="card-header">
-              <h3>Eficiência do Trecho</h3>
-              <span class="badge-info">Algoritmo Ativo</span>
-            </div>
-            <div style="margin-top: 8px;">
-              <div style="background: #1e293b; height: 10px; border-radius: 5px; overflow: hidden; margin-bottom: 6px;">
-                <div id="bar-eficiencia" style="background: #10b981; width: 92%; height: 100%; transition: all 0.5s;"></div>
-              </div>
-              <p id="text-eficiencia" class="metric-subtext">92% das metas de Eco-Driving atingidas no trecho</p>
-            </div>
-          </div>
-        </div>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 
-        <div class="card" style="flex: 1; min-height: 200px;">
-          <div class="card-header">
-            <h3>Perfil de Consumo x Aceleração Otimizada</h3>
-          </div>
-          <div style="position: relative; width: 100%; height: 160px;">
-            <canvas id="ecoChart"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
-    <!-- MÓDULO 4: PREVENÇÃO DE DESCARRILAMENTO -->
-    <div id="mod-descarrilamento" class="module">
-      <div class="derail-stage">
-        <svg viewBox="0 0 800 220" preserveAspectRatio="xMidYMid meet">
-          <line x1="0" y1="180" x2="800" y2="180" stroke="#334155" stroke-width="6"/>
-          <line x1="0" y1="183" x2="800" y2="183" stroke="#00f2fe" stroke-width="2" stroke-dasharray="10 5" class="track-active"/>
+    <script src="auth.js"></script>
 
-          <g id="train-2d-group" class="train-drive">
-            <g id="train-vibration-wrapper">
-              <g id="vale-locomotive" transform="translate(220, 5)">
-                <rect x="55" y="38" width="300" height="92" rx="7" fill="#0786b9" stroke="#d8dee9" stroke-width="2"/>
-                <rect x="55" y="78" width="300" height="22" fill="#ffd400"/>
-                <rect x="55" y="100" width="300" height="5" fill="#f4f4f4" opacity="0.9"/>
-                <path d="M72 38 H135 L150 54 V78 H72 Z" fill="#f3f4f6" stroke="#cbd5e1" stroke-width="2"/>
-                <rect x="82" y="47" width="24" height="20" rx="2" fill="#17324d"/>
-                <rect x="111" y="47" width="24" height="20" rx="2" fill="#17324d"/>
-                <rect x="150" y="52" width="170" height="26" rx="3" fill="#0b789f"/>
-                <rect x="160" y="43" width="75" height="9" rx="2" fill="#0e6688"/>
-                <rect x="245" y="43" width="58" height="9" rx="2" fill="#0e6688"/>
-                <text x="205" y="95" fill="#0b3550" font-size="19" font-weight="900" text-anchor="middle">VALE</text>
-                <text x="205" y="119" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">COMPOSIÇÃO 862</text>
-                <path d="M320 55 H344 Q355 55 355 67 V130 H320 Z" fill="#f3f4f6" stroke="#cbd5e1" stroke-width="2"/>
-                <rect x="326" y="65" width="21" height="19" rx="2" fill="#17324d"/>
-                <rect x="326" y="89" width="21" height="7" rx="2" fill="#ffd400"/>
-                <circle cx="329" cy="111" r="4" fill="#f8fafc" stroke="#334155" stroke-width="1"/>
-                <circle cx="346" cy="111" r="4" fill="#f8fafc" stroke="#334155" stroke-width="1"/>
-                <rect x="45" y="128" width="325" height="10" rx="2" fill="#f59e0b" stroke="#78350f" stroke-width="1"/>
-                <path d="M345 138 L360 150 H335 Z" fill="#f59e0b"/>
-                <rect x="28" y="145" width="20" height="6" rx="2" fill="#64748b"/>
-                <rect x="360" y="145" width="20" height="6" rx="2" fill="#64748b"/>
-                <g id="bogie-structure" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5">
-                  <rect x="90" y="132" width="78" height="16" rx="3"/>
-                  <rect x="270" y="132" width="78" height="16" rx="3"/>
-                </g>
-                <g id="wheels-group">
-                  <circle cx="110" cy="154" r="14" fill="#090d16" stroke="#00f2fe" stroke-width="3" class="wheel-rotate"/>
-                  <circle cx="150" cy="154" r="14" fill="#090d16" stroke="#00f2fe" stroke-width="3" class="wheel-rotate"/>
-                  <circle cx="290" cy="154" r="14" fill="#090d16" stroke="#00f2fe" stroke-width="3" class="wheel-rotate"/>
-                  <circle cx="330" cy="154" r="14" fill="#090d16" stroke="#00f2fe" stroke-width="3" class="wheel-rotate"/>
-                </g>
-                <g id="sparks-group" style="display: none;">
-                  <path d="M150 160 L132 180 M150 160 L126 169 M150 160 L138 188" stroke="#ef4444" stroke-width="3"/>
-                  <path d="M290 160 L272 181 M290 160 L266 170" stroke="#f59e0b" stroke-width="3"/>
-                </g>
-              </g>
-            </g>
-          </g>
-        </svg>
-      </div>
+    <script src="animations.js"></script>
 
-      <div class="dashboard-grid" style="padding-top: 10px;">
-        <div class="cards-grid">
-          <div class="card">
-            <div class="card-header">
-              <h3>Aceleração Triaxial Truque</h3>
-              <span id="card-bogie-status" class="badge-success">Estável</span>
-            </div>
-            <div id="card-bogie-val" class="metric-value" style="color: #10b981;">12 Hz (0.02G)</div>
-            <p class="metric-subtext">Limite de estabilidade: 0.80G</p>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <h3>Sensor de Roda Descaída (DED)</h3>
-              <span id="card-ded-status" class="badge-success">OK</span>
-            </div>
-            <div id="card-ded-val" class="metric-value" style="color: #10b981; font-size: 18px;">Monitorando</div>
-            <p class="metric-subtext">Sem interferência mecânica na via</p>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <h3>Temperatura de Truque</h3>
-              <span id="card-temp-status" class="badge-success">Nominal</span>
-            </div>
-            <div id="card-temp-val" class="metric-value" style="color: #10b981;">38 °C</div>
-            <p class="metric-subtext">Monitoramento de atrito contínuo</p>
-          </div>
-        </div>
-
-        <div class="card" style="height: 110px;">
-          <div class="card-header" style="margin-bottom: 2px;">
-            <h3>Espectro de Vibração em Tempo Real</h3>
-          </div>
-          <div style="position: relative; width: 100%; height: 65px;">
-            <canvas id="vibrationChart"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- MÓDULO 5: CENTRAL CCO -->
-    <div id="mod-cco-center" class="module">
-      <div class="cco-dashboard">
-        <div class="cco-dashboard-header">
-          <div>
-            <div class="cco-kicker">CENTRAL DE CONTROLE OPERACIONAL</div>
-            <h2>Visão Operacional Integrada</h2>
-            <p>Acompanhe ocorrências, decisões e status dos módulos em um único ponto de controle.</p>
-          </div>
-          <div id="cco-global-status" class="cco-global-status status-normal">
-            <span class="status-dot"></span>
-            <div><strong>OPERAÇÃO NORMAL</strong><small>Todos os módulos operacionais</small></div>
-          </div>
-        </div>
-
-        <div class="cco-kpi-grid">
-          <div class="cco-kpi"><span class="cco-kpi-icon">🚂</span><div><small>Trens monitorados</small><strong>12</strong><span>em operação</span></div></div>
-          <div class="cco-kpi"><span class="cco-kpi-icon">🟢</span><div><small>Via operacional</small><strong>98%</strong><span>condição normal</span></div></div>
-          <div class="cco-kpi"><span class="cco-kpi-icon">⚠️</span><div><small>Ocorrências ativas</small><strong id="cco-active-count">0</strong><span>aguardando tratamento</span></div></div>
-          <div class="cco-kpi"><span class="cco-kpi-icon">🤖</span><div><small>Monitoramento IA</small><strong>ATIVO</strong><span>análise contínua</span></div></div>
-        </div>
-
-        <div class="cco-main-grid">
-          <section class="cco-events-panel">
-            <div class="cco-section-header">
-              <div><span class="section-eyebrow">CENTRAL DE OCORRÊNCIAS</span><h3>Eventos recebidos</h3></div>
-              <button class="btn-clear-notif" onclick="limparNotificacoes()">Arquivar resolvidos</button>
-            </div>
-            <div id="notifications-container" class="notifications-list cco-events-list">
-              <div id="empty-notif-msg" class="empty-notif">
-                <div class="empty-notif-icon">✓</div>
-                <strong>Nenhuma ocorrência pendente</strong>
-                <span>As simulações dos módulos 1 a 4 aparecerão aqui quando gerarem um evento.</span>
-              </div>
-            </div>
-          </section>
-
-          <aside class="cco-detail-panel">
-            <div class="cco-section-header compact">
-              <div><span class="section-eyebrow">GESTÃO DA OCORRÊNCIA</span><h3>Detalhes</h3></div>
-              <span id="cco-detail-status" class="event-status status-pendente">PENDENTE</span>
-            </div>
-            <div id="cco-detail-content" class="cco-detail-empty">
-              <div class="detail-icon">🔔</div>
-              <strong>Selecione um evento</strong>
-              <span>As ações disponíveis serão exibidas aqui.</span>
-            </div>
-          </aside>
-        </div>
-
-        <div class="cco-footer-status">
-          <div><span class="status-dot"></span><strong id="cco-footer-title">SISTEMA OPERACIONAL</strong></div>
-          <span id="cco-footer-text">Central CCO recebendo eventos em tempo real dos módulos da plataforma.</span>
-          <span class="cco-live"><i></i> LIVE</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="control-panel">
-    <div class="alert-banner">
-      <div class="alert-banner-title"><span class="live-dot" aria-hidden="true"></span>STATUS OPERACIONAL DA VIA (LIVE LOG)</div>
-      <div id="banner-text" class="banner-text-content">
-        Análise Dinâmica de Via: Pátio RAMP operando normalmente.
-      </div>
-    </div>
-
-    <div class="btn-group">
-      <button id="btn-action-1" class="btn-simular" onclick="executarSimulacaoAtual(false)">
-        💥 1. SIMULAR CONGESTIONAMENTO RAMP
-      </button>
-      <button id="btn-action-2" class="btn-simular btn-safe" onclick="executarSimulacaoAtual(true)">
-        🛡️ PROTOCOLO SEGURANÇA IA
-      </button>
-    </div>
-  </div>
-
-</div>
-
-<!-- Firebase: conexão com Realtime Database -->
-<script src="https://www.gstatic.com/firebasejs/12.0.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.0.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.0.0/firebase-database-compat.js"></script>
-<script src="firebase-config.js?v=6"></script>
-
-<!-- LÓGICA JAVASCRIPT DA APLICAÇÃO -->
-<script src="app.js?v=21"></script>
 </body>
 </html>

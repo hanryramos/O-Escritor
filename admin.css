@@ -1,0 +1,371 @@
+/* =====================================
+   ADMIN — ESTILOS COMPARTILHADOS
+   Carregado em todas as páginas.
+===================================== */
+
+:root {
+    --adm-marrom: #6F461B;
+    --adm-dourado: #B9853F;
+    --adm-dourado-claro: #C99B62;
+    --adm-verde: #3E9B63;
+    --adm-vermelho: #C0483B;
+    --adm-bege: #F6F1E9;
+}
+
+/* ---------- VISIBILIDADE POR PAPEL ---------- */
+
+[data-admin-only] {
+    display: none !important;
+}
+
+body.is-admin [data-admin-only] {
+    display: revert !important;
+}
+
+/* Botões admin que devem virar inline-flex quando visíveis */
+body.is-admin [data-admin-only].adm-inline {
+    display: inline-flex !important;
+}
+
+body.is-admin .admin-note,
+body.is-admin small.admin-note {
+    display: none !important;
+}
+
+/* ---------- SELO ---------- */
+
+.admin-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    padding: 0.1rem 0.5rem;
+    margin-left: 0.4rem;
+
+    border-radius: 999px;
+
+    background: linear-gradient(120deg, var(--adm-dourado-claro), var(--adm-marrom));
+    color: #FFF8EE;
+
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    vertical-align: middle;
+}
+
+.admin-badge i {
+    font-size: 0.7rem;
+}
+
+.is-admin-avatar {
+    box-shadow: 0 0 0 2px var(--adm-dourado);
+}
+
+/* ---------- INDICADOR DE MODO ---------- */
+
+.admin-mode-flag {
+    position: fixed;
+    left: 18px;
+    bottom: 18px;
+    z-index: 1400;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    padding: 0.5rem 0.85rem;
+
+    border-radius: 999px;
+
+    background: rgba(48, 32, 19, 0.92);
+    color: #F6E7CE;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
+
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s, transform 0.4s;
+}
+
+body.is-admin .admin-mode-flag {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.admin-mode-flag i {
+    color: var(--adm-dourado-claro);
+    font-size: 0.95rem;
+}
+
+/* ---------- AÇÕES POR ITEM ---------- */
+
+.admin-item-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.admin-ctl {
+    width: 30px;
+    height: 30px;
+    flex: none;
+
+    display: grid;
+    place-items: center;
+
+    border: 0;
+    border-radius: 9px;
+
+    background: transparent;
+    color: #8a7a6a;
+    cursor: pointer;
+
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.admin-ctl:hover {
+    background: var(--adm-bege);
+    color: var(--adm-marrom);
+    transform: translateY(-1px);
+}
+
+.admin-ctl.danger:hover {
+    background: #F7E3E0;
+    color: var(--adm-vermelho);
+}
+
+.admin-ctl i {
+    font-size: 1.1rem;
+}
+
+/* ---------- OVERLAY / MODAL ---------- */
+
+.adm-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 1.2rem;
+
+    background: rgba(30, 20, 12, 0.55);
+    backdrop-filter: blur(3px);
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+}
+
+.adm-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.adm-modal {
+    width: 100%;
+    max-width: 560px;
+    max-height: 88vh;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #FFFDFA;
+    border-radius: 18px;
+    overflow: hidden;
+
+    box-shadow: 0 30px 70px rgba(30, 20, 12, 0.35);
+
+    transform: translateY(18px) scale(0.98);
+    transition: transform 0.3s;
+}
+
+.adm-overlay.show .adm-modal {
+    transform: translateY(0) scale(1);
+}
+
+.adm-modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    padding: 1.1rem 1.4rem;
+
+    background: linear-gradient(120deg, var(--adm-marrom), #3B2A1C);
+    color: #FFF8EE;
+}
+
+.adm-modal-head h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.adm-modal-head button {
+    width: 32px;
+    height: 32px;
+
+    display: grid;
+    place-items: center;
+
+    border: 0;
+    border-radius: 9px;
+
+    background: rgba(255, 255, 255, 0.14);
+    color: #FFF8EE;
+    cursor: pointer;
+
+    transition: background 0.2s;
+}
+
+.adm-modal-head button:hover {
+    background: rgba(255, 255, 255, 0.28);
+}
+
+.adm-modal-body {
+    padding: 1.3rem 1.4rem;
+
+    overflow-y: auto;
+
+    display: grid;
+    gap: 0.95rem;
+}
+
+.adm-field {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.adm-field label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: #8a7a6a;
+}
+
+.adm-field input,
+.adm-field select,
+.adm-field textarea {
+    width: 100%;
+
+    padding: 0.65rem 0.8rem;
+
+    border: 1px solid #E6DDD0;
+    border-radius: 10px;
+
+    background: #fff;
+    color: #202020;
+    font-size: 0.85rem;
+    font-family: inherit;
+
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.adm-field textarea {
+    min-height: 92px;
+    resize: vertical;
+}
+
+.adm-field input:focus,
+.adm-field select:focus,
+.adm-field textarea:focus {
+    outline: none;
+    border-color: var(--adm-dourado);
+    box-shadow: 0 0 0 3px rgba(185, 133, 63, 0.16);
+}
+
+.adm-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.95rem;
+}
+
+.adm-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6rem;
+
+    padding: 1rem 1.4rem 1.3rem;
+    border-top: 1px solid #F0E9DE;
+}
+
+.adm-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    padding: 0.62rem 1.2rem;
+
+    border: 1px solid #E6DDD0;
+    border-radius: 10px;
+
+    background: #fff;
+    color: #5a4a3a;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+
+    transition: background 0.2s, color 0.2s, transform 0.15s, border-color 0.2s;
+}
+
+.adm-btn:hover {
+    background: var(--adm-bege);
+    transform: translateY(-1px);
+}
+
+.adm-btn.primary {
+    border-color: transparent;
+    background: linear-gradient(120deg, var(--adm-dourado-claro), var(--adm-marrom));
+    color: #FFF8EE;
+}
+
+.adm-btn.primary:hover {
+    filter: brightness(1.06);
+}
+
+.adm-btn.danger {
+    border-color: transparent;
+    background: var(--adm-vermelho);
+    color: #fff;
+}
+
+.adm-btn.danger:hover {
+    filter: brightness(1.08);
+}
+
+/* Confirmação */
+.adm-confirm .adm-modal {
+    max-width: 420px;
+}
+
+.adm-confirm-msg {
+    padding: 1.4rem;
+    text-align: center;
+    color: #4a3a2a;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.adm-confirm-msg i {
+    display: block;
+    font-size: 2.4rem;
+    color: var(--adm-dourado);
+    margin-bottom: 0.6rem;
+}
+
+@media (max-width: 560px) {
+    .adm-grid-2 {
+        grid-template-columns: 1fr;
+    }
+}

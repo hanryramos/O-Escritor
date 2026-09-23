@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pg3.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <title>Musical Escritor · Tarefas</title>
+</head>
+
+<body>
+
+    <div class="backdrop" id="backdrop"></div>
+
+    <!-- =================================
+         SIDEBAR
+    ================================== -->
+
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral">
+
+        <button class="sidebar-close" id="sidebarClose" aria-label="Fechar menu">
+            <i class="bx bx-x"></i>
+        </button>
+
+        <div class="sidebar-logo">
+            <img src="assets/tipografia.png" alt="Musical Escritor">
+        </div>
+
+        <div class="divider-diamond"><b></b></div>
+
+        <nav class="sidebar-menu">
+            <a href="pg1.html"><i class="bx bx-home"></i><span>Início</span></a>
+            <a href="pg2.html"><i class="bx bx-calendar"></i><span>Agenda</span></a>
+            <a class="active" href="pg3.html"><i class="bx bx-check-square"></i><span>Tarefas</span></a>
+            <a href="pg4.html"><i class="bx bx-music"></i><span>Ensaios</span></a>
+            <a href="pg5.html"><i class="bx bx-headphone"></i><span>Músicas</span></a>
+            <a href="pg6.html"><i class="bx bx-folder"></i><span>Arquivos e Links</span></a>
+            <a href="pg7.html"><i class="bx bx-group"></i><span>Equipe</span></a>
+            <a href="pg8.html"><i class="bx bx-bell"></i><span>Notificações</span></a>
+            <a href="pg9.html"><i class="bx bx-user"></i><span>Meu Perfil</span></a>
+        </nav>
+
+        <div class="sidebar-quote">
+            <div class="divider-diamond"><b></b></div>
+            <p>“Cada detalhe<br>conta uma<br>história.”</p>
+            <div class="divider-diamond"><b></b></div>
+        </div>
+
+    </aside>
+
+
+    <!-- =================================
+         CONTEÚDO
+    ================================== -->
+
+    <main class="dashboard">
+
+        <header class="dashboard-header">
+
+            <div class="header-top">
+
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" data-anim="zoomIn" data-delay="0s">
+                    <i class="bx bx-menu"></i>
+                </button>
+
+                <div class="header-intro">
+                    <span class="crumb" data-anim="fadeUp" data-delay="0.05s">Tarefas</span>
+                    <h1 data-anim="fadeUp" data-delay="0.12s">Tarefas</h1>
+                    <p data-anim="fadeUp" data-delay="0.2s">Organize e acompanhe tudo o que precisa ser feito para o musical.</p>
+                </div>
+
+                <div class="header-actions" data-anim="fadeIn" data-delay="0.26s">
+
+                    <div class="search-box">
+                        <i class="bx bx-search"></i>
+                        <input type="text" placeholder="Buscar tarefas..." id="buscaTarefa">
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="notif-btn" aria-label="Notificações">
+                        <i class="bx bx-bell"></i>
+                        <span class="dot" data-pulse></span>
+                    </button>
+
+                    <span class="divider-v"></span>
+
+                    <div class="profile">
+                        <div class="profile-avatar" id="profileAvatar">G</div>
+                        <div class="profile-info">
+                            <strong id="profileName">Gustavo</strong>
+                            <span>Integrante</span>
+                        </div>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="logout-btn" id="logoutBtn" aria-label="Sair da conta">
+                        <i class="bx bx-log-out"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="quote-deco">
+                <p data-anim="fadeUp" data-delay="0.35s">“Cada detalhe,<br>um passo para o palco.”</p>
+                <div class="divider-diamond" data-anim="fadeIn" data-delay="0.5s"><b></b></div>
+            </div>
+
+        </header>
+
+
+        <!-- =================================
+             TAREFAS
+        ================================== -->
+
+        <section class="tasks-layout">
+
+            <!-- ÁREA PRINCIPAL -->
+            <div class="tasks-main">
+
+                <div class="tabs-row" data-anim="fadeUp" data-delay="0.1s">
+
+                    <div class="tabs">
+                        <button class="active" data-tab="todas">Todas</button>
+                        <button data-tab="minhas">Minhas tarefas</button>
+                        <button data-tab="atraso">Em atraso</button>
+                        <button data-tab="concluidas">Concluídas</button>
+                    </div>
+
+                    <button class="new-task-btn adm-inline" id="novaTarefa" data-admin-only>
+                        <i class="bx bx-plus"></i> Nova tarefa
+                    </button>
+
+                    <button class="new-task-btn adm-inline" id="gerCatTarefas" data-admin-only title="Editar categorias de tarefas">
+                        <i class="bx bx-cog"></i> Categorias
+                    </button>
+
+                </div>
+
+                <article class="card table-card" data-anim="fadeUp" data-delay="0.18s">
+
+                    <div class="table-scroll">
+                        <table class="tasks-table">
+
+                            <thead>
+                                <tr>
+                                    <th>Tarefa</th>
+                                    <th>Responsável</th>
+                                    <th>Data</th>
+                                    <th>Categoria</th>
+                                    <th>Status</th>
+                                    <th>Prioridade</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="tarefasBody">
+                            </tbody>
+
+                        </table>
+                        <div class="tasks-empty" id="tasksEmpty" hidden>
+                            <i class="bx bx-check-double"></i>
+                            <p>Nenhuma tarefa encontrada.</p>
+                            <button class="btn-apply" id="backToTodas">Ver todas as tarefas</button>
+                        </div>
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <!-- SIDEBAR DIREITA -->
+            <aside class="tasks-side">
+
+                <article class="card summary-card" data-anim="fadeUp" data-delay="0.22s">
+
+                    <div class="card-head">
+                        <h3>Resumo</h3>
+                    </div>
+
+                    <div class="summary-item">
+                        <span class="status-dot st-pendente"></span>
+                        <span class="summary-label">Pendentes</span>
+                        <strong id="sumPendentes">5</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span class="status-dot st-em-andamento"></span>
+                        <span class="summary-label">Em andamento</span>
+                        <strong id="sumAndamento">2</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span class="status-dot st-em-atraso"></span>
+                        <span class="summary-label">Em atraso</span>
+                        <strong id="sumAtraso">1</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span class="status-dot st-concluida"></span>
+                        <span class="summary-label">Concluídas</span>
+                        <strong id="sumConcluidas">4</strong>
+                    </div>
+
+                </article>
+
+
+                <article class="card filters-card" data-anim="fadeUp" data-delay="0.3s">
+
+                    <div class="card-head">
+                        <h3>Filtros</h3>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Status</label>
+                        <div class="select-wrap">
+                            <select id="filtroStatus">
+                                <option>Status</option>
+                                <option>Pendente</option>
+                                <option>Em andamento</option>
+                                <option>Em atraso</option>
+                                <option>Concluída</option>
+                            </select>
+                            <i class="bx bx-chevron-down"></i>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Prioridade</label>
+                        <div class="select-wrap">
+                            <select id="filtroPrioridade">
+                                <option>Prioridade</option>
+                                <option>Alta</option>
+                                <option>Média</option>
+                                <option>Baixa</option>
+                            </select>
+                            <i class="bx bx-chevron-down"></i>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Responsável</label>
+                        <div class="select-wrap">
+<select id="filtroResponsavel">
+                                <option>Responsável</option>
+                            </select>
+                            <i class="bx bx-chevron-down"></i>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Categoria</label>
+                        <div class="select-wrap">
+                            <select id="filtroCategoria">
+                                <option>Categoria</option>
+                                <option>Repertório</option>
+                                <option>Equipe</option>
+                                <option>Figurino</option>
+                                <option>Projeção</option>
+                                <option>Som</option>
+                                <option>Direção</option>
+                                <option>Logística</option>
+                            </select>
+                            <i class="bx bx-chevron-down"></i>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Período</label>
+                        <div class="select-wrap">
+                            <select id="filtroPeriodo">
+                                <option>Todos os períodos</option>
+                                <option>Hoje</option>
+                                <option>Próximos 7 dias</option>
+                                <option>Este mês</option>
+                                <option>Vencidas</option>
+                            </select>
+                            <i class="bx bx-chevron-down"></i>
+                        </div>
+                    </div>
+
+                    <div class="filter-btns">
+                        <button class="btn-clear" id="limparFiltros">Limpar</button>
+                        <button class="btn-apply" id="aplicarFiltros">Aplicar filtros</button>
+                    </div>
+
+                </article>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+    <script src="auth.js"></script>
+
+    <script src="data.js"></script>
+
+    <script src="admin.js"></script>
+
+<script src="pg3-dados.js"></script>
+
+    <script src="config-dados.js"></script>
+
+    <script src="animations.js"></script>
+
+    <script>
+        (function () {
+            var DATA = pg3Dados;
+
+            AppDB.register('tarefas', DATA.tasks);
+            var tasks = [];
+            var categorias = DATA.CATS.slice();
+
+            var tabAtiva = 'todas';
+            var estadoFiltros = { status: '', prio: '', resp: '', cat: '', periodo: '' };
+            var busca = '';
+
+            var body = document.getElementById('tarefasBody');
+            var empty = document.getElementById('tasksEmpty');
+            var tabBtns = document.querySelectorAll('.tabs button');
+            var selectors = [
+                ['status', document.getElementById('filtroStatus')],
+                ['prio', document.getElementById('filtroPrioridade')],
+                ['resp', document.getElementById('filtroResponsavel')],
+                ['cat', document.getElementById('filtroCategoria')],
+                ['periodo', document.getElementById('filtroPeriodo')]
+            ];
+            var buscaEl = document.getElementById('buscaTarefa');
+            var responsaveis = [];
+
+            function nomeAtual() {
+                var el = document.getElementById('profileName');
+                var t = el ? el.textContent.trim() : '';
+                return t || 'Integrante';
+            }
+
+            function preencherResponsaveis() {
+                var sel = document.getElementById('filtroResponsavel');
+                if (!sel) return;
+                var selecionado = sel.value;
+                while (sel.options.length > 1) sel.remove(1);
+                responsaveis.forEach(function (m) {
+                    var o = document.createElement('option');
+                    o.textContent = m.nome;
+                    o.value = m.nome;
+                    sel.appendChild(o);
+                });
+                if (selecionado && selecionado !== sel.options[0].value) sel.value = selecionado;
+            }
+
+            function toast(msg) {
+                var el = document.createElement('div');
+                el.className = 'toast';
+                el.textContent = msg;
+                document.body.appendChild(el);
+                setTimeout(function () { el.classList.add('show'); }, 20);
+                setTimeout(function () {
+                    el.classList.remove('show');
+                    setTimeout(function () { el.remove(); }, 300);
+                }, 2400);
+            }
+
+            function fmtData(iso) {
+                return DATA.fmtData(iso);
+            }
+
+            function filtrar() {
+                var f = estadoFiltros;
+                var b = busca.trim().toLowerCase();
+                return tasks.filter(function (t) {
+                    if (tabAtiva === 'minhas' && t.resp !== nomeAtual()) return false;
+                    if (tabAtiva === 'atraso' && t.status !== 'Em atraso') return false;
+                    if (tabAtiva === 'concluidas' && t.status !== 'Concluída') return false;
+                    if (f.status && t.status !== f.status) return false;
+                    if (f.prio && t.prio !== f.prio) return false;
+                    if (f.resp && t.resp !== f.resp) return false;
+                    if (f.cat && t.cat !== f.cat) return false;
+                    if (f.periodo) {
+                        var p = t.data.split('-');
+                        var d = new Date(+p[0], +p[1] - 1, +p[2]);
+                        var dh = new Date();
+                        var hj = new Date(dh.getFullYear(), dh.getMonth(), dh.getDate());
+                        if (f.periodo === 'Hoje' && d.toDateString() !== hj.toDateString()) return false;
+                        if (f.periodo === 'Este mês' && (d.getMonth() !== hj.getMonth() || d.getFullYear() !== hj.getFullYear())) return false;
+                        if (f.periodo === 'Próximos 7 dias') {
+                            var fim = new Date(hj);
+                            fim.setDate(hj.getDate() + 6);
+                            if (d < hj || d > fim) return false;
+                        }
+                        if (f.periodo === 'Vencidas' && (d >= hj || t.status === 'Concluída')) return false;
+                    }
+                    if (b && t.nome.toLowerCase().indexOf(b) === -1 && t.resp.toLowerCase().indexOf(b) === -1) return false;
+                    return true;
+                });
+            }
+
+            function atualizarResumo() {
+                var lista = tasks;
+                function n(st) { return lista.filter(function (t) { return t.status === st; }).length; }
+                document.getElementById('sumPendentes').textContent = n('Pendente');
+                document.getElementById('sumAndamento').textContent = n('Em andamento');
+                document.getElementById('sumAtraso').textContent = n('Em atraso');
+                document.getElementById('sumConcluidas').textContent = n('Concluída');
+            }
+
+            function rowHTML(t, idx) {
+                var r = DATA.respOf(t.resp);
+                var ci = 'check' + (t.status === 'Concluída' ? ' done' : '');
+                var nomeCls = 'task-name' + (t.status === 'Concluída' ? ' done' : '');
+                var prioText = t.status === 'Concluída' ? 'Concluída' : t.prio;
+                var prioCls = t.status === 'Concluída' ? DATA.prioCls('Média') : DATA.prioCls(t.prio);
+                return '<tr data-id="' + t._id + '">' +
+                    '<td><div class="task-cell">' +
+                    '<button class="' + ci + '" data-concluir aria-label="Concluir tarefa"></button>' +
+                    '<span class="' + nomeCls + '">' + DATA.esc(t.nome) + '</span></div></td>' +
+                    '<td><div class="resp-cell"><span class="avatar ' + r.cor + '">' + r.init + '</span>' +
+                    '<span class="resp-name">' + DATA.esc(t.resp) + '</span></div></td>' +
+                    '<td><span class="date">' + fmtData(t.data) + '</span></td>' +
+                    '<td><span class="pill ' + DATA.catClsOf(t.cat) + '">' + t.cat + '</span></td>' +
+                    '<td><span class="pill ' + DATA.statusCls(t.status) + '"><span class="pd"></span>' + t.status + '</span></td>' +
+                    '<td>' + (t.status === 'Concluída'
+                        ? '<span class="pill st-concluida">Concluída</span>'
+                        : '<span class="pill ' + prioCls + '">' + prioText + '</span>') + '</td>' +
+                    '<td><button class="icon-btn" data-opts aria-label="Opções"><i class="bx bx-dots-horizontal-rounded"></i></button></td>' +
+                    '</tr>';
+            }
+
+            function render() {
+                var lista = filtrar();
+                body.innerHTML = lista.map(rowHTML);
+                empty.hidden = lista.length > 0;
+                atualizarResumo();
+            }
+
+            body.addEventListener('click', function (e) {
+                var row = e.target.closest('tr[data-id]');
+                if (!row) return;
+                var id = row.getAttribute('data-id');
+                var t = tasks.filter(function (x) { return x._id === id; })[0];
+                if (!t) return;
+
+                if (e.target.closest('[data-concluir]')) {
+                    var novo = t.status === 'Concluída' ? 'Pendente' : 'Concluída';
+                    AppDB.update('tarefas', t._id, { status: novo }).then(function () {
+                        toast(novo === 'Concluída' ? 'Tarefa concluída: ' + t.nome : 'Tarefa reaberta: ' + t.nome);
+                    });
+                    return;
+                }
+
+                if (e.target.closest('[data-opts]')) {
+                    var rect = e.target.closest('[data-opts]').getBoundingClientRect();
+                    abrirMenu(rect, t);
+                }
+            });
+
+            var menu = document.getElementById('rowMenu');
+
+            function fecharMenu() {
+                if (menu) menu.remove();
+            }
+
+            function abrirMenu(rect, t) {
+                fecharMenu();
+                menu = document.createElement('div');
+                menu.id = 'rowMenu';
+                menu.className = 'dd';
+                menu.innerHTML = '<button data-acao="detalhes"><i class="bx bx-info-circle"></i>Ver detalhes</button>' +
+                    '<button data-acao="editar"><i class="bx bx-edit"></i>Editar tarefa</button>' +
+                    '<button data-acao="concluir"><i class="bx bx-check-circle"></i>Marcar como concluída</button>' +
+                    '<button data-acao="excluir"><i class="bx bx-trash"></i>Excluir tarefa</button>';
+                menu.style.position = 'fixed';
+                menu.style.zIndex = '1200';
+                menu.style.visibility = 'hidden';
+                document.body.appendChild(menu);
+                var W = menu.offsetWidth;
+                var H = menu.offsetHeight;
+                menu.style.left = Math.max(12, Math.min(rect.right - W, window.innerWidth - W - 12)) + 'px';
+                var top = rect.bottom + 6;
+                if (top + H > window.innerHeight - 12) top = Math.max(12, rect.top - H - 6);
+                menu.style.top = top + 'px';
+                menu.style.visibility = '';
+
+                menu.addEventListener('click', function (ev) {
+                    var acao = ev.target.closest('button').getAttribute('data-acao');
+                    fecharMenu();
+                    if (acao === 'detalhes') {
+                        toast('Tarefa: ' + t.nome + ' · Resp.: ' + t.resp + ' · ' + fmtData(t.data));
+                    } else if (acao === 'editar') {
+                        AdminKit.guard(function () { abrirFormTarefa(t); })();
+                    } else if (acao === 'concluir') {
+                        AppDB.update('tarefas', t._id, { status: 'Concluída' }).then(function () {
+                            toast('Tarefa concluída: ' + t.nome);
+                        });
+                    } else if (acao === 'excluir') {
+                        AdminKit.guard(function () {
+                            AdminKit.confirm({
+                                title: 'Excluir tarefa',
+                                message: 'Excluir "' + t.nome + '"? Esta ação não pode ser desfeita.',
+                                confirmLabel: 'Excluir',
+                                danger: true
+                            }).then(function (ok) {
+                                if (!ok) return;
+                                AppDB.remove('tarefas', t._id).then(function () {
+                                    AdminKit.toast('Tarefa excluída.', 'ok');
+                                });
+                            });
+                        })();
+                    }
+                });
+            }
+
+            document.addEventListener('click', function (e) {
+                if (menu && !menu.contains(e.target) && !e.target.closest('[data-opts]')) fecharMenu();
+            });
+
+            tabBtns.forEach(function (b) {
+                b.addEventListener('click', function () {
+                    tabAtiva = b.getAttribute('data-tab');
+                    tabBtns.forEach(function (x) { x.classList.remove('active'); });
+                    b.classList.add('active');
+                    render();
+                });
+            });
+
+            document.getElementById('limparFiltros').addEventListener('click', function () {
+                selectors.forEach(function (s) { s[1].value = s[1].options[0].value; });
+                estadoFiltros = { status: '', prio: '', resp: '', cat: '', periodo: '' };
+                buscaEl.value = '';
+                busca = '';
+                render();
+            });
+
+            document.getElementById('aplicarFiltros').addEventListener('click', function () {
+                estadoFiltros = {};
+                selectors.forEach(function (s) {
+                    var v = s[1].value;
+                    estadoFiltros[s[0]] = v && v !== s[1].options[0].value ? v : '';
+                });
+                render();
+            });
+
+            buscaEl.addEventListener('input', function () {
+                busca = buscaEl.value;
+                render();
+            });
+
+            document.getElementById('backToTodas').addEventListener('click', function () {
+                tabBtns[0].click();
+                document.getElementById('limparFiltros').click();
+            });
+
+            function abrirFormTarefa(t) {
+                var ehNova = !t;
+                t = t || {};
+                var respOpts = responsaveis.length
+                    ? responsaveis.map(function (m) { return { value: m.nome, label: m.nome }; })
+                    : [{ value: '', label: 'Sem responsável' }];
+                var catOpts = categorias.map(function (c) { return { value: c, label: c }; });
+                var hojeIso = (function () {
+                    var d = new Date();
+                    return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+                })();
+                AdminKit.modal({
+                    title: ehNova ? 'Nova tarefa' : 'Editar tarefa',
+                    submitLabel: ehNova ? 'Criar tarefa' : 'Salvar alterações',
+                    values: {
+                        nome: t.nome || '',
+                        resp: t.resp || respOpts[0].value,
+                        data: t.data || hojeIso,
+                        cat: t.cat || catOpts[0].value,
+                        status: t.status || 'Pendente',
+                        prio: t.prio || 'Média'
+                    },
+                    fields: [
+                        { name: 'nome', label: 'Tarefa', required: true, placeholder: 'Ex.: Revisar mapa vocal' },
+                        { name: 'resp', label: 'Responsável', type: 'select', half: true, options: respOpts },
+                        { name: 'data', label: 'Prazo', type: 'date', half: true },
+                        { name: 'cat', label: 'Categoria', type: 'select', half: true, options: catOpts },
+                        { name: 'status', label: 'Status', type: 'select', half: true, options: [
+                            { value: 'Pendente', label: 'Pendente' },
+                            { value: 'Em andamento', label: 'Em andamento' },
+                            { value: 'Em atraso', label: 'Em atraso' },
+                            { value: 'Concluída', label: 'Concluída' }
+                        ] },
+                        { name: 'prio', label: 'Prioridade', type: 'select', options: [
+                            { value: 'Alta', label: 'Alta' },
+                            { value: 'Média', label: 'Média' },
+                            { value: 'Baixa', label: 'Baixa' }
+                        ] }
+                    ]
+                }).then(function (valores) {
+                    if (!valores) return;
+                    if (ehNova) {
+                        AppDB.add('tarefas', valores).then(function () {
+                            AdminKit.toast('Tarefa criada.', 'ok');
+                        });
+                    } else {
+                        AppDB.update('tarefas', t._id, valores).then(function () {
+                            AdminKit.toast('Tarefa atualizada.', 'ok');
+                        });
+                    }
+                });
+            }
+
+            document.getElementById('novaTarefa').addEventListener('click', AdminKit.guard(function () {
+                abrirFormTarefa(null);
+            }));
+
+            function preencherCatOptions() {
+                var sel = document.getElementById('filtroCategoria');
+                if (!sel) return;
+                var atual = sel.value;
+                sel.innerHTML = '<option>Categoria</option>' + categorias.map(function (c) {
+                    return '<option' + (atual === c ? ' selected' : '') + '>' + DATA.esc(c) + '</option>';
+                }).join('');
+            }
+
+            function aplicarCategorias(lista) {
+                var doc = (lista || []).filter(function (x) { return x._id === 'categorias_tarefas'; })[0];
+                if (doc && doc.itens && doc.itens.length) categorias = doc.itens.slice();
+                preencherCatOptions();
+            }
+
+            document.getElementById('gerCatTarefas').addEventListener('click', AdminKit.guard(function () {
+                AdminKit.modal({
+                    title: 'Categorias de tarefas',
+                    submitLabel: 'Salvar categorias',
+                    values: { lista: categorias.join('\n') },
+                    fields: [{
+                        name: 'lista',
+                        label: 'Uma categoria por linha',
+                        type: 'textarea',
+                        required: true
+                    }]
+                }).then(function (v) {
+                    if (!v) return;
+                    var itens = String(v.lista || '').split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+                    AppDB.update('config', 'categorias_tarefas', { itens: itens }).then(function () {
+                        AdminKit.toast('Categorias atualizadas.', 'ok');
+                    });
+                });
+            }));
+
+            AppDB.onChange('tarefas', function (lista) {
+                tasks = lista;
+                render();
+            });
+
+            AppDB.onChange('integrantes', function (lista) {
+                responsaveis = lista;
+                preencherResponsaveis();
+            });
+
+            if (window.AppDB) {
+                AppDB.load('config').then(aplicarCategorias);
+                AppDB.onChange('config', aplicarCategorias);
+                preencherCatOptions();
+            }
+        })();
+    </script>
+
+</body>
+
+</html>

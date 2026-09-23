@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pg2.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <title>Musical Escritor · Agenda</title>
+</head>
+
+<body>
+
+    <div class="backdrop" id="backdrop"></div>
+
+    <!-- =================================
+         SIDEBAR
+    ================================== -->
+
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral">
+
+        <button class="sidebar-close" id="sidebarClose" aria-label="Fechar menu">
+            <i class="bx bx-x"></i>
+        </button>
+
+        <div class="sidebar-logo">
+            <img src="assets/tipografia.png" alt="Musical Escritor">
+        </div>
+
+        <div class="divider-diamond"><b></b></div>
+
+        <nav class="sidebar-menu">
+            <a href="pg1.html"><i class="bx bx-home"></i><span>Início</span></a>
+            <a class="active" href="pg2.html"><i class="bx bx-calendar"></i><span>Agenda</span></a>
+            <a href="pg3.html"><i class="bx bx-check-square"></i><span>Tarefas</span></a>
+            <a href="pg4.html"><i class="bx bx-music"></i><span>Ensaios</span></a>
+            <a href="pg5.html"><i class="bx bx-headphone"></i><span>Músicas</span></a>
+            <a href="pg6.html"><i class="bx bx-folder"></i><span>Arquivos e Links</span></a>
+            <a href="pg7.html"><i class="bx bx-group"></i><span>Equipe</span></a>
+            <a href="pg8.html"><i class="bx bx-bell"></i><span>Notificações</span></a>
+            <a href="pg9.html"><i class="bx bx-user"></i><span>Meu Perfil</span></a>
+        </nav>
+
+        <div class="sidebar-quote">
+            <div class="divider-diamond"><b></b></div>
+            <p>“Cada detalhe<br>conta uma<br>história.”</p>
+            <div class="divider-diamond"><b></b></div>
+        </div>
+
+    </aside>
+
+
+    <!-- =================================
+         CONTEÚDO
+    ================================== -->
+
+    <main class="dashboard">
+
+        <header class="dashboard-header">
+
+            <div class="header-top">
+
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" data-anim="zoomIn" data-delay="0s">
+                    <i class="bx bx-menu"></i>
+                </button>
+
+                <div class="header-intro">
+                    <span class="crumb" data-anim="fadeUp" data-delay="0.05s">Agenda</span>
+                    <h1 id="userTitle" data-anim="fadeUp" data-delay="0.12s">Agenda</h1>
+                    <p data-anim="fadeUp" data-delay="0.2s">Acompanhe todos os ensaios, eventos e datas importantes do musical.</p>
+                </div>
+
+                <div class="header-actions" data-anim="fadeIn" data-delay="0.26s">
+
+                    <div class="search-box">
+                        <i class="bx bx-search"></i>
+                        <input type="text" placeholder="Buscar...">
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="notif-btn" aria-label="Notificações">
+                        <i class="bx bx-bell"></i>
+                        <span class="dot" data-pulse></span>
+                    </button>
+
+                    <span class="divider-v"></span>
+
+                    <div class="profile">
+                        <div class="profile-avatar" id="profileAvatar">G</div>
+                        <div class="profile-info">
+                            <strong id="profileName">Gustavo</strong>
+                            <span>Integrante</span>
+                        </div>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="logout-btn" id="logoutBtn" aria-label="Sair da conta">
+                        <i class="bx bx-log-out"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="quote-deco">
+                <p data-anim="fadeUp" data-delay="0.35s">“Disciplina hoje,<br>resultado amanhã.”</p>
+                <div class="divider-diamond" data-anim="fadeIn" data-delay="0.5s"><b></b></div>
+            </div>
+
+        </header>
+
+
+        <!-- =================================
+             CALENDÁRIO + DETALHES
+        ================================== -->
+
+        <section class="agenda-layout">
+
+            <!-- CALENDÁRIO -->
+            <article class="card calendar-card" data-anim="fadeUp" data-delay="0.1s">
+
+                <div class="calendar-toolbar">
+
+                    <div class="cal-nav">
+                        <button class="cal-btn" aria-label="Voltar"><i class="bx bx-chevron-left"></i></button>
+                        <button class="cal-btn hoje">Hoje</button>
+                        <button class="cal-btn" aria-label="Avançar"><i class="bx bx-chevron-right"></i></button>
+                    </div>
+
+                    <h2 class="cal-title">Setembro de 2026</h2>
+
+                    <div class="cal-switch">
+                        <button class="active">Mês</button>
+                        <button>Semana</button>
+                        <button>Lista</button>
+                    </div>
+
+                    <button class="adm-btn primary adm-inline" id="novoEventoBtn" data-admin-only style="padding:0.45rem 0.9rem">
+                        <i class="bx bx-plus"></i> Novo evento
+                    </button>
+
+                </div>
+
+                <div class="cal-weekdays">
+                    <span>DOM</span><span>SEG</span><span>TER</span><span>QUA</span><span>QUI</span><span>SEX</span><span>SÁB</span>
+                </div>
+
+                <div class="calendar-grid" id="calGrid"></div>
+
+                <div class="cal-legend">
+                    <span class="legend-item"><span class="legend-dot ev-ensaio"></span>Ensaio</span>
+                    <span class="legend-item"><span class="legend-dot ev-evento"></span>Evento</span>
+                    <span class="legend-item"><span class="legend-dot ev-reuniao"></span>Reunião</span>
+                    <span class="legend-item"><span class="legend-dot ev-apresentacao"></span>Apresentação</span>
+                    <span class="legend-item"><span class="legend-dot ev-outro"></span>Outro</span>
+                </div>
+
+            </article>
+
+
+            <!-- COLUNA DE DETALHES -->
+            <aside class="details-column">
+
+                <article class="card detail-card" data-anim="fadeUp" data-delay="0.18s">
+
+                    <div class="detail-head">
+                        <span class="detail-date" id="detailDate">Sábado, 20 de setembro de 2026</span>
+                        <span class="admin-item-actions" data-admin-only>
+                            <button class="admin-ctl" id="editarEventoBtn" title="Editar evento" aria-label="Editar evento"><i class="bx bx-edit"></i></button>
+                            <button class="admin-ctl danger" id="excluirEventoBtn" title="Excluir evento" aria-label="Excluir evento"><i class="bx bx-trash"></i></button>
+                        </span>
+                    </div>
+
+                    <div class="detail-event">
+                        <span class="dot ev-ensaio" id="detailDot"></span>
+<strong id="detailTitle"></strong>
+                    </div>
+
+                    <div class="detail-meta">
+                        <span id="detailTime"><i class="bx bx-time"></i></span>
+                        <span id="detailPlace"><i class="bx bx-map-pin"></i></span>
+                    </div>
+
+                    <div class="detail-section">
+                        <h4>Descrição</h4>
+                        <p id="detailDesc"></p>
+                    </div>
+
+<div class="detail-section" id="partSec">
+                        <h4>Participantes</h4>
+                        <div class="participants" id="detailParticipants"></div>
+                    </div>
+
+                    <div class="detail-section" id="filesSec">
+                        <h4>Arquivos relacionados</h4>
+                        <div class="file-row" id="detailFiles"><i class="bx bx-file"></i><span class="file-name"></span><button class="icon-btn" aria-label="Baixar arquivo"><i class="bx bx-download"></i></button></div>
+                    </div>
+
+                    <button class="btn-more" id="btnMais" data-link="pg4.html">Ver mais detalhes →</button>
+
+                </article>
+
+
+                <article class="card next-card" data-anim="fadeUp" data-delay="0.26s">
+
+                    <div class="card-head">
+                        <h3>Próximos eventos</h3>
+                        <a href="pg4.html" id="verTodosEventos">Ver todos →</a>
+                    </div>
+
+<ul class="event-list" id="proxEventList"></ul>
+
+                </article>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+    <script src="auth.js"></script>
+
+    <script src="data.js"></script>
+
+    <script src="admin.js"></script>
+
+<script src="animations.js"></script>
+    <script src="pg2-dados.js"></script>
+
+    <script>
+        (function () {
+            /* ---------- EVENTOS (SETEMBRO/OUTUBRO 2026) ---------- */
+            AppDB.register('eventos', window.SEED_EVENTOS);
+            var EV = [];
+
+            var DIAS3 = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
+            var DIAS_FULL = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+            var MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+            var MESES_UP = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'];
+
+            var hoje = new Date();
+            var ano = hoje.getFullYear();
+            var mes = hoje.getMonth();
+            var view = 'mes';
+            var cel = hoje;
+            var selEvId = null;
+
+            var gridEl = document.getElementById('calGrid');
+            var titleEl = document.querySelector('.cal-title');
+            var btnMais = document.getElementById('btnMais');
+
+function pad(n) { return (n < 10 ? '0' : '') + n; }
+            function iso(y, m, d) { return y + '-' + pad(m + 1) + '-' + pad(d); }
+
+            function escT(s) {
+                return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            }
+
+            function renderProximos() {
+                var ul = document.getElementById('proxEventList');
+                if (!ul) return;
+                var hj = iso(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
+                var prox = EV.filter(function (e) { return String(e.d) >= hj; })
+                    .slice().sort(function (a, b) { return String(a.d).localeCompare(String(b.d)); }).slice(0, 4);
+                if (!prox.length) {
+                    ul.innerHTML = '<li style="list-style:none;"><div class="dash-empty"><i class="bx bx-calendar-event"></i><strong>Nenhum evento próximo</strong><span>Os eventos criados aparecem aqui.</span></div></li>';
+                    return;
+                }
+                ul.innerHTML = prox.map(function (e) {
+                    var partes = String(e.d).split('-');
+                    var d = new Date(+partes[0], +partes[1] - 1, +partes[2]);
+                    var mesAbr = MESES_UP[d.getMonth()].charAt(0) + MESES_UP[d.getMonth()].slice(1).toLowerCase();
+                    return '<li class="event">' +
+                        '<div class="mini-calendar"><span class="d">' + DIAS3[d.getDay()] + '</span><strong>' + d.getDate() + '</strong><span class="m">' + mesAbr + '</span></div>' +
+                        '<div class="event-info"><strong>' + escT(e.titulo) + '</strong>' +
+                        '<span><i class="bx bx-time"></i> ' + escT(e.hora) + (e.fim ? ' - ' + escT(e.fim) : '') + '</span>' +
+                        '<span><i class="bx bx-map-pin"></i> ' + escT(e.local || '') + '</span></div>' +
+                        '</li>';
+                }).join('');
+            }
+            function eventosDoDia(d) {
+                var chave = iso(d.getFullYear(), d.getMonth(), d.getDate());
+                return EV.filter(function (e) { return e.d === chave; });
+            }
+
+            function eventoSelecionado(d) {
+                var lista = eventosDoDia(d);
+                if (!lista.length) return null;
+                for (var i = 0; i < lista.length; i++) {
+                    if (lista[i]._id === selEvId) return lista[i];
+                }
+                return lista[0];
+            }
+
+            function toast(msg) {
+                var el = document.createElement('div');
+                el.className = 'toast';
+                el.textContent = msg;
+                document.body.appendChild(el);
+                setTimeout(function () { el.classList.add('show'); }, 20);
+                setTimeout(function () {
+                    el.classList.remove('show');
+                    setTimeout(function () { el.remove(); }, 300);
+                }, 2400);
+            }
+
+/* ---------- DETALHE ---------- */
+            var PARTICIPANTE_CLS = ['p-bege', 'p-azul', 'p-rosa', 'p-verde', 'p-lilas'];
+
+            function iniciais(nome) {
+                var p = String(nome || '').trim().split(/\s+/).filter(Boolean);
+                var s = '';
+                for (var i = 0; i < p.length && i < 2; i++) s += p[i][0];
+                return s.toUpperCase();
+            }
+
+            function atualizarDetalhe(ev, dataSel) {
+                var elData = document.getElementById('detailDate');
+                var elDot = document.getElementById('detailDot');
+                var elTitulo = document.getElementById('detailTitle');
+                var elTempo = document.getElementById('detailTime');
+                var elLocal = document.getElementById('detailPlace');
+                var elDesc = document.getElementById('detailDesc');
+
+if (ev) {
+                    elData.textContent = DIAS_FULL[dataSel.getDay()] + ', ' + dataSel.getDate() + ' de ' + MESES[dataSel.getMonth()] + ' de ' + dataSel.getFullYear();
+                    elDot.className = 'dot ' + ev.tipo;
+                    elTitulo.textContent = ev.titulo;
+                    elTempo.innerHTML = '<i class="bx bx-time"></i> ' + ev.hora + ' - ' + ev.fim;
+                    elLocal.innerHTML = '<i class="bx bx-map-pin"></i> ' + ev.local;
+                    elDesc.textContent = ev.desc;
+                } else {
+                    elData.textContent = DIAS_FULL[dataSel.getDay()] + ', ' + dataSel.getDate() + ' de ' + MESES[dataSel.getMonth()] + ' de ' + dataSel.getFullYear();
+                    elDot.className = 'dot ev-outro';
+                    elTitulo.textContent = 'Nenhum evento';
+                    elTempo.innerHTML = '<i class="bx bx-time"></i> -';
+                    elLocal.innerHTML = '<i class="bx bx-map-pin"></i> -';
+                    elDesc.textContent = 'Não há eventos agendados para este dia.';
+                }
+
+                var partSec = document.getElementById('partSec');
+                var partEl = document.getElementById('detailParticipants');
+                if (ev && ev.participantes && ev.participantes.length) {
+                    partSec.style.display = '';
+                    partEl.innerHTML = ev.participantes.map(function (p, i) {
+                        var nome = typeof p === 'string' ? p : (p.nome || '');
+                        return '<span class="participant-avatar ' + PARTICIPANTE_CLS[i % PARTICIPANTE_CLS.length] + '">' + iniciais(nome) + '</span>';
+                    }).join('');
+                } else {
+                    partSec.style.display = 'none';
+                    partEl.innerHTML = '';
+                }
+
+                var filesSec = document.getElementById('filesSec');
+                var filesEl = document.getElementById('detailFiles');
+                if (ev && ev.arquivos && ev.arquivos.length) {
+                    filesSec.style.display = '';
+                    var arq = ev.arquivos[0];
+                    var nomeArq = typeof arq === 'string' ? arq : (arq.nome || '');
+                    filesEl.innerHTML = '<i class="bx bx-file"></i><span class="file-name">' + escT(nomeArq) + '</span><button class="icon-btn" aria-label="Baixar arquivo"><i class="bx bx-download"></i></button>';
+                } else {
+                    filesSec.style.display = 'none';
+                    filesEl.innerHTML = '';
+                }
+
+if (btnMais) btnMais.style.display = ev ? '' : 'none';
+            }
+
+            /* ---------- CHIPS ---------- */
+            function chipHTML(e) {
+                return '<span class="day-chip ' + e.tipo + '" title="' + e.hora + ' · ' + e.titulo + '"><span class="dot"></span><span class="chip-txt">' + e.chip + '</span></span>';
+            }
+
+            /* ---------- RENDER ---------- */
+            function renderMes() {
+                var primeiro = new Date(ano, mes, 1);
+                var inicio = primeiro.getDay();
+                var diasNoMes = new Date(ano, mes + 1, 0).getDate();
+                var total = Math.ceil((inicio + diasNoMes) / 7) * 7;
+                var html = '';
+                for (var i = 0; i < total; i++) {
+                    var d = new Date(ano, mes, i - inicio + 1);
+                    var ehHoje = d.toDateString() === hoje.toDateString();
+                    var adj = d.getMonth() !== mes;
+                    var eventos = eventosDoDia(d);
+                    var sel = d.toDateString() === cel.toDateString();
+                    html += '<div class="day-cell' + (adj ? ' adjacent' : '') + (ehHoje ? ' today' : '') + (sel ? ' today-sel' : '') + '" data-day="' + i + '">' +
+                        '<span class="day-number' + (ehHoje ? ' today' : '') + '">' + d.getDate() + '</span>' +
+                        eventos.map(chipHTML).join('') +
+                        '</div>';
+                }
+                gridEl.className = 'calendar-grid';
+                gridEl.innerHTML = html;
+                titleEl.textContent = MESES[mes].charAt(0).toUpperCase() + MESES[mes].slice(1) + ' de ' + ano;
+                ligarDias();
+            }
+
+            function renderSemana() {
+                var seg = new Date(cel);
+                seg.setDate(cel.getDate() - cel.getDay());
+                var html = '';
+                for (var i = 0; i < 7; i++) {
+                    var d = new Date(seg);
+                    d.setDate(seg.getDate() + i);
+                    var ehHoje = d.toDateString() === hoje.toDateString();
+                    var eventos = eventosDoDia(d);
+                    var sel = d.toDateString() === cel.toDateString();
+                    html += '<div class="day-cell' + (ehHoje ? ' today' : '') + (sel ? ' today-sel' : '') + '" data-day="' + i + '">' +
+                        '<span class="day-number' + (ehHoje ? ' today' : '') + '">' + d.getDate() + '</span>' +
+                        (eventos.length ? eventos.map(chipHTML).join('') : '<span class="cal-msg">Sem eventos</span>') +
+                        '</div>';
+                }
+                gridEl.className = 'calendar-grid';
+                gridEl.innerHTML = html;
+                var fim = new Date(seg);
+                fim.setDate(seg.getDate() + 6);
+                titleEl.textContent = 'Semana: ' + pad(seg.getDate()) + '/' + pad(seg.getMonth() + 1) + ' a ' + pad(fim.getDate()) + '/' + pad(fim.getMonth() + 1);
+                ligarDias();
+            }
+
+            function renderLista() {
+                var vistos = 0;
+                var html = '';
+                EV.slice().sort(function (a, b) { return a.d < b.d ? -1 : 1; }).forEach(function (e) {
+                    var partes = e.d.split('-');
+                    var d = new Date(+partes[0], +partes[1] - 1, +partes[2]);
+                    if (d.getTime() < cel.getTime() && d.toDateString() !== cel.toDateString()) return;
+                    vistos++;
+                    var sel = d.toDateString() === cel.toDateString();
+                    html += '<div class="lista-item' + (sel ? ' today-sel' : '') + '" data-li="' + e.d + '">' +
+                        '<i class="bx bx-calendar-event"></i>' +
+                        '<strong>' + DIAS_FULL[d.getDay()] + ', ' + d.getDate() + ' · ' + e.titulo + '</strong>' +
+                        '<span>' + e.hora + ' · ' + e.local + '</span>' +
+                        '</div>';
+                });
+                if (vistos === 0) {
+                    html = '<div class="cal-msg">Nenhum evento a partir desta data.</div>';
+                }
+                gridEl.className = 'calendar-grid lista';
+                gridEl.innerHTML = html;
+                titleEl.textContent = 'Lista de eventos';
+                gridEl.querySelectorAll('.lista-item').forEach(function (li) {
+                    li.addEventListener('click', function () {
+                        var chave = li.getAttribute('data-li');
+                        var partes = chave.split('-');
+                        cel = new Date(+partes[0], +partes[1] - 1, +partes[2]);
+                        atualizarDetalhe(EV.filter(function (x) { return x.d === chave; })[0] || null, cel);
+                        renderLista();
+                    });
+                });
+            }
+
+            function ligarDias() {
+                gridEl.querySelectorAll('.day-cell[data-day]').forEach(function (cell) {
+                    var idx = +cell.getAttribute('data-day');
+                    if (view === 'mes') {
+                        var d = new Date(ano, mes, idx - new Date(ano, mes, 1).getDay() + 1);
+                        cell.addEventListener('click', function () {
+                            cel = d;
+                            selEvId = null;
+                            atualizarDetalhe(eventoSelecionado(d), d);
+                            gridEl.querySelectorAll('.day-cell').forEach(function (c) { c.classList.remove('today-sel'); });
+                            cell.classList.add('today-sel');
+                        });
+                    } else {
+                        var seg = new Date(cel);
+                        seg.setDate(cel.getDate() - cel.getDay());
+                        var d2 = new Date(seg);
+                        d2.setDate(seg.getDate() + idx);
+                        cell.addEventListener('click', function () {
+                            cel = d2;
+                            selEvId = null;
+                            atualizarDetalhe(eventoSelecionado(d2), d2);
+                            gridEl.querySelectorAll('.day-cell').forEach(function (c) { c.classList.remove('today-sel'); });
+                            cell.classList.add('today-sel');
+                        });
+                    }
+                });
+            }
+
+            /* ---------- NAVEGAÇÃO ---------- */
+            document.querySelector('.cal-nav .cal-btn:nth-child(1)').addEventListener('click', function () {
+                if (view === 'mes') { mes--; if (mes < 0) { mes = 11; ano--; } }
+                else if (view === 'semana') { cel.setDate(cel.getDate() - 7); }
+                else { cel.setMonth(cel.getMonth() - 1); }
+                render();
+            });
+            document.querySelector('.cal-nav .cal-btn.hoje').addEventListener('click', function () {
+                ano = hoje.getFullYear();
+                mes = hoje.getMonth();
+                cel = hoje;
+                view = 'mes';
+                setSwitch('mes');
+                atualizarDetalhe(eventoSelecionado(hoje), hoje);
+                render();
+            });
+            document.querySelector('.cal-nav .cal-btn:nth-child(3)').addEventListener('click', function () {
+                if (view === 'mes') { mes++; if (mes > 11) { mes = 0; ano++; } }
+                else if (view === 'semana') { cel.setDate(cel.getDate() + 7); }
+                else { cel.setMonth(cel.getMonth() + 1); }
+                render();
+            });
+
+            function setSwitch(v) {
+                document.querySelectorAll('.cal-switch button').forEach(function (b) {
+                    b.classList.toggle('active', b.textContent.trim().toLowerCase() === v);
+                });
+            }
+
+            document.querySelectorAll('.cal-switch button').forEach(function (b) {
+                b.addEventListener('click', function () {
+                    view = b.textContent.trim().toLowerCase();
+                    setSwitch(view);
+                    render();
+                });
+            });
+
+            function render() {
+                if (view === 'mes') renderMes();
+                else if (view === 'semana') renderSemana();
+                else renderLista();
+            }
+
+            /* ---------- OUTROS ---------- */
+            btnMais.addEventListener('click', function () {
+                window.location.href = btnMais.getAttribute('data-link');
+            });
+
+            document.getElementById('verTodosEventos').addEventListener('click', function (e) {
+                e.preventDefault();
+                window.location.href = 'pg4.html';
+            });
+
+            /* ---------- ADMIN: EVENTOS ---------- */
+
+            function irParaData(isoStr, evId) {
+                var p = isoStr.split('-');
+                cel = new Date(+p[0], +p[1] - 1, +p[2]);
+                ano = cel.getFullYear();
+                mes = cel.getMonth();
+                selEvId = evId || null;
+                render();
+                atualizarDetalhe(eventoSelecionado(cel), cel);
+            }
+
+            function abrirFormEvento(ev) {
+                var ehNovo = !ev;
+                ev = ev || {};
+                AdminKit.modal({
+                    title: ehNovo ? 'Novo evento' : 'Editar evento',
+                    submitLabel: ehNovo ? 'Criar evento' : 'Salvar alterações',
+                    values: {
+                        titulo: ev.titulo || '',
+                        d: ev.d || iso(cel.getFullYear(), cel.getMonth(), cel.getDate()),
+                        tipo: ev.tipo || 'ev-ensaio',
+                        hora: ev.hora || '13:30',
+                        fim: ev.fim || '17:00',
+                        local: ev.local || '',
+                        chip: ev.chip || '',
+                        desc: ev.desc || ''
+                    },
+                    fields: [
+                        { name: 'titulo', label: 'Título', required: true, placeholder: 'Ex.: Ensaio - Cena 1' },
+                        { name: 'd', label: 'Data', type: 'date', required: true, half: true },
+                        { name: 'tipo', label: 'Tipo', type: 'select', half: true, options: [
+                            { value: 'ev-ensaio', label: 'Ensaio' },
+                            { value: 'ev-evento', label: 'Evento' },
+                            { value: 'ev-reuniao', label: 'Reunião' },
+                            { value: 'ev-apresentacao', label: 'Apresentação' },
+                            { value: 'ev-outro', label: 'Outro' }
+                        ] },
+                        { name: 'hora', label: 'Início', type: 'time', half: true },
+                        { name: 'fim', label: 'Fim', type: 'time', half: true },
+                        { name: 'local', label: 'Local', placeholder: 'Ex.: Salão principal' },
+                        { name: 'chip', label: 'Rótulo no calendário (opcional)', placeholder: 'Ex.: 13:30 · Ensaio' },
+                        { name: 'desc', label: 'Descrição', type: 'textarea' }
+                    ]
+                }).then(function (valores) {
+                    if (!valores) return;
+                    if (!valores.chip || !valores.chip.trim()) {
+                        valores.chip = (valores.hora || '') + ' · ' + String(valores.titulo).split(' - ')[0];
+                    }
+                    if (ehNovo) {
+                        AppDB.add('eventos', valores).then(function (criado) {
+                            AdminKit.toast('Evento criado.', 'ok');
+                            irParaData(valores.d, criado && criado._id);
+                        });
+                    } else {
+                        AppDB.update('eventos', ev._id, valores).then(function () {
+                            AdminKit.toast('Evento atualizado.', 'ok');
+                            irParaData(valores.d, ev._id);
+                        });
+                    }
+                });
+            }
+
+            document.getElementById('novoEventoBtn').addEventListener('click', AdminKit.guard(function () {
+                abrirFormEvento(null);
+            }));
+
+            document.getElementById('editarEventoBtn').addEventListener('click', AdminKit.guard(function () {
+                var ev = eventoSelecionado(cel);
+                if (!ev) { AdminKit.toast('Nenhum evento neste dia para editar.'); return; }
+                abrirFormEvento(ev);
+            }));
+
+            document.getElementById('excluirEventoBtn').addEventListener('click', AdminKit.guard(function () {
+                var ev = eventoSelecionado(cel);
+                if (!ev) { AdminKit.toast('Nenhum evento neste dia para excluir.'); return; }
+                AdminKit.confirm({
+                    title: 'Excluir evento',
+                    message: 'Excluir "' + ev.titulo + '"? Esta ação não pode ser desfeita.',
+                    confirmLabel: 'Excluir',
+                    danger: true
+                }).then(function (ok) {
+                    if (!ok) return;
+                    AppDB.remove('eventos', ev._id).then(function () {
+                        AdminKit.toast('Evento excluído.', 'ok');
+                    });
+                });
+            }));
+
+            /* ---------- DADOS AO VIVO ---------- */
+            AppDB.onChange('eventos', function (lista) {
+                EV = lista;
+                render();
+                atualizarDetalhe(eventoSelecionado(cel), cel);
+                renderProximos();
+            });
+        })();
+    </script>
+
+</body>
+
+</html>

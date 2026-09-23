@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pg5.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <title>Musical Escritor · Músicas</title>
+</head>
+
+<body>
+
+    <div class="backdrop" id="backdrop"></div>
+
+    <!-- ===== SIDEBAR ===== -->
+
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral">
+
+        <button class="sidebar-close" id="sidebarClose" aria-label="Fechar menu">
+            <i class="bx bx-x"></i>
+        </button>
+
+        <div class="sidebar-logo">
+            <img src="assets/tipografia.png" alt="Musical Escritor">
+        </div>
+
+        <div class="divider-diamond"><b></b></div>
+
+        <nav class="sidebar-menu">
+            <a href="pg1.html"><i class="bx bx-home"></i><span>Início</span></a>
+            <a href="pg2.html"><i class="bx bx-calendar"></i><span>Agenda</span></a>
+            <a href="pg3.html"><i class="bx bx-check-square"></i><span>Tarefas</span></a>
+            <a href="pg4.html"><i class="bx bx-music"></i><span>Ensaios</span></a>
+            <a class="active" href="pg5.html"><i class="bx bx-headphone"></i><span>Músicas</span></a>
+            <a href="pg6.html"><i class="bx bx-folder"></i><span>Arquivos e Links</span></a>
+            <a href="pg7.html"><i class="bx bx-group"></i><span>Equipe</span></a>
+            <a href="pg8.html"><i class="bx bx-bell"></i><span>Notificações</span></a>
+            <a href="pg9.html"><i class="bx bx-user"></i><span>Meu Perfil</span></a>
+        </nav>
+
+        <div class="sidebar-quote">
+            <div class="divider-diamond"><b></b></div>
+            <p>“Cada detalhe<br>conta uma<br>história.”</p>
+            <div class="divider-diamond"><b></b></div>
+        </div>
+
+    </aside>
+
+
+    <!-- ===== CONTEÚDO ===== -->
+
+    <main class="content">
+
+        <header class="dashboard-header">
+
+            <div class="header-top">
+
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" data-anim="zoomIn" data-delay="0s">
+                    <i class="bx bx-menu"></i>
+                </button>
+
+                <div class="header-intro">
+                    <span class="crumb" data-anim="fadeUp" data-delay="0.05s">Músicas</span>
+                    <h1 data-anim="fadeUp" data-delay="0.12s">Músicas</h1>
+                    <p data-anim="fadeUp" data-delay="0.2s">Letras, áudios, mapas vocais e tudo o que sua equipe precisa.</p>
+                </div>
+
+                <div class="header-actions" data-anim="fadeIn" data-delay="0.26s">
+
+                    <div class="search-box">
+                        <i class="bx bx-search"></i>
+                        <input type="text" placeholder="Buscar músicas...">
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="notif-btn" aria-label="Notificações">
+                        <i class="bx bx-bell"></i>
+                        <span class="notif-dot" data-pulse></span>
+                    </button>
+
+                    <span class="divider-v"></span>
+
+                    <div class="profile">
+                        <div class="profile-avatar" id="profileAvatar">G</div>
+                        <div class="profile-info">
+                            <strong id="profileName">Gustavo</strong>
+                            <span>Integrante</span>
+                        </div>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="logout-btn" id="logoutBtn" aria-label="Sair da conta">
+                        <i class="bx bx-log-out"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="quote-deco">
+                <p data-anim="fadeUp" data-delay="0.35s">“Música é ponte<br>entre o ensaio e o propósito.”</p>
+                <div class="divider-diamond" data-anim="fadeIn" data-delay="0.5s"><b></b></div>
+            </div>
+
+        </header>
+
+
+        <!-- ===== ÁREA DE CONTROLE ===== -->
+
+        <div class="music-toolbar" data-anim="fadeUp" data-delay="0.1s">
+
+            <div class="search-music">
+                <i class="bx bx-search"></i>
+                <input type="text" id="buscaMusica" placeholder="Pesquisar por nome, artista ou cena...">
+            </div>
+
+            <div class="tabs">
+                <button class="active" data-filtro="todas">Todas</button>
+                <button data-filtro="andamento">Em andamento</button>
+                <button data-filtro="prontas">Prontas</button>
+            </div>
+
+            <div class="new-wrap">
+                <button class="new-btn adm-inline" id="novaMusicaBtn" data-admin-only>
+                    <i class="bx bx-plus"></i> Nova música
+                </button>
+                <small class="admin-note">(Apenas administradores)</small>
+            </div>
+
+        </div>
+
+
+        <!-- ===== LISTA + PAINEL ===== -->
+
+        <section class="musicas-layout">
+
+            <div class="musicas-list">
+
+                <div class="card table-wrap">
+
+                    <div class="table-scroll">
+                        <table class="music-table">
+
+                            <thead>
+                                <tr>
+                                    <th>Música</th>
+                                    <th>Artista</th>
+                                    <th>Tom</th>
+                                    <th>BPM</th>
+                                    <th>Cena</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="linhasMusica"></tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+
+                <div class="empty-state card" id="emptyState" style="display:none">
+                    <i class="bx bx-music"></i>
+                    <strong>Nenhuma música encontrada</strong>
+                    <span>Tente ajustar a busca ou o filtro.</span>
+                </div>
+
+            </div>
+
+
+            <!-- PAINEL DA MÚSICA SELECIONADA -->
+            <aside class="song-panel" id="songPanel" data-anim="fadeUp" data-delay="0.2s"></aside>
+
+        </section>
+
+    </main>
+
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+    <script src="auth.js"></script>
+
+    <script src="data.js"></script>
+
+    <script src="admin.js"></script>
+
+    <script src="pg5-dados.js"></script>
+
+    <script src="animations.js"></script>
+
+    <script>
+        (function () {
+            var M = window.MS;
+            var linhas = document.getElementById('linhasMusica');
+            var empty = document.getElementById('emptyState');
+            var busca = document.getElementById('buscaMusica');
+            var filtroAtual = 'todas';
+
+            /* ---------- LINHAS DA TABELA ---------- */
+
+            function renderLinhas() {
+                var q = busca.value.trim().toLowerCase();
+                var html = '';
+                var vis = 0;
+                M.songs.forEach(function (s) {
+                    if (s.status === 'Arquivada') return;
+                    var okF = filtroAtual === 'todas' ||
+                        (filtroAtual === 'andamento' && s.status === 'Em andamento') ||
+                        (filtroAtual === 'prontas' && s.status === 'Pronta');
+                    var okQ = !q || s.nome.toLowerCase().indexOf(q) > -1 ||
+                        s.artista.toLowerCase().indexOf(q) > -1 ||
+                        s.cena.toLowerCase().indexOf(q) > -1;
+                    if (!okF || !okQ) return;
+                    vis++;
+                    html += '<tr class="song-row" data-id="' + s.id + '">' +
+                        '<td><div class="song-cell">' + M.coverHTML(s, 'cap cap-mini') +
+                        '<span class="song-name">' + M.esc(s.nome) + '</span></div></td>' +
+                        '<td><span class="artista">' + M.esc(s.artista) + '</span></td>' +
+                        '<td><span class="tom">' + M.esc(s.tom) + '</span></td>' +
+                        '<td><span class="tom">' + s.bpm + '</span></td>' +
+                        '<td><span class="tom">' + M.esc(s.cena) + '</span></td>' +
+                        '<td><span class="pill ' + M.statusClass(s.status) + '">' + M.esc(s.status) + '</span></td>' +
+                        '<td><button class="icon-btn kebab-btn" aria-label="Opções"><i class="bx bx-dots-horizontal-rounded"></i></button></td>' +
+                        '</tr>';
+                });
+                linhas.innerHTML = html;
+                empty.style.display = vis ? 'none' : 'flex';
+                bindLinhas();
+            }
+
+            function bindLinhas() {
+                linhas.querySelectorAll('.song-row').forEach(function (tr) {
+                    tr.addEventListener('click', function (e) {
+                        if (e.target.closest('.kebab-btn')) return;
+                        window.location.href = 'pg5-detalhe.html?id=' + tr.getAttribute('data-id');
+                    });
+                    var kb = tr.querySelector('.kebab-btn');
+                    if (kb) kb.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        openDD(tr);
+                    });
+                });
+            }
+
+            /* ---------- MENU DE TRÊS PONTOS (dropdown) ---------- */
+
+            var dd = document.createElement('div');
+            dd.className = 'dropdown song-dd';
+            dd.innerHTML =
+                '<button data-acao="detalhes"><i class="bx bx-info-circle"></i>Ver detalhes</button>' +
+                '<button data-acao="editar"><i class="bx bx-edit"></i>Editar</button>' +
+                '<button data-acao="arquivar"><i class="bx bx-archive"></i>Arquivar</button>';
+            document.body.appendChild(dd);
+
+function fecharDD() { dd.classList.remove('show'); document.querySelectorAll('.song-row.menu-open').forEach(function (t) { t.classList.remove('menu-open'); }); }
+
+            var ddTr = null;
+
+            function openDD(tr) {
+                var s = M.byId(tr.getAttribute('data-id'));
+                ddTr = tr;
+                tr.classList.add('menu-open');
+                dd.classList.add('show');
+                var rect = tr.getBoundingClientRect();
+                dd.style.position = 'fixed';
+                dd.style.left = Math.min(rect.right - 190, window.innerWidth - 210) + 'px';
+                var top = rect.bottom + 6;
+                if (top + dd.offsetHeight > window.innerHeight - 12) top = Math.max(12, rect.top - dd.offsetHeight - 6);
+                dd.style.top = top + 'px';
+            }
+
+            document.addEventListener('click', function (e) {
+                if (e.target.closest('.kebab-btn')) return;
+                fecharDD();
+            });
+
+document.addEventListener('click', function (e) {
+                var acao = e.target.closest('[data-acao="detalhes"]');
+                if (!acao) return;
+                var tr = ddTr;
+                fecharDD();
+                if (tr) window.location.href = 'pg5-detalhe.html?id=' + tr.getAttribute('data-id');
+            });
+
+            function mostrarToast(txt) {
+                var el = document.createElement('div');
+                el.className = 'toast';
+                el.textContent = txt;
+                document.body.appendChild(el);
+                setTimeout(function () { el.classList.add('show'); }, 20);
+                setTimeout(function () {
+                    el.classList.remove('show');
+                    setTimeout(function () { el.remove(); }, 300);
+                }, 2400);
+            }
+
+            document.addEventListener('click', function (e) {
+                var dl = e.target.closest('.dl-btn');
+                if (dl) {
+                    e.stopPropagation();
+                    mostrarToast('Download iniciado.');
+                }
+            });
+
+            document.addEventListener('click', function (e) {
+                var btn = e.target.closest('.song-dd [data-acao="editar"], .song-dd [data-acao="arquivar"]');
+                if (!btn) return;
+                var acao = btn.getAttribute('data-acao');
+                var tr = ddTr;
+                fecharDD();
+                if (!tr) return;
+                var s = M.byId(tr.getAttribute('data-id'));
+                if (!s) return;
+                if (acao === 'editar') {
+                    AdminKit.guard(function () { abrirFormMusica(s); })();
+                } else if (acao === 'arquivar') {
+                    AdminKit.guard(function () {
+                        AdminKit.confirm({
+                            title: 'Arquivar música',
+                            message: 'Arquivar "' + s.nome + '"? Ela deixa de aparecer no repertório.',
+                            confirmLabel: 'Arquivar',
+                            danger: true
+                        }).then(function (ok) {
+                            if (!ok) return;
+                            AppDB.update('musicas', s._id, { status: 'Arquivada' }).then(function () {
+                                AdminKit.toast('Música arquivada.', 'ok');
+                            });
+                        });
+                    })();
+                }
+            });
+
+            /* ---------- TABS ---------- */
+
+            document.querySelectorAll('.music-toolbar .tabs button').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    document.querySelectorAll('.music-toolbar .tabs button').forEach(function (b) { b.classList.remove('active'); });
+                    btn.classList.add('active');
+                    filtroAtual = btn.getAttribute('data-filtro');
+                    renderLinhas();
+                });
+            });
+
+            busca.addEventListener('input', renderLinhas);
+
+            /* ---------- PAINEL LATERAL ---------- */
+
+function renderPanel() {
+                var s = M.songs[0];
+                if (!s) {
+                    document.getElementById('songPanel').innerHTML =
+                        '<article class="card panel-card" data-anim="fadeUp" data-delay="0.2s">' +
+                        '<div class="panel-head"><h3>Música selecionada</h3></div>' +
+                        '<div class="empty-state" style="display:flex;">' +
+                        '<i class="bx bx-music"></i>' +
+                        '<strong>Nenhuma música ainda</strong>' +
+                        '<span>Adicione a primeira música para vê-la aqui.</span>' +
+                        '</div>' +
+                        '</article>';
+                    return;
+                }
+                document.getElementById('songPanel').innerHTML =
+                    '<article class="card panel-card" data-anim="fadeUp" data-delay="0.2s">' +
+                    '<div class="panel-head">' +
+                    '<h3>Música selecionada</h3>' +
+                    '<a href="pg5-detalhe.html?id=' + s.id + '">Ver detalhes →</a>' +
+                    '</div>' +
+
+                    '<div class="panel-capa">' + M.coverHTML(s, 'cap cap-grande') + '</div>' +
+
+                    '<div class="panel-title-line">' +
+                    '<div class="panel-titles">' +
+                    '<strong class="panel-nome">' + M.esc(s.nome) + '</strong>' +
+                    '<span class="panel-artista">' + M.esc(s.artista) + '</span>' +
+                    '</div>' +
+                    '<span class="pill ' + M.statusClass(s.status) + '">' + M.esc(s.status) + '</span>' +
+                    '</div>' +
+
+                    '<div class="panel-tabs">' +
+                    '<button class="active" data-aba="geral">Geral</button>' +
+                    '<button data-aba="letra">Letra e Cifra</button>' +
+                    '<button data-aba="mapa">Mapa Vocal</button>' +
+                    '<button data-aba="arquivos">Arquivos</button>' +
+                    '<button data-aba="observacoes">Observações</button>' +
+                    '</div>' +
+
+                    '<div class="panel-corpo">' +
+                    '<div data-conteudo="geral">' +
+                    '<div class="info-grid">' +
+                    '<div class="info-cell"><span>Tom</span><strong>' + M.esc(s.tom) + '</strong></div>' +
+                    '<div class="info-cell"><span>BPM</span><strong>' + s.bpm + '</strong></div>' +
+                    '<div class="info-cell"><span>Duração</span><strong>' + M.esc(s.duracao) + '</strong></div>' +
+                    '<div class="info-cell"><span>Cena</span><strong>' + M.esc(s.cena) + '</strong></div>' +
+                    '<div class="info-cell"><span>Estilo</span><strong>' + M.esc(s.estilo) + '</strong></div>' +
+                    '<div class="info-cell"><span>Idioma</span><strong>' + M.esc(s.idioma) + '</strong></div>' +
+                    '</div>' +
+                    '<p class="panel-desc">' + M.esc(s.desc) + '</p>' +
+                    '<div class="tags">' + M.tagsHTML(s) + '</div>' +
+                    '<div class="mini-arquivos">' + M.arquivosHTML(s) + '</div>' +
+                    '</div>' +
+
+                    '<div data-conteudo="letra" style="display:none">' +
+                    '<div class="empty-mini"><i class="bx bx-music"></i><strong>Letra e Cifra</strong><span>Estas são adicionadas pela equipe de direção musical.</span></div>' +
+                    '</div>' +
+
+                    '<div data-conteudo="mapa" style="display:none">' +
+                    '<div class="empty-mini"><i class="bx bx-microphone"></i><strong>Mapa Vocal</strong><span>O mapa vocal estará disponível na página de detalhes.</span></div>' +
+                    '</div>' +
+
+                    '<div data-conteudo="arquivos" style="display:none">' +
+                    M.arquivosHTML(s) +
+                    '</div>' +
+
+                    '<div data-conteudo="observacoes" style="display:none">' +
+                    '<div class="empty-mini"><i class="bx bx-message-rounded-dots"></i><strong>Observações</strong><span>Sem observações por enquanto.</span></div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</article>';
+
+                document.querySelectorAll('.panel-tabs button').forEach(function (b) {
+                    b.addEventListener('click', function () {
+                        document.querySelectorAll('.panel-tabs button').forEach(function (x) { x.classList.remove('active'); });
+                        b.classList.add('active');
+                        var aba = b.getAttribute('data-aba');
+                        document.querySelectorAll('.panel-corpo > div').forEach(function (d) {
+                            d.style.display = d.getAttribute('data-conteudo') === aba ? '' : 'none';
+                        });
+                    });
+                });
+            }
+
+            renderLinhas();
+            renderPanel();
+
+            function abrirFormMusica(s) {
+                var ehNova = !s;
+                s = s || {};
+                var campos = [
+                    { name: 'nome', label: 'Nome', required: true, placeholder: 'Ex.: Algo Novo Vindo' },
+                    { name: 'artista', label: 'Artista / Compositor', required: true, half: true },
+                    { name: 'cena', label: 'Cena', half: true, placeholder: 'Ex.: Cena 1' },
+                    { name: 'tom', label: 'Tom', half: true, placeholder: 'Ex.: D' },
+                    { name: 'bpm', label: 'BPM', type: 'number', half: true },
+                    { name: 'duracao', label: 'Duração', half: true, placeholder: 'Ex.: 5:12' },
+                    { name: 'status', label: 'Status', type: 'select', half: true, options: [
+                        { value: 'Planejada', label: 'Planejada' },
+                        { value: 'Em andamento', label: 'Em andamento' },
+                        { value: 'Pronta', label: 'Pronta' }
+                    ] },
+                    { name: 'estilo', label: 'Estilo', half: true, placeholder: 'Ex.: Worship' },
+                    { name: 'idioma', label: 'Idioma', half: true, placeholder: 'Ex.: Português' },
+                    { name: 'ano', label: 'Ano', type: 'number', half: true },
+                    { name: 'tags', label: 'Tags (separadas por vírgula)', placeholder: 'Ex.: Abertura, Vocal, Banda' },
+                    { name: 'desc', label: 'Descrição', type: 'textarea' }
+                ];
+                AdminKit.modal({
+                    title: ehNova ? 'Nova música' : 'Editar música',
+                    submitLabel: ehNova ? 'Criar música' : 'Salvar alterações',
+                    values: {
+                        nome: s.nome || '',
+                        artista: s.artista || '',
+                        cena: s.cena || '',
+                        tom: s.tom || '',
+                        bpm: s.bpm || 70,
+                        duracao: s.duracao || '',
+                        status: s.status || 'Planejada',
+                        estilo: s.estilo || '',
+                        idioma: s.idioma || 'Português',
+                        ano: s.ano || (new Date()).getFullYear(),
+                        tags: (s.tags || []).join(', '),
+                        desc: s.desc || ''
+                    },
+                    fields: campos
+                }).then(function (valores) {
+                    if (!valores) return;
+                    valores.bpm = parseInt(valores.bpm, 10) || 0;
+                    valores.ano = parseInt(valores.ano, 10) || 0;
+                    valores.tags = String(valores.tags || '').split(',').map(function (t) { return t.trim(); }).filter(Boolean);
+                    if (ehNova) {
+                        var id = M.slugify(valores.nome);
+                        var usados = M.ids;
+                        var base = id, n = 2;
+                        while (usados.indexOf(id) > -1) { id = base + '-' + n; n++; }
+                        valores.id = id;
+                        valores.grad = M.gradFor(id);
+                        valores.arquivos = [];
+                        valores.sobre = s.sobre || '';
+                        valores.trecho = s.trecho || '';
+                        valores.aplicacao = s.aplicacao || '';
+                        AppDB.add('musicas', valores).then(function () {
+                            AdminKit.toast('Música criada.', 'ok');
+                        });
+                    } else {
+                        AppDB.update('musicas', s._id, valores).then(function () {
+                            AdminKit.toast('Música atualizada.', 'ok');
+                        });
+                    }
+                });
+            }
+
+            document.getElementById('novaMusicaBtn').addEventListener('click', AdminKit.guard(function () {
+                abrirFormMusica(null);
+            }));
+
+            AppDB.onChange('musicas', function () {
+                renderLinhas();
+                renderPanel();
+            });
+        })();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pg4.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <title>Musical Escritor · Ensaios</title>
+</head>
+
+<body>
+
+    <div class="backdrop" id="backdrop"></div>
+
+    <!-- =================================
+         SIDEBAR (FIXA · APROX. 16%)
+    ================================== -->
+
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral">
+
+        <button class="sidebar-close" id="sidebarClose" aria-label="Fechar menu">
+            <i class="bx bx-x"></i>
+        </button>
+
+        <div class="sidebar-logo">
+            <img src="assets/tipografia.png" alt="Musical Escritor">
+        </div>
+
+        <div class="divider-diamond"><b></b></div>
+
+        <nav class="sidebar-menu">
+            <a href="pg1.html"><i class="bx bx-home"></i><span>Início</span></a>
+            <a href="pg2.html"><i class="bx bx-calendar"></i><span>Agenda</span></a>
+            <a href="pg3.html"><i class="bx bx-check-square"></i><span>Tarefas</span></a>
+            <a class="active" href="pg4.html"><i class="bx bx-music"></i><span>Ensaios</span></a>
+            <a href="pg5.html"><i class="bx bx-headphone"></i><span>Músicas</span></a>
+            <a href="pg6.html"><i class="bx bx-folder"></i><span>Arquivos e Links</span></a>
+            <a href="pg7.html"><i class="bx bx-group"></i><span>Equipe</span></a>
+            <a href="pg8.html"><i class="bx bx-bell"></i><span>Notificações</span></a>
+            <a href="pg9.html"><i class="bx bx-user"></i><span>Meu Perfil</span></a>
+        </nav>
+
+        <div class="sidebar-quote">
+            <div class="divider-diamond"><b></b></div>
+            <p>“Cada detalhe<br>conta uma<br>história.”</p>
+            <div class="divider-diamond"><b></b></div>
+        </div>
+
+    </aside>
+
+
+    <!-- =================================
+         CONTEÚDO PRINCIPAL (APROX. 84%)
+    ================================== -->
+
+    <main class="content">
+
+        <header class="dashboard-header">
+
+            <div class="header-top">
+
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" data-anim="zoomIn" data-delay="0s">
+                    <i class="bx bx-menu"></i>
+                </button>
+
+                <div class="header-intro">
+                    <span class="crumb" data-anim="fadeUp" data-delay="0.05s">Ensaios</span>
+                    <h1 data-anim="fadeUp" data-delay="0.12s">Ensaios</h1>
+                    <p data-anim="fadeUp" data-delay="0.2s">Registre, acompanhe e revise tudo o que acontece nos ensaios.</p>
+                </div>
+
+                <div class="header-actions" data-anim="fadeIn" data-delay="0.26s">
+
+                    <div class="search-box">
+                        <i class="bx bx-search"></i>
+                        <input type="text" placeholder="Buscar ensaios...">
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="notif-btn" aria-label="Notificações">
+                        <i class="bx bx-bell"></i>
+                        <span class="notif-dot" data-pulse></span>
+                    </button>
+
+                    <span class="divider-v"></span>
+
+                    <div class="profile">
+                        <div class="profile-avatar" id="profileAvatar">G</div>
+                        <div class="profile-info">
+                            <strong id="profileName">Gustavo</strong>
+                            <span>Integrante</span>
+                        </div>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="logout-btn" id="logoutBtn" aria-label="Sair da conta">
+                        <i class="bx bx-log-out"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="quote-deco">
+                <p data-anim="fadeUp" data-delay="0.35s">“Disciplina hoje,<br>resultado amanhã.”</p>
+                <div class="divider-diamond" data-anim="fadeIn" data-delay="0.5s"><b></b></div>
+            </div>
+
+        </header>
+
+
+        <!-- =================================
+             ÁREA DOS ENSAIOS
+        ================================== -->
+
+        <section class="ensaios-layout">
+
+            <!-- LISTA DE ENSAIOS -->
+            <div class="ensaios-list">
+
+                <div class="tabs-row" data-anim="fadeUp" data-delay="0.1s">
+
+                    <div class="tabs">
+                        <button class="active" data-filter="todos">Todos</button>
+                        <button data-filter="proximos">Próximos</button>
+                        <button data-filter="realizados">Realizados</button>
+                        <button data-filter="cancelados">Cancelados</button>
+                    </div>
+
+                    <div class="new-wrap">
+                        <button class="new-btn adm-inline" id="novaEnsaioBtn" data-admin-only>
+                            <i class="bx bx-plus"></i> Novo ensaio
+                        </button>
+                        <small class="admin-note">(Apenas administradores)</small>
+                    </div>
+
+                </div>
+
+                <div id="listaEnsaio"></div>
+
+                <div class="empty-state card" id="emptyState" style="display:none">
+                    <i class="bx bx-calendar-x"></i>
+                    <strong>Nenhum ensaio encontrado</strong>
+                    <span>Não há ensaios para este filtro.</span>
+                </div>
+
+            </div>
+
+
+            <!-- COLUNA LATERAL -->
+            <aside class="ensaios-side">
+
+                <!-- PRÓXIMO ENSAIO -->
+<article class="card next-card" id="nextCard" data-anim="fadeUp" data-delay="0.2s">
+
+                    <div class="card-head">
+                        <h3>Próximo ensaio</h3>
+                        <a href="#" class="next-ver" data-detalhes-btn>Ver detalhes →</a>
+                    </div>
+
+                    <div class="next-row">
+                        <div class="date-block">
+                            <span class="d">--</span>
+                            <strong class="num">00</strong>
+                            <span class="m">---</span>
+                        </div>
+                        <div class="next-info">
+                            <div class="next-line">
+                                <strong class="next-title"></strong>
+                                <span class="pill st-planejado"></span>
+                            </div>
+                            <span class="next-meta"><i class="bx bx-time-five"></i></span>
+                            <span class="next-meta"><i class="bx bx-map"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="next-section" id="objetivoSec">
+                        <h4>Objetivo</h4>
+                        <ul class="objetivo"></ul>
+                    </div>
+
+                    <div class="next-section" id="participSec">
+                        <h4>Participantes confirmados</h4>
+                        <div class="participants"></div>
+                    </div>
+
+                </article>
+
+
+                <!-- CALENDÁRIO DE ENSAIOS -->
+                <article class="card mini-cal-card" data-anim="fadeUp" data-delay="0.28s">
+
+                    <div class="card-head">
+                        <h3>Calendário de ensaios</h3>
+                        <a href="pg2.html">Ver no calendário →</a>
+                    </div>
+
+<div class="mini-cal">
+
+                        <div class="mc-head">
+                            <strong id="mcTitulo"></strong>
+                            <div class="mc-arrows">
+                                <button id="mcPrev" aria-label="Mês anterior"><i class="bx bx-chevron-left"></i></button>
+                                <button id="mcNext" aria-label="Próximo mês"><i class="bx bx-chevron-right"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="mc-week">
+                            <span>DOM</span><span>SEG</span><span>TER</span><span>QUA</span><span>QUI</span><span>SEX</span><span>SÁB</span>
+                        </div>
+
+                        <div class="mc-grid" id="mcGrid"></div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ÚLTIMOS REGISTROS -->
+                <article class="card regs-card" data-anim="fadeUp" data-delay="0.36s">
+
+                    <div class="card-head">
+                        <h3>Últimos registros</h3>
+                        <a href="pg8.html">Ver todos →</a>
+                    </div>
+
+<div class="regs" id="regsList"></div>
+
+                </article>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+    <!-- =================================
+         MODAL · NOVO ENSAIO
+    ================================== -->
+
+    <div class="overlay" id="overlayNovo">
+        <div class="modal">
+
+            <div class="modal-head">
+                <h3 id="novoTitulo">Novo ensaio</h3>
+                <button class="icon-btn modal-close" id="fecharNovo" aria-label="Fechar"><i class="bx bx-x"></i></button>
+            </div>
+
+            <form id="formNovo">
+
+                <div class="form-row">
+                    <label for="novoNome">Nome do ensaio</label>
+                    <input type="text" id="novoNome" placeholder="Ex.: Ensaio - Cena 2" required>
+                </div>
+
+                <div class="form-row">
+                    <label for="novoData">Data</label>
+                    <input type="date" id="novoData" required>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-row">
+                        <label for="novoInicio">Início</label>
+                        <input type="time" id="novoInicio" value="13:30" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="novoFim">Fim</label>
+                        <input type="time" id="novoFim" value="17:00" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label for="novoLocal">Local</label>
+                    <input type="text" id="novoLocal" placeholder="Ex.: Salão principal" required>
+                </div>
+
+                <div class="form-row">
+                    <label for="novoTags">Tags</label>
+                    <input type="text" id="novoTags" placeholder="Separadas por vírgula (Ex.: Cena 2, Música 2)">
+                </div>
+
+                <div class="btn-row">
+                    <button type="button" class="btn-ghost" id="cancelarNovo">Cancelar</button>
+                    <button type="submit" class="btn-gold" id="btnSalvarNovo">Criar ensaio</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+
+    <!-- =================================
+         MODAL · DETALHES DO ENSAIO
+    ================================== -->
+
+    <div class="overlay" id="overlayDetalhe">
+        <div class="modal">
+
+            <div class="modal-head">
+                <h3>Detalhes do ensaio</h3>
+                <button class="icon-btn modal-close" id="fecharDetalhe" aria-label="Fechar"><i class="bx bx-x"></i></button>
+            </div>
+
+            <div class="det-row">
+                <span class="det-label">Nome</span>
+                <strong id="detNome"></strong>
+            </div>
+
+            <div class="det-row">
+                <span class="det-label">Data</span>
+                <strong id="detData"></strong>
+            </div>
+
+            <div class="det-row">
+                <span class="det-label">Horário</span>
+                <strong id="detHorario"></strong>
+            </div>
+
+            <div class="det-row">
+                <span class="det-label">Local</span>
+                <strong id="detLocal"></strong>
+            </div>
+
+            <div class="det-row">
+                <span class="det-label">Tags</span>
+                <div id="detTags" class="tags"></div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+    <script src="auth.js"></script>
+
+    <script src="data.js"></script>
+
+<script src="admin.js"></script>
+
+    <script src="animations.js"></script>
+    <script src="pg4-dados.js"></script>
+
+    <script>
+        (function () {
+            /* ---------- DADOS ---------- */
+            var MESES = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'];
+            var DIAS = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
+
+            AppDB.register('ensaios', window.SEED_ENSAIOS);
+            var ensaios = [];
+
+            /* ---------- MINI CALENDÁRIO ---------- */
+            var NOMES_MESES = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+            var mcHj = new Date();
+            var mcVisto = new Date(mcHj.getFullYear(), mcHj.getMonth(), 1);
+
+            function iso2(y, m, d) { return y + '-' + ('0' + (m + 1)).slice(-2) + '-' + ('0' + d).slice(-2); }
+
+            function renderMiniCal() {
+                var y = mcVisto.getFullYear(), m = mcVisto.getMonth();
+                var titulo = document.getElementById('mcTitulo');
+                var grid = document.getElementById('mcGrid');
+                if (titulo) titulo.textContent = NOMES_MESES[m] + ' de ' + y;
+                if (!grid) return;
+                var primeiro = new Date(y, m, 1);
+                var offset = primeiro.getDay();
+                var diasNoMes = new Date(y, m + 1, 0).getDate();
+                var total = Math.ceil((offset + diasNoMes) / 7) * 7;
+                var hj = new Date();
+                var html = '';
+                for (var i = 0; i < total; i++) {
+                    var dd = new Date(y, m, i - offset + 1);
+                    var adj = dd.getMonth() !== m;
+                    var ehHoje = dd.toDateString() === hj.toDateString();
+                    var chave = iso2(dd.getFullYear(), dd.getMonth(), dd.getDate());
+                    var tem = ensaios.some(function (e) {
+                        return e.status !== 'cancelados' && String(e.data) === chave;
+                    });
+                    html += '<span class="mc-day' + (adj ? ' adj' : '') + (ehHoje ? ' today' : '') + '">' +
+                        dd.getDate() + (tem ? '<i class="mc-dot dot-verde"></i>' : '') + '</span>';
+                }
+                grid.innerHTML = html;
+            }
+
+            document.getElementById('mcPrev').addEventListener('click', function () {
+                mcVisto = new Date(mcVisto.getFullYear(), mcVisto.getMonth() - 1, 1);
+                renderMiniCal();
+            });
+            document.getElementById('mcNext').addEventListener('click', function () {
+                mcVisto = new Date(mcVisto.getFullYear(), mcVisto.getMonth() + 1, 1);
+                renderMiniCal();
+            });
+
+            var listaEl = document.getElementById('listaEnsaio');
+            var empty = document.getElementById('emptyState');
+            var tabs = document.querySelectorAll('.tabs button');
+            var activeFilter = 'todos';
+            var editandoId = null;
+
+            function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+            function pillCls(situacao) {
+                if (situacao === 'Em andamento') return 'st-em-andamento';
+                if (situacao === 'Realizado') return 'st-realizado';
+                if (situacao === 'Cancelado') return 'st-cancelado';
+                return 'st-planejado';
+            }
+
+            function cardHTML(en) {
+                var part = String(en.data).split('-');
+                var d = new Date(+part[0], +part[1] - 1, +part[2]);
+                var tagsHtml = (en.tags || []).map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('');
+                return '<article class="card rb-card" data-id="' + en._id + '" data-status="' + en.status + '"' +
+                    ' data-nome="' + esc(en.nome) + '" data-dia="' + d.getDate() + '" data-horario="' + esc(en.ini + ' - ' + en.fim) + '"' +
+                    ' data-local="' + esc(en.local) + '" data-tags="' + esc((en.tags || []).join(',')) + '">' +
+                    '<div class="date-block"><span class="d">' + DIAS[d.getDay()] + '</span><strong class="num">' + ('0' + d.getDate()).slice(-2) + '</strong><span class="m">' + MESES[d.getMonth()] + '</span></div>' +
+                    '<div class="rb-info"><strong class="rb-title">' + esc(en.nome) + '</strong>' +
+                    '<div class="rb-meta"><span><i class="bx bx-time-five"></i>' + esc(en.ini + ' - ' + en.fim) + '</span><span><i class="bx bx-map"></i>' + esc(en.local) + '</span></div>' +
+                    '<div class="tags">' + tagsHtml + '</div></div>' +
+                    '<div class="rb-right"><span class="pill ' + pillCls(en.situacao) + '">' + esc(en.situacao) + '</span>' +
+                    '<div class="kebab"><button class="icon-btn" aria-label="Opções"><i class="bx bx-dots-vertical-rounded"></i></button>' +
+                    '<div class="dropdown"><button data-action="detalhes"><i class="bx bx-info-circle"></i>Ver detalhes</button>' +
+                    '<button data-action="editar"><i class="bx bx-edit"></i>Editar</button>' +
+                    '<button data-action="cancelar"><i class="bx bx-x-circle"></i>Cancelar ensaio</button></div></div></div>' +
+                    '</article>';
+            }
+
+            function renderEnsaios() {
+                var lista = ensaios.filter(function (en) {
+                    return activeFilter === 'todos' || en.status === activeFilter;
+                });
+                listaEl.innerHTML = lista.map(cardHTML).join('');
+                empty.style.display = lista.length ? 'none' : 'flex';
+            }
+
+            var AV_INICIAIS_CLS = ['p-bege', 'p-azul', 'p-lilas', 'p-verde', 'p-rosa'];
+
+            function iniciais(nome) {
+                var partes = String(nome || '').trim().split(/\s+/).filter(Boolean);
+                var ini = '';
+                for (var i = 0; i < partes.length && i < 2; i++) ini += partes[i][0];
+                return ini.toUpperCase();
+            }
+
+            function renderNext() {
+                var card = document.getElementById('nextCard');
+                if (!card) return;
+                var l = ensaios.filter(function (en) { return en.status !== 'cancelados'; })
+                    .slice().sort(function (a, b) { return String(a.data).localeCompare(String(b.data)); });
+                var en = l[0];
+                if (!en) {
+                    card.innerHTML = '<div class="dash-empty"><i class="bx bx-music"></i><strong>Nenhum ensaio agendado</strong><span>Os ensaios criados aparecem aqui.</span></div>';
+                    return;
+                }
+                var part = String(en.data).split('-');
+                var d = new Date(+part[0], +part[1] - 1, +part[2]);
+                card.querySelector('.date-block .d').textContent = DIAS[d.getDay()];
+                card.querySelector('.date-block .num').textContent = ('0' + d.getDate()).slice(-2);
+                card.querySelector('.date-block .m').textContent = MESES[d.getMonth()];
+                card.querySelector('.next-title').textContent = en.nome || '';
+                var pill = card.querySelector('.pill');
+                pill.textContent = en.situacao || 'Planejado';
+                pill.className = 'pill ' + pillCls(en.situacao || 'Planejado');
+                var metas = card.querySelectorAll('.next-meta');
+                if (metas[0]) metas[0].innerHTML = '<i class="bx bx-time-five"></i>' + esc(en.ini + ' - ' + en.fim);
+                if (metas[1]) metas[1].innerHTML = '<i class="bx bx-map"></i>' + esc(en.local || '');
+
+                card.setAttribute('data-nome', en.nome || '');
+                card.setAttribute('data-dia', d.getDate());
+                card.setAttribute('data-horario', esc(en.ini + ' - ' + en.fim));
+                card.setAttribute('data-local', en.local || '');
+                card.setAttribute('data-tags', (en.tags || []).join(','));
+
+                var objSec = document.getElementById('objetivoSec');
+                var obj = en.objetivo || en.objetivos || [];
+                objSec.style.display = obj.length ? '' : 'none';
+                objSec.querySelector('.objetivo').innerHTML = obj.map(function (o) {
+                    return '<li>' + esc(o) + '</li>';
+                }).join('');
+
+                var parSec = document.getElementById('participSec');
+                var part = en.participantes || en.confirmados || [];
+                parSec.style.display = part.length ? '' : 'none';
+                var chips = part.map(function (p) {
+                    var nome = typeof p === 'string' ? p : (p.nome || '');
+                    return '<span class="mini-avatar ' + AV_INICIAIS_CLS[part.indexOf(p) % AV_INICIAIS_CLS.length] + '">' + esc(iniciais(nome)) + '</span>';
+                });
+                if (chips.length > 5) {
+                    var tot = chips.length;
+                    chips = chips.slice(0, 4);
+                    chips.push('<span class="mini-avatar more">+' + (tot - 4) + '</span>');
+                }
+                parSec.querySelector('.participants').innerHTML = chips.join('');
+            }
+
+            var RIC_C = {
+                musica: 'ric-musica', arquivo: 'ric-arquivo', tarefa: 'ric-tarefa', nota: 'ric-nota',
+                evento: 'ric-evento', mencao: 'ric-mencao', equipe: 'ric-equipe', sistema: 'ric-sistema'
+            };
+            var RIC_IC = {
+                musica: 'bx-music', arquivo: 'bx-paperclip', tarefa: 'bx-check', nota: 'bx-note',
+                evento: 'bx-calendar-event', mencao: 'bx-at', equipe: 'bx-group', sistema: 'bx-info-circle'
+            };
+
+            function renderRegs(lista) {
+                var regs = document.getElementById('regsList');
+                if (!regs) return;
+                lista = (lista || []).slice(0, 5);
+                if (!lista.length) {
+                    regs.innerHTML = '<div class="dash-empty"><i class="bx bx-alarm-exclamation"></i><strong>Nenhum registro recente</strong><span>As notificações criadas aparecem aqui.</span></div>';
+                    return;
+                }
+                regs.innerHTML = lista.map(function (n) {
+                    var tipo = n.tipo || 'sistema';
+                    return '<div class="record">' +
+                        '<span class="record-ic ' + (RIC_C[tipo] || 'ric-sistema') + '"><i class="bx ' + (RIC_IC[tipo] || 'bx-info-circle') + '"></i></span>' +
+                        '<div class="record-info"><strong>' + esc(n.titulo) + '</strong><span>' + esc(n.desc || '') + '</span></div>' +
+                        '<span class="record-time">' + esc(n.tempo || '') + '</span>' +
+                        '</div>';
+                }).join('');
+            }
+
+            /* ---------- ABAS / FILTROS ---------- */
+            tabs.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    tabs.forEach(function (b) { b.classList.remove('active'); });
+                    btn.classList.add('active');
+                    activeFilter = btn.getAttribute('data-filter');
+                    renderEnsaios();
+                });
+            });
+
+            /* ---------- MENU DE TRÊS PONTOS (DELEGADO: vale p/ cards novos) ---------- */
+            document.getElementById('listaEnsaio').addEventListener('click', function (e) {
+                var kebabBtn = e.target.closest('.kebab .icon-btn');
+                if (kebabBtn) {
+                    e.stopPropagation();
+                    var wrap = kebabBtn.closest('.kebab');
+                    var dd = wrap.querySelector('.dropdown');
+                    document.querySelectorAll('.dropdown.show').forEach(function (d) {
+                        if (d !== dd) d.classList.remove('show');
+                    });
+                    dd.classList.toggle('show');
+                    return;
+                }
+
+                var acaoBtn = e.target.closest('[data-action]');
+                if (acaoBtn) {
+                    var acao = acaoBtn.getAttribute('data-action');
+                    var card = acaoBtn.closest('.rb-card');
+                    if (!card) return;
+                    var en = ensaios.filter(function (x) { return x._id === card.getAttribute('data-id'); })[0];
+                    if (!en) return;
+                    if (acao === 'detalhes') {
+                        abrirDetalhes(card);
+                    } else if (acao === 'cancelar') {
+                        AdminKit.guard(function () {
+                            AdminKit.confirm({
+                                title: 'Cancelar ensaio',
+                                message: 'Cancelar "' + en.nome + '"? O ensaio será movido para cancelados.',
+                                confirmLabel: 'Cancelar ensaio',
+                                danger: true
+                            }).then(function (ok) {
+                                if (!ok) return;
+                                AppDB.update('ensaios', en._id, { status: 'cancelados', situacao: 'Cancelado' }).then(function () {
+                                    AdminKit.toast('Ensaio cancelado.', 'ok');
+                                });
+                            });
+                        })();
+                    } else if (acao === 'editar') {
+                        AdminKit.guard(function () { abrirFormEnsaio(en); })();
+                    }
+                    return;
+                }
+            });
+
+            document.addEventListener('click', function (e) {
+                if (!e.target.closest('.kebab')) {
+                    document.querySelectorAll('.dropdown.show').forEach(function (d) {
+                        d.classList.remove('show');
+                    });
+                }
+            });
+
+            /* ---------- MODAIS ---------- */
+            var overlayNovo = document.getElementById('overlayNovo');
+            var overlayDet = document.getElementById('overlayDetalhe');
+            var detNome = document.getElementById('detNome');
+
+            function openOverlay(ov) { ov.classList.add('show'); document.body.style.overflow = 'hidden'; }
+            function closeOverlay(ov) { ov.classList.remove('show'); document.body.style.overflow = ''; }
+
+            function toast(msg) {
+                var el = document.createElement('div');
+                el.className = 'toast';
+                el.textContent = msg;
+                document.body.appendChild(el);
+                setTimeout(function () { el.classList.add('show'); }, 20);
+                setTimeout(function () {
+                    el.classList.remove('show');
+                    setTimeout(function () { el.remove(); }, 300);
+                }, 2400);
+            }
+
+            function abrirFormEnsaio(en) {
+                editandoId = en ? en._id : null;
+                document.getElementById('novoTitulo').textContent = en ? 'Editar ensaio' : 'Novo ensaio';
+                document.getElementById('btnSalvarNovo').textContent = en ? 'Salvar alterações' : 'Criar ensaio';
+                document.getElementById('novoNome').value = en ? en.nome : '';
+                document.getElementById('novoData').value = en ? en.data : '';
+                document.getElementById('novoInicio').value = en ? en.ini : '13:30';
+                document.getElementById('novoFim').value = en ? en.fim : '17:00';
+                document.getElementById('novoLocal').value = en ? en.local : '';
+                document.getElementById('novoTags').value = en ? (en.tags || []).join(', ') : '';
+                openOverlay(overlayNovo);
+                setTimeout(function () { document.getElementById('novoNome').focus(); }, 60);
+            }
+
+            document.getElementById('novaEnsaioBtn').addEventListener('click', AdminKit.guard(function () {
+                abrirFormEnsaio(null);
+            }));
+
+            function closeNovo() { closeOverlay(overlayNovo); }
+            document.getElementById('fecharNovo').addEventListener('click', closeNovo);
+            document.getElementById('cancelarNovo').addEventListener('click', closeNovo);
+
+            document.getElementById('fecharDetalhe').addEventListener('click', function () {
+                closeOverlay(overlayDet);
+            });
+
+            overlayNovo.addEventListener('click', function (e) { if (e.target === overlayNovo) closeNovo(); });
+            overlayDet.addEventListener('click', function (e) { if (e.target === overlayDet) closeOverlay(overlayDet); });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') { closeNovo(); closeOverlay(overlayDet); }
+            });
+
+            function fillDetalhes(el) {
+                var nome = el.getAttribute('data-nome');
+                var dia = el.getAttribute('data-dia');
+                var mes = el.querySelector('.date-block .m') ? el.querySelector('.date-block .m').textContent : '';
+                detNome.textContent = nome;
+                document.getElementById('detData').textContent = (el.querySelector('.date-block .d') ? el.querySelector('.date-block .d').textContent + ', ' : '') + dia + ' ' + mes;
+                document.getElementById('detHorario').textContent = el.getAttribute('data-horario');
+                document.getElementById('detLocal').textContent = el.getAttribute('data-local');
+                var tagsEl = document.getElementById('detTags');
+                tagsEl.innerHTML = '';
+                (el.getAttribute('data-tags') || '').split(',').forEach(function (t) {
+                    var s = document.createElement('span');
+                    s.className = 'tag';
+                    s.textContent = t.trim();
+                    tagsEl.appendChild(s);
+                });
+            }
+
+            function abrirDetalhes(el) {
+                fillDetalhes(el);
+                openOverlay(overlayDet);
+            }
+
+            document.querySelectorAll('[data-detalhes-btn]').forEach(function (link) {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    abrirDetalhes(link.closest('.card'));
+                });
+            });
+
+            /* ---------- NOVO / EDITAR ENSAIO ---------- */
+            document.getElementById('formNovo').addEventListener('submit', function (e) {
+                e.preventDefault();
+                var dados = {
+                    nome: document.getElementById('novoNome').value.trim(),
+                    data: document.getElementById('novoData').value,
+                    ini: document.getElementById('novoInicio').value,
+                    fim: document.getElementById('novoFim').value,
+                    local: document.getElementById('novoLocal').value.trim(),
+                    tags: document.getElementById('novoTags').value.split(',').map(function (t) { return t.trim(); }).filter(Boolean)
+                };
+                if (!dados.data || !dados.nome) return;
+
+                var d = new Date(dados.data + 'T12:00:00');
+                if (editandoId) {
+                    var atual = ensaios.filter(function (x) { return x._id === editandoId; })[0] || {};
+                    var sit = atual.situacao;
+                    if (atual.status !== 'cancelados') {
+                        sit = (d.getTime() < Date.now()) ? 'Realizado' : 'Planejado';
+                    }
+                    dados.situacao = sit;
+                    AppDB.update('ensaios', editandoId, dados).then(function () {
+                        AdminKit.toast('Ensaio atualizado.', 'ok');
+                    });
+                } else {
+                    dados.status = (d.getTime() < Date.now()) ? 'realizados' : 'proximos';
+                    dados.situacao = (d.getTime() < Date.now()) ? 'Realizado' : 'Planejado';
+                    AppDB.add('ensaios', dados).then(function () {
+                        AdminKit.toast('Ensaio criado.', 'ok');
+                    });
+                }
+
+                closeNovo();
+                e.target.reset();
+                editandoId = null;
+            });
+
+            /* ---------- DADOS AO VIVO ---------- */
+            AppDB.onChange('ensaios', function (lista) {
+                ensaios = lista;
+                renderEnsaios();
+                renderNext();
+                renderMiniCal();
+            });
+            AppDB.onChange('notificacoes', function (lista) {
+                renderRegs(lista);
+            });
+        })();
+    </script>
+
+</body>
+
+</html>

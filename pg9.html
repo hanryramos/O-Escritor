@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pg9.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <title>Musical Escritor · Meu Perfil</title>
+</head>
+
+<body>
+
+    <div class="backdrop" id="backdrop"></div>
+
+    <!-- ===== SIDEBAR ===== -->
+
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral">
+
+        <button class="sidebar-close" id="sidebarClose" aria-label="Fechar menu">
+            <i class="bx bx-x"></i>
+        </button>
+
+        <div class="sidebar-logo">
+            <img src="assets/tipografia.png" alt="Musical Escritor">
+        </div>
+
+        <div class="divider-diamond"><b></b></div>
+
+        <nav class="sidebar-menu">
+            <a href="pg1.html"><i class="bx bx-home"></i><span>Início</span></a>
+            <a href="pg2.html"><i class="bx bx-calendar"></i><span>Agenda</span></a>
+            <a href="pg3.html"><i class="bx bx-check-square"></i><span>Tarefas</span></a>
+            <a href="pg4.html"><i class="bx bx-music"></i><span>Ensaios</span></a>
+            <a href="pg5.html"><i class="bx bx-headphone"></i><span>Músicas</span></a>
+            <a href="pg6.html"><i class="bx bx-folder"></i><span>Arquivos e Links</span></a>
+            <a href="pg7.html"><i class="bx bx-group"></i><span>Equipe</span></a>
+            <a href="pg8.html"><i class="bx bx-bell"></i><span>Notificações</span></a>
+            <a class="active" href="pg9.html"><i class="bx bx-user"></i><span>Meu Perfil</span></a>
+        </nav>
+
+        <div class="sidebar-quote">
+            <div class="divider-diamond"><b></b></div>
+            <p>“Cada detalhe<br>conta uma<br>história.”</p>
+            <div class="divider-diamond"><b></b></div>
+        </div>
+
+    </aside>
+
+
+    <!-- ===== CONTEÚDO ===== -->
+
+    <main class="content">
+
+        <header class="dashboard-header">
+
+            <div class="header-top">
+
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" data-anim="zoomIn" data-delay="0s">
+                    <i class="bx bx-menu"></i>
+                </button>
+
+                <div class="header-intro">
+                    <span class="crumb" data-anim="fadeUp" data-delay="0.05s">Meu Perfil</span>
+                    <h1 data-anim="fadeUp" data-delay="0.12s">Meu Perfil</h1>
+                    <p data-anim="fadeUp" data-delay="0.2s">Suas informações, preferências e atividades em um só lugar.</p>
+                </div>
+
+                <div class="header-actions" data-anim="fadeIn" data-delay="0.26s">
+
+                    <div class="search-box">
+                        <i class="bx bx-search"></i>
+                        <input type="text" placeholder="Buscar no perfil...">
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="notif-btn" aria-label="Notificações">
+                        <i class="bx bx-bell"></i>
+                        <span class="notif-dot" data-pulse></span>
+                    </button>
+
+                    <span class="divider-v"></span>
+
+                    <div class="profile">
+                        <div class="profile-avatar" id="profileAvatar">G</div>
+                        <div class="profile-info">
+                            <strong id="profileName">Gustavo</strong>
+                            <span>Integrante</span>
+                        </div>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+
+                    <span class="divider-v"></span>
+
+                    <button class="logout-btn" id="logoutBtn" aria-label="Sair da conta">
+                        <i class="bx bx-log-out"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="quote-deco">
+                <p data-anim="fadeUp" data-delay="0.35s">“A essência do musical<br>está em cada um de nós.”</p>
+                <div class="divider-diamond" data-anim="fadeIn" data-delay="0.5s"><b></b></div>
+            </div>
+
+        </header>
+
+
+        <!-- ===== ABAS DO PERFIL ===== -->
+
+        <div class="perfil-tabs" data-anim="fadeUp" data-delay="0.08s">
+            <button class="active" data-secao="visao-geral"><i class="bx bxs-user-circle"></i>Visão Geral</button>
+            <button data-secao="informacoes"><i class="bx bx-info-circle"></i>Informações</button>
+            <button data-secao="preferencias"><i class="bx bx-sliders-alt"></i>Preferências</button>
+            <button data-secao="minha-equipe"><i class="bx bx-group"></i>Minha Equipe</button>
+            <button data-secao="atividades"><i class="bx bx-history"></i>Atividades</button>
+            <button data-secao="seguranca"><i class="bx bx-lock-alt"></i>Segurança</button>
+        </div>
+
+
+        <!-- ===== VISÃO GERAL ===== -->
+
+        <section class="secao ativo" id="sec-visao-geral" data-anim="fadeUp" data-delay="0.12s">
+
+            <div class="perfil-layout">
+
+                <div class="perfil-main">
+
+                    <!-- HERO -->
+                    <div class="card hero-card">
+                        <div class="hero-avatar">
+                            <span class="avatar">G</span>
+                            <button class="cam-btn" id="camBtn" aria-label="Alterar foto">
+                                <i class="bx bx-camera"></i>
+                            </button>
+                        </div>
+                        <div class="hero-info">
+                            <h2 id="heroNome"></h2>
+                            <span class="hero-cargo">Integrante</span>
+                            <p class="hero-frase" id="heroFrase"></p>
+                            <div class="hero-tags" id="heroTags"></div>
+                        </div>
+                        <button class="btn-editar" id="editarPerfil">
+                            <i class="bx bx-pencil"></i>
+                            Editar Perfil
+                        </button>
+                    </div>
+
+                    <div class="sub-grid">
+
+                        <!-- SOBRE MIM -->
+                        <div class="card sec-card">
+                            <div class="card-head">
+                                <h3>Sobre mim</h3>
+                                <button class="btn-editar" data-editar="perfil">
+                                    <i class="bx bx-pencil"></i> Editar
+                                </button>
+                            </div>
+                            <p class="sobre-texto" id="sobreTexto">—</p>
+                            <div class="frase-dest">
+                                <i class="bx bx-donate-heart"></i>
+                                <p id="sobreVersiculo">—</p>
+                            </div>
+                        </div>
+
+                        <!-- MINHAS FUNÇÕES -->
+                        <div class="card sec-card">
+                            <div class="card-head">
+                                <h3>Minhas funções</h3>
+                                <button class="btn-editar" data-editar="funcoes">
+                                    <i class="bx bx-pencil"></i> Editar
+                                </button>
+                            </div>
+                            <div class="func-chips" id="heroFuncoes"></div>
+                            <p class="pd-funcoes" style="margin-top:0.7rem;">Funções que você desempenha no musical.</p>
+                        </div>
+
+                    </div>
+
+                    <!-- ATIVIDADE RECENTE -->
+                    <div class="card sec-card">
+                        <div class="card-head">
+                            <h3>Atividade recente</h3>
+                            <button class="link-btn" data-ir="atividades">Ver todas →</button>
+                        </div>
+                        <div id="listaRecentes"></div>
+                    </div>
+
+                </div>
+
+                <aside class="perfil-side">
+
+                    <!-- INFORMAÇÕES DA CONTA -->
+                    <div class="card sec-card">
+                        <div class="card-head">
+                            <h3>Informações da conta</h3>
+                        </div>
+                        <div id="infoConta"></div>
+                    </div>
+
+                    <!-- MINHAS ESTATÍSTICAS -->
+                    <div class="card sec-card">
+                        <div class="card-head">
+                            <h3>Minhas estatísticas</h3>
+                        </div>
+                        <div class="stat-grid" id="gridStats"></div>
+                    </div>
+
+                    <!-- PREFERÊNCIAS RÁPIDAS -->
+                    <div class="card sec-card">
+                        <div class="card-head">
+                            <h3>Preferências rápidas</h3>
+                        </div>
+                        <div id="prefRapidas"></div>
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+
+        <!-- ===== INFORMAÇÕES ===== -->
+
+        <section class="secao" id="sec-informacoes" data-anim="fadeUp" data-delay="0.1s">
+
+            <div class="card sec-card">
+                <div class="card-head">
+                    <h3>Informações da conta</h3>
+                    <button class="btn-editar" data-editar="perfil">
+                        <i class="bx bx-pencil"></i> Editar
+                    </button>
+                </div>
+                <div id="infoCompleta"></div>
+            </div>
+
+            <div class="card sec-card" style="margin-top:1.1vw;">
+                <div class="card-head">
+                    <h3>Sobre mim</h3>
+                    <button class="btn-editar" data-editar="perfil">
+                        <i class="bx bx-pencil"></i> Editar
+                    </button>
+                </div>
+                <p class="sobre-texto" id="sobreTexto2">—</p>
+                <div class="frase-dest">
+                    <i class="bx bx-donate-heart"></i>
+                    <p id="sobreVersiculo2">—</p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ===== PREFERÊNCIAS ===== -->
+
+        <section class="secao" id="sec-preferencias" data-anim="fadeUp" data-delay="0.1s">
+
+            <div class="card sec-card">
+                <div class="card-head">
+                    <h3>Preferências</h3>
+                </div>
+                <div id="prefCompletas"></div>
+            </div>
+
+        </section>
+
+
+        <!-- ===== MINHA EQUIPE ===== -->
+
+        <section class="secao" id="sec-minha-equipe" data-anim="fadeUp" data-delay="0.1s">
+
+            <div class="eq-list" id="gridEquipes"></div>
+
+        </section>
+
+
+        <!-- ===== ATIVIDADES ===== -->
+
+        <section class="secao" id="sec-atividades" data-anim="fadeUp" data-delay="0.1s">
+
+            <div class="card sec-card act-full">
+                <div class="card-head">
+                    <h3>Histórico de atividades</h3>
+                    <span class="sec-count" id="actCount" style="display:grid;place-items:center;min-width:26px;height:26px;padding:0 .55rem;font-size:.72rem;font-weight:700;color:var(--ativo);background:var(--bege);border-radius:999px;">0</span>
+                </div>
+                <div id="listaCompleta"></div>
+            </div>
+
+        </section>
+
+
+        <!-- ===== SEGURANÇA ===== -->
+
+        <section class="secao" id="sec-seguranca" data-anim="fadeUp" data-delay="0.1s">
+
+            <div class="card sec-card senha-form">
+                <div class="card-head">
+                    <h3>Alterar senha</h3>
+                </div>
+                <div class="form-row">
+                    <label for="senhaAtual">Senha atual</label>
+                    <input type="password" id="senhaAtual" placeholder="••••••••" autocomplete="current-password">
+                </div>
+                <div class="form-row">
+                    <label for="senhaNova">Nova senha</label>
+                    <input type="password" id="senhaNova" placeholder="Mínimo de 6 caracteres" autocomplete="new-password">
+                </div>
+                <div class="form-row">
+                    <label for="senhaConfirm">Confirmar nova senha</label>
+                    <input type="password" id="senhaConfirm" placeholder="Repita a nova senha" autocomplete="new-password">
+                </div>
+                <button class="btn-gold" id="salvarSenha" style="width:100%;">
+                    Salvar senha
+                </button>
+                <p class="senha-err" id="senhaErro"></p>
+            </div>
+
+            <div class="card sec-card" style="margin-top:1.1vw;">
+                <div class="card-head">
+                    <h3>Sua sessão</h3>
+                </div>
+                <div class="info-linha">
+                    <i class="bx bx-devices"></i>
+                    <span>
+                        <b>Dispositivo atual</b>
+                        <strong>Windows · Chrome · São Paulo, SP</strong>
+                    </span>
+                </div>
+                <div class="info-linha">
+                    <i class="bx bx-shield-alt-2"></i>
+                    <span>
+                        <b>Dupla verificação</b>
+                        <strong>Desativada</strong>
+                    </span>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <div class="toast" id="toast"></div>
+
+    <!-- ===== MODAL · EDITAR PERFIL ===== -->
+
+    <div class="overlay" id="overlayPerfil">
+        <div class="modal modal-lg">
+            <div class="modal-head">
+                <h3>Editar perfil</h3>
+                <button class="icon-btn" data-fechar="overlayPerfil" aria-label="Fechar"><i class="bx bx-x"></i></button>
+            </div>
+            <div class="form-row">
+                <label for="editNome">Nome</label>
+                <input type="text" id="editNome">
+            </div>
+            <div class="form-row">
+                <label for="editEmail">E-mail</label>
+                <input type="email" id="editEmail">
+            </div>
+            <div class="form-row">
+                <label for="editTelefone">Telefone</label>
+                <input type="text" id="editTelefone">
+            </div>
+            <div class="form-row">
+                <label for="editLocal">Localização</label>
+                <input type="text" id="editLocal">
+            </div>
+            <div class="form-row">
+                <label for="editFrase">Frase pessoal</label>
+                <input type="text" id="editFrase">
+            </div>
+            <div class="form-row">
+                <label for="editSobre">Sobre mim</label>
+                <textarea id="editSobre" rows="3" style="width:100%;padding:.7rem .9rem;border:1px solid #E4E4E4;border-radius:10px;font-family:inherit;font-size:.85rem;color:#202020;resize:vertical;"></textarea>
+            </div>
+            <div class="btn-row">
+                <button class="btn-ghost" data-fechar="overlayPerfil">Cancelar</button>
+                <button class="btn-gold" id="salvarPerfil">Salvar alterações</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL · MINHAS FUNÇÕES ===== -->
+
+    <div class="overlay" id="overlayFuncoes">
+        <div class="modal">
+            <div class="modal-head">
+                <h3>Minhas funções</h3>
+                <button class="icon-btn" data-fechar="overlayFuncoes" aria-label="Fechar"><i class="bx bx-x"></i></button>
+            </div>
+            <div class="toggle-chips" id="toggleFuncoes"></div>
+            <p class="pd-funcoes" style="margin-top:0.8rem;">Selecione as funções que você desempenha no musical.</p>
+            <div class="btn-row">
+                <button class="btn-ghost" data-fechar="overlayFuncoes">Cancelar</button>
+                <button class="btn-gold" id="salvarFuncoes">Salvar funções</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+    <script src="auth.js"></script>
+
+    <script src="data.js"></script>
+
+    <script src="admin.js"></script>
+    <script src="animations.js"></script>
+    <script src="pg9-dados.js"></script>
+    <script>
+        (function () {
+
+var MP = window.MP;
+            var P = MP.perfil;
+
+            var ESTAT = [], ATIV = [], EQS = [];
+            var cache = {};
+            var COLS = ['tarefas', 'ensaios', 'arquivos', 'links', 'notificacoes', 'equipes', 'integrantes'];
+            var NTF_C = {
+                tarefa: { ic: 'bx-check-double', cl: 'n-tarefa' },
+                arquivo: { ic: 'bx-folder-open', cl: 'n-arquivo' },
+                musica: { ic: 'bx-music', cl: 'n-evento' },
+                evento: { ic: 'bx-calendar-event', cl: 'n-sistema' },
+                equipe: { ic: 'bx-group', cl: 'n-equipe' },
+                mencao: { ic: 'bx-message-rounded-dots', cl: 'n-mencao' },
+                sistema: { ic: 'bx-info-circle', cl: 'n-sistema' }
+            };
+            var EQ_CL = ['f-backing', 'f-apoio', 'f-arquivo', 'f-audio', 'f-evento', 'f-mencao'];
+
+            function mesesDesde(iso) {
+                var p = String(iso || '').split('-');
+                if (p.length < 2 || !p[0]) return 0;
+                var d = new Date(+p[0], +p[1] - 1, +(p[2] || 1));
+                var h = new Date();
+                var m = (h.getFullYear() - d.getFullYear()) * 12 + (h.getMonth() - d.getMonth());
+                return m > 0 ? m : 0;
+            }
+
+            function montarStats() {
+                ESTAT = [
+                    { ic: 'bx-check-circle', cl: 'st-tarefas', num: (cache.tarefas || []).filter(function (t) { return t.status === 'Concluída'; }).length, rot: 'Tarefas concluídas' },
+                    { ic: 'bx-music', cl: 'st-ensaios', num: (cache.ensaios || []).length, rot: 'Ensaios participados' },
+                    { ic: 'bx-upload', cl: 'st-arquivos', num: (cache.arquivos || []).length + (cache.links || []).length, rot: 'Arquivos enviados' },
+                    { ic: 'bx-calendar-check', cl: 'st-meses', num: mesesDesde(P.entrada), rot: 'Meses de projeto' }
+                ];
+            }
+
+            function montarAtiv() {
+                ATIV = (cache.notificacoes || []).map(function (n) {
+                    var t = NTF_C[n.tipo] || NTF_C.sistema;
+                    return { ic: t.ic, cl: t.cl, desc: n.titulo + (n.desc ? ' — ' + n.desc : ''), tempo: n.tempo || '' };
+                });
+            }
+
+            function montarEqs() {
+                var eqs = cache.equipes || [], mbs = cache.integrantes || [];
+                EQS = eqs.map(function (e, i) {
+                    var membros = mbs.filter(function (m) { return (m.equipes || []).indexOf(e.id) > -1; })
+                        .map(function (m) { return m.nome; });
+                    return {
+                        nome: e.nome,
+                        ic: e.icone || 'bx-group',
+                        cl: EQ_CL[i % EQ_CL.length],
+                        funcao: membros.length ? (membros.length + ' integrante' + (membros.length === 1 ? '' : 's')) : 'Sem integrantes',
+                        membros: membros
+                    };
+                });
+            }
+
+            function recarregar() {
+                montarStats();
+                montarAtiv();
+                montarEqs();
+                renderStats();
+                renderAtividades();
+                renderEquipes();
+            }
+
+            MP.onChange(function () {
+                P = MP.perfil;
+                renderHero();
+                renderInfo();
+                renderFuncoes();
+                recarregar();
+            });
+
+            if (window.AppDB) {
+                COLS.forEach(function (c) {
+                    AppDB.onChange(c, function (lista) { cache[c] = lista; recarregar(); });
+                });
+            } else {
+                recarregar();
+            }
+
+            function mostrarToast(msg) {
+                var t = document.getElementById('toast');
+                t.textContent = msg;
+                t.classList.add('show');
+                clearTimeout(mostrarToast._t);
+                mostrarToast._t = setTimeout(function () {
+                    t.classList.remove('show');
+                }, 2600);
+            }
+
+            function esc(t) { return MP.esc(t); }
+
+            /* ---------- ABAS ---------- */
+
+            function irAba(nome) {
+                document.querySelectorAll('.perfil-tabs button').forEach(function (b) {
+                    b.classList.toggle('active', b.getAttribute('data-secao') === nome);
+                });
+                document.querySelectorAll('.secao').forEach(function (s) {
+                    s.classList.toggle('ativo', s.id === 'sec-' + nome);
+                });
+            }
+
+            document.querySelectorAll('.perfil-tabs button').forEach(function (b) {
+                b.addEventListener('click', function () {
+                    irAba(b.getAttribute('data-secao'));
+                });
+            });
+
+            document.querySelectorAll('[data-ir]').forEach(function (b) {
+                b.addEventListener('click', function () {
+                    irAba(b.getAttribute('data-ir'));
+                });
+            });
+
+            /* ---------- HERO ---------- */
+
+            function funcoesAtivas() {
+                return MP.funcoes.filter(function (f) { return f.ativo; });
+            }
+
+            function renderHero() {
+                document.getElementById('heroNome').textContent = P.nome;
+                document.getElementById('heroFrase').textContent = P.frase;
+                document.getElementById('heroTags').innerHTML = funcoesAtivas()
+                    .map(function (f) { return '<span>' + esc(f.nome) + '</span>'; })
+                    .join('') || '<span>Nenhuma função</span>';
+                var sobre = document.getElementById('sobreTexto');
+                var sobre2 = document.getElementById('sobreTexto2');
+                var ver = document.getElementById('sobreVersiculo');
+                var ver2 = document.getElementById('sobreVersiculo2');
+                sobre.textContent = P.sobre;
+                sobre2.textContent = P.sobre;
+                ver.textContent = P.versiculo;
+                ver2.textContent = P.versiculo;
+                var nomeEl = document.getElementById('profileName');
+                if (nomeEl) nomeEl.textContent = P.nome;
+            }
+
+            function renderFuncoes() {
+                document.getElementById('heroFuncoes').innerHTML = funcoesAtivas().map(function (f) {
+                    return '<span class="func-chip ' + f.cl + '"><i class="bx ' + f.ic + '"></i>' + esc(f.nome) + '</span>';
+                }).join('') || '<span class="pd-funcoes">Nenhuma função selecionada.</span>';
+            }
+
+            /* ---------- INFORMAÇÕES DA CONTA ---------- */
+
+            function linhaInfo(ic, rotulo, valor) {
+                return '<div class="info-linha"><i class="bx ' + ic + '"></i><span><b>' + esc(rotulo) + '</b><strong>' + esc(valor) + '</strong></span></div>';
+            }
+
+            function renderInfo() {
+                var linhas =
+                    linhaInfo('bx-envelope', 'E-mail', P.email) +
+                    linhaInfo('bx-phone', 'Telefone', P.telefone) +
+                    linhaInfo('bx-current-location', 'Localização', P.local) +
+                    linhaInfo('bx-calendar-check', 'Entrou no projeto', P.entrada);
+                document.getElementById('infoConta').innerHTML = linhas;
+                document.getElementById('infoCompleta').innerHTML = linhas;
+            }
+
+            /* ---------- ESTATÍSTICAS ---------- */
+
+            function renderStats() {
+                var grid = document.getElementById('gridStats');
+                if (!ESTAT.length) {
+                    grid.innerHTML = '<div class="dash-empty" style="grid-column:1/-1;"><i class="bx bx-bar-chart-alt-2"></i><strong>Sem estatísticas ainda</strong><span>Os números aparecem conforme você usa o sistema.</span></div>';
+                    return;
+                }
+                grid.innerHTML = ESTAT.map(function (e) {
+                    return '<div class="stat-bloco ' + e.cl + '">' +
+                        '<i class="bx ' + e.ic + '"></i>' +
+                        '<b>' + e.num + '</b>' +
+                        '<span>' + esc(e.rot) + '</span>' +
+                        '</div>';
+                }).join('');
+            }
+
+            /* ---------- ATIVIDADES ---------- */
+
+            function atvItem(a) {
+                return '<div class="act-item">' +
+                    '<span class="n-avatar ' + a.cl + '"><i class="bx ' + a.ic + '"></i></span>' +
+                    '<p>' + esc(a.desc) + '</p>' +
+                    '<span>' + esc(a.tempo) + '</span>' +
+                    '</div>';
+            }
+
+            function renderAtividades() {
+                var vazio = '<div class="dash-empty"><i class="bx bx-history"></i><strong>Nenhuma atividade recente</strong><span>As notificações criadas aparecem aqui.</span></div>';
+                document.getElementById('listaRecentes').innerHTML =
+                    ATIV.length ? ATIV.slice(0, 4).map(atvItem).join('') : vazio;
+                document.getElementById('listaCompleta').innerHTML =
+                    ATIV.length ? ATIV.map(atvItem).join('') : vazio;
+                document.getElementById('actCount').textContent = ATIV.length;
+            }
+
+            /* ---------- EQUIPES ---------- */
+
+            function renderEquipes() {
+                var grid = document.getElementById('gridEquipes');
+                if (!EQS.length) {
+                    grid.innerHTML = '<div class="dash-empty" style="grid-column:1/-1;"><i class="bx bx-group"></i><strong>Nenhuma equipe cadastrada</strong><span>Crie equipes em "Equipe" para vê-las aqui.</span></div>';
+                    return;
+                }
+                grid.innerHTML = EQS.map(function (eq) {
+                    var membros = eq.membros.length
+                        ? eq.membros.map(function (m) { return '<span class="eq-membro">' + esc(m) + '</span>'; }).join('')
+                        : '<span class="eq-membro" style="opacity:.6;">Sem integrantes</span>';
+                    return '<div class="card eq-pessoal">' +
+                        '<div class="eq-head">' +
+                        '<span class="eq-ic ' + eq.cl + '"><i class="bx ' + eq.ic + '"></i></span>' +
+                        '<span style="flex:1;min-width:0;">' +
+                        '<h4>' + esc(eq.nome) + '</h4>' +
+                        '<p>' + esc(eq.funcao) + '</p>' +
+                        '</span>' +
+                        '</div>' +
+                        '<div class="eq-membros">' + membros + '</div>' +
+                        '<a class="link-btn" href="pg7.html">Ver equipe completa →</a>' +
+                        '</div>';
+                }).join('');
+            }
+
+            /* ---------- PREFERÊNCIAS ---------- */
+
+            function switchComponente(id, ic, rotulo, sub, ligado) {
+                return '<div class="pref-item">' +
+                    '<span class="pref-label"><i class="bx ' + ic + '"></i><span><strong>' + esc(rotulo) + '</strong><span>' + esc(sub) + '</span></span></span>' +
+                    '<button class="switch' + (ligado ? ' on' : '') + '" data-switch="' + id + '" aria-label="' + esc(rotulo) + '"></button>' +
+                    '</div>';
+            }
+
+            function montarPrefs() {
+                var pr = MP.preferencias;
+                var rap = switchComponente('email', 'bx-envelope', 'Notificações por e-mail', 'Receber avisos no e-mail', pr.email) +
+                    switchComponente('app', 'bx-mobile-alt', 'Notificações no aplicativo', 'Receber avisos no sistema', pr.app) +
+                    switchComponente('escuro', 'bx-moon', 'Modo escuro', 'Diminuir o brilho das telas', pr.escuro) +
+                    '<div class="pref-item">' +
+                    '<span class="pref-label"><i class="bx bx-globe"></i><span><strong>Idioma</strong><span>Idioma das interfaces</span></span></span>' +
+                    '<div class="select-wrap"><select id="selIdioma">' +
+                    '<option value="pt">Português (BR)</option>' +
+                    '<option value="en">English</option>' +
+                    '<option value="es">Español</option>' +
+                    '</select><i class="bx bx-chevron-down"></i></div>' +
+                    '</div>';
+                document.getElementById('prefRapidas').innerHTML = rap;
+                document.getElementById('prefCompletas').innerHTML = rap;
+            }
+
+            function ligarPrefs() {
+                document.querySelectorAll('[data-switch]').forEach(function (s) {
+                    s.addEventListener('click', function () {
+                        var id = s.getAttribute('data-switch');
+                        MP.preferencias[id] = !MP.preferencias[id];
+                        var ligado = MP.preferencias[id];
+                        document.querySelectorAll('[data-switch="' + id + '"]').forEach(function (x) {
+                            x.classList.toggle('on', ligado);
+                        });
+                        if (id === 'escuro') {
+                            document.body.classList.toggle('modo-escuro', ligado);
+                        }
+                    });
+                });
+                var sel = document.getElementById('selIdioma');
+                if (sel) {
+                    sel.value = MP.preferencias.idioma.toLowerCase().slice(0, 2);
+                    sel.addEventListener('change', function () {
+                        MP.preferencias.idioma = sel.options[sel.selectedIndex].text;
+                    });
+                }
+            }
+
+            /* ---------- MODAIS ---------- */
+
+            document.querySelectorAll('[data-fechar]').forEach(function (b) {
+                b.addEventListener('click', function () {
+                    document.getElementById(b.getAttribute('data-fechar')).classList.remove('show');
+                });
+            });
+
+            document.querySelectorAll('.overlay').forEach(function (ov) {
+                ov.addEventListener('click', function (e) {
+                    if (e.target === ov) ov.classList.remove('show');
+                });
+            });
+
+var abrirPerfil = document.getElementById('editarPerfil');
+            document.querySelectorAll('[data-editar="perfil"]').forEach(function (b) {
+                b.addEventListener('click', AdminKit.guard(function () {
+                    document.getElementById('editNome').value = P.nome;
+                    document.getElementById('editEmail').value = P.email;
+                    document.getElementById('editTelefone').value = P.telefone;
+                    document.getElementById('editLocal').value = P.local;
+                    document.getElementById('editFrase').value = P.frase.replace(/“|”/g, '');
+                    document.getElementById('editSobre').value = P.sobre;
+                    document.getElementById('overlayPerfil').classList.add('show');
+                }));
+            });
+            abrirPerfil.addEventListener('click', AdminKit.guard(function () {
+                document.querySelector('[data-editar="perfil"]').click();
+            }));
+
+            document.getElementById('salvarPerfil').addEventListener('click', function () {
+                if (!document.getElementById('editNome').value.trim()) {
+                    mostrarToast('Informe um nome.');
+                    return;
+                }
+                var f = document.getElementById('editFrase').value.trim();
+                AppDB.update('perfil', MP.chavePerfil(), {
+                    nome: document.getElementById('editNome').value.trim(),
+                    email: document.getElementById('editEmail').value.trim(),
+                    telefone: document.getElementById('editTelefone').value.trim(),
+                    local: document.getElementById('editLocal').value.trim(),
+                    frase: f ? '“' + f + '”' : '',
+                    sobre: document.getElementById('editSobre').value.trim()
+                });
+                document.getElementById('overlayPerfil').classList.remove('show');
+                mostrarToast('Perfil atualizado com sucesso.');
+            });
+
+document.querySelectorAll('[data-editar="funcoes"]').forEach(function (b) {
+                b.addEventListener('click', AdminKit.guard(function () {
+                    document.getElementById('toggleFuncoes').innerHTML = MP.funcoes.map(function (fn) {
+                        return '<button class="pick-chip' + (fn.ativo ? ' on' : '') + '" data-fn="' + fn.id + '">' +
+                            '<i class="bx ' + fn.ic + '"></i>' + esc(fn.nome) +
+                            '</button>';
+                    }).join('');
+                    document.getElementById('overlayFuncoes').classList.add('show');
+                }));
+            });
+
+            document.getElementById('toggleFuncoes').addEventListener('click', function (e) {
+                var chip = e.target.closest('.pick-chip');
+                if (!chip) return;
+                var fn = MP.funcoes.find(function (x) { return x.id === chip.getAttribute('data-fn'); });
+                if (!fn) return;
+                fn.ativo = !fn.ativo;
+                chip.classList.toggle('on', fn.ativo);
+            });
+
+document.getElementById('salvarFuncoes').addEventListener('click', function () {
+                MP.funcoes.forEach(function (fn) {
+                    AppDB.update('funcoes', fn._id, { ativo: fn.ativo });
+                });
+                document.getElementById('overlayFuncoes').classList.remove('show');
+                renderHero();
+                renderFuncoes();
+                mostrarToast('Funções atualizadas.');
+            });
+
+            /* ---------- CAMERA ---------- */
+
+            document.getElementById('camBtn').addEventListener('click', function () {
+                mostrarToast('Alterar foto disponível no aplicativo.');
+            });
+
+            /* ---------- SEGURANÇA ---------- */
+
+            document.getElementById('salvarSenha').addEventListener('click', function () {
+                var atual = document.getElementById('senhaAtual').value;
+                var nova = document.getElementById('senhaNova').value;
+                var conf = document.getElementById('senhaConfirm').value;
+                var err = document.getElementById('senhaErro');
+
+                if (!atual) {
+                    err.textContent = 'Informe a senha atual.';
+                    err.classList.add('show');
+                    return;
+                }
+                if (nova.length < 6) {
+                    err.textContent = 'A nova senha precisa ter pelo menos 6 caracteres.';
+                    err.classList.add('show');
+                    return;
+                }
+                if (nova !== conf) {
+                    err.textContent = 'A confirmação não confere com a nova senha.';
+                    err.classList.add('show');
+                    return;
+                }
+                err.classList.remove('show');
+                document.getElementById('senhaAtual').value = '';
+                document.getElementById('senhaNova').value = '';
+                document.getElementById('senhaConfirm').value = '';
+                mostrarToast('Senha atualizada com sucesso.');
+            });
+
+            /* ---------- INIT ---------- */
+
+            renderHero();
+            renderFuncoes();
+            renderInfo();
+            renderStats();
+            renderAtividades();
+            renderEquipes();
+            montarPrefs();
+            ligarPrefs();
+
+        })();
+    </script>
+
+</body>
+
+</html>
