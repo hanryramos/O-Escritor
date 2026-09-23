@@ -48,7 +48,7 @@
         return 'perfil_' + String(e).toLowerCase().replace(/[^a-z0-9]+/g, '_');
     }
 
-    function montar(perfil, equipes) {
+    function montar(perfil, equipes, personagens) {
         var userNome = '';
         var userEmail = '';
         if (window.AppAuth && window.AppAuth.user) {
@@ -64,7 +64,20 @@
                 return '<label class="onb-eq"><input type="checkbox" value="' + esc(nome) + '"><span>' + esc(nome) + '</span></label>';
             }).join('');
         } else {
-            eqsHTML = '<p class="onb-empty">Nenhuma equipe cadastrada ainda — digite abaixo as equipes das quais você faz parte.</p>';
+            eqsHTML = '<p class="onb-empty">Nenhuma equipe cadastrada ainda — as equipes aparecem aqui assim que o administrador criá-las.</p>';
+        }
+
+        var personagemHTML = '';
+        if (personagens && personagens.length) {
+            personagemHTML = '<select id="onbQualPersonagem" disabled>' +
+                '<option value="">Selecione um personagem...</option>' +
+                personagens.map(function (p) {
+                    var n = p.nome || p.id || '';
+                    return '<option value="' + esc(n) + '">' + esc(n) + '</option>';
+                }).join('') +
+                '</select>';
+        } else {
+            personagemHTML = '<input type="text" id="onbQualPersonagem" placeholder="Nenhum personagem cadastrado ainda — escreva aqui" disabled>';
         }
 
         overlay = document.createElement('div');
@@ -80,14 +93,13 @@
             '<div class="onb-corpo">' +
             '<label class="onb-campo"><span>Seu nome</span><input type="text" id="onbNome" value="' + esc(valorNome) + '" placeholder="Como quer ser chamado(a)"></label>' +
             '<div class="onb-campo"><span>Equipes que você faz parte <i>(pode marcar mais de uma)</i></span>' +
-            '<div class="onb-equipes">' + eqsHTML + '</div>' +
-            '<input type="text" id="onbOutrasEquipes" placeholder="Outras equipes (separe por vírgula)"></div>' +
+            '<div class="onb-equipes">' + eqsHTML + '</div></div>' +
             '<div class="onb-campo"><span>Você representa algum personagem?</span>' +
             '<div class="onb-personagem">' +
             '<label><input type="radio" name="onbPersonagem" value="sim"> Sim</label>' +
             '<label><input type="radio" name="onbPersonagem" value="nao" checked> Não</label>' +
             '</div>' +
-            '<input type="text" id="onbQualPersonagem" placeholder="Qual personagem?" disabled></div>' +
+            personagemHTML + '</div>' +
             '<label class="onb-campo"><span>Breve resumo sobre você</span>' +
             '<textarea id="onbResumo" rows="3" placeholder="Ex.: soprano, integra o corpo de dança, chegou ao projeto em 2025..."></textarea></label>' +
             '</div>' +
@@ -127,9 +139,6 @@
                 var v = (el.value || '').trim();
                 if (v) equipes.push(v);
             });
-            var extras = (overlay.querySelector('#onbOutrasEquipes').value || '')
-                .split(',').map(function (t) { return t.trim(); }).filter(Boolean);
-            extras.forEach(function (e) { if (equipes.indexOf(e) === -1) equipes.push(e); });
 
             var personagem = (rSim && rSim.checked) ? (qual.value || '').trim() : '';
 
@@ -167,10 +176,13 @@
                 if (p._id === chave) per = p;
             });
             if (per && per.onboarded) return null;
-            return window.AppDB.load('equipes');
-        }).then(function (equipes) {
+            return Promise.all([
+                window.AppDB.load('equipes'),
+                window.AppDB.load('personagens')
+            ]);
+        }).then(function (dados2) {
             if (per && per.onboarded) return;
-            montar(per, equipes || []);
+            montar(per, dados2 ? dados2[0] : [], dados2 ? dados2[1] : []);
         });
     });
 

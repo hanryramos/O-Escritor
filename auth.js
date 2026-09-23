@@ -146,8 +146,13 @@ demoUser = { email: 'admoescritor@musical.com', displayName: 'Adm Escritor' };
         }
     });
 
+    function primeiroNome(user) {
+        var base = (user && (user.displayName || user.email || '')) || '';
+        return String(base).split(/[@\s]+/)[0] || '';
+    }
+
     function aplicarIdentidadeDeUsuario(user) {
-        const display = formatName((user.displayName || user.email || '').split(' ')[0]) || 'Integrante';
+        const display = formatName(primeiroNome(user));
 
         const userNameEl = document.getElementById('userName');
         const nameField = document.getElementById('profileName');
@@ -166,8 +171,6 @@ demoUser = { email: 'admoescritor@musical.com', displayName: 'Adm Escritor' };
 
 (function () {
     const loginForm = document.getElementById('login-form');
-    const googleBtn = document.getElementById('loginGoogle');
-    const googleDivider = document.querySelector('.google-divider');
     if (!loginForm) return;
 
     if (typeof firebase === 'undefined' || !firebase.auth) {
@@ -177,8 +180,6 @@ demoUser = { email: 'admoescritor@musical.com', displayName: 'Adm Escritor' };
             const box = document.getElementById('loginError');
             if (box) box.textContent = 'Login indisponível (modo demonstração).';
         });
-        if (googleBtn) googleBtn.style.display = 'none';
-        if (googleDivider) googleDivider.style.display = 'none';
         return;
     }
 
@@ -212,32 +213,6 @@ demoUser = { email: 'admoescritor@musical.com', displayName: 'Adm Escritor' };
                 errorBox.textContent = loginErrorMessage(err.code);
             });
     });
-
-    if (googleBtn) {
-        googleBtn.addEventListener('click', function () {
-            errorBox.textContent = '';
-            if (!window.fireAuth) {
-                errorBox.textContent = 'Entrar com Google indisponível.';
-                return;
-            }
-            googleBtn.disabled = true;
-            const provider = new firebase.auth.GoogleAuthProvider();
-            window.fireAuth.signInWithPopup(provider)
-                .then(function () {
-                    window.location.href = 'pg1.html';
-                })
-                .catch(function (err) {
-                    googleBtn.disabled = false;
-                    if (window.location.protocol === 'file:') {
-                        errorBox.textContent = 'Você abriu pelo arquivo (file://). Para o login com Google funcionar, abra via localhost: rode "npx serve" nesta pasta e acesse http://localhost:3000.';
-                    } else if (err && err.code === 'auth/unauthorized-domain') {
-                        errorBox.textContent = 'Domínio não autorizado: adicione este endereço em Firebase → Authentication → Authorized domains.';
-                    } else {
-                        errorBox.textContent = loginErrorMessage(err ? err.code : '');
-                    }
-                });
-        });
-    }
 
     window.fireAuth.onAuthStateChanged(function (user) {
         if (user) window.location.href = 'pg1.html';

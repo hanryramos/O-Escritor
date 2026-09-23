@@ -96,7 +96,7 @@
 .onb-topo h2 {
     margin-top: 0.8rem;
 
-    font-family: 'Milesdane', Georgia, serif;
+    font-family: 'Milesdane', 'Montserrat', Georgia, serif;
     font-style: italic;
     font-weight: 400;
 
@@ -149,6 +149,7 @@
 
 .onb-campo input[type="text"],
 .onb-campo input:not([type]),
+.onb-campo select,
 .onb-campo textarea {
     width: 100%;
 
@@ -168,8 +169,14 @@
 }
 
 .onb-campo input:focus,
+.onb-campo select:focus,
 .onb-campo textarea:focus {
     border-color: #bd915a;
+}
+
+.onb-campo select[disabled] {
+    background: #f6f1e8;
+    color: #a3927e;
 }
 
 .onb-campo textarea {

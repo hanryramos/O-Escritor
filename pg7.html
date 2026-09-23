@@ -185,7 +185,27 @@
                 </span>
             </div>
 
-            <div class="eq-grid" id="gridEquipes"></div>
+<div class="eq-grid" id="gridEquipes"></div>
+
+        </section>
+
+
+        <!-- ===== PERSONAGENS ===== -->
+
+        <section id="secaoPersonagens" data-anim="fadeUp" data-delay="0.18s">
+
+            <div class="sec-title">
+                <h3>Personagens</h3>
+                <span class="sec-title-actions">
+                    <span class="sec-count" id="persCount">0</span>
+                    <button class="new-btn adm-inline" id="addPersonagemBtn" data-admin-only>
+                        <i class="bx bx-plus"></i>
+                        Novo personagem
+                    </button>
+                </span>
+            </div>
+
+            <div class="eq-grid" id="gridPersonagens"></div>
 
         </section>
 
@@ -235,8 +255,10 @@
 
             var gridEquipes = document.getElementById('gridEquipes');
             var gridMembros = document.getElementById('gridMembros');
+            var gridPersonagens = document.getElementById('gridPersonagens');
             var countEq = document.getElementById('eqCount');
             var countMemb = document.getElementById('membCount');
+            var countPers = document.getElementById('persCount');
             var vazio = document.getElementById('membVazio');
 
             var ICONES = [
@@ -497,6 +519,105 @@
 
             document.getElementById('addEquipeBtn').addEventListener('click', AdminKit.guard(novaEquipe));
 
+            function renderPersonagens() {
+                gridPersonagens.innerHTML = '';
+
+                if (!EQ.personagens.length) {
+                    var ph = document.createElement('div');
+                    ph.className = 'empty-state';
+                    ph.style.cssText = 'grid-column:1/-1;display:flex;';
+                    ph.innerHTML =
+                        '<i class="bx bx-drama-masks"></i>' +
+                        '<strong>Nenhum personagem ainda</strong>' +
+                        '<span>Use "Novo personagem" acima para criar o primeiro. Eles aparecem no cadastro de boas-vindas.</span>';
+                    gridPersonagens.appendChild(ph);
+                }
+
+                EQ.personagens.forEach(function (p) {
+                    var card = document.createElement('div');
+                    card.className = 'card eq-card';
+                    card.style.cursor = 'default';
+
+                    card.innerHTML =
+                        '<span class="eq-ic"><i class="bx bx-drama-masks"></i></span>' +
+                        '<span style="flex:1;min-width:0;">' +
+                        '<h4>' + EQ.esc(p.nome || p.id) + '</h4>' +
+                        '<p>Personagem do musical</p>' +
+                        '</span>' +
+                        '<span class="eq-actions">' +
+                        '<button class="adm-inline eq-act" data-pers-edit data-admin-only aria-label="Editar personagem"><i class="bx bx-edit"></i></button>' +
+                        '<button class="adm-inline eq-act danger" data-pers-del data-admin-only aria-label="Excluir personagem"><i class="bx bx-trash"></i></button>' +
+                        '</span>';
+
+                    card.querySelector('[data-pers-edit]').addEventListener('click', AdminKit.guard(function () {
+                        editarPersonagem(p);
+                    }));
+                    card.querySelector('[data-pers-del]').addEventListener('click', AdminKit.guard(function () {
+                        excluirPersonagem(p);
+                    }));
+
+                    gridPersonagens.appendChild(card);
+                });
+
+                countPers.textContent = EQ.personagens.length;
+            }
+
+            function novaPersonagem() {
+                AdminKit.modal({
+                    title: 'Novo personagem',
+                    submitLabel: 'Criar personagem',
+                    values: { nome: '', descricao: '' },
+                    fields: [
+                        { name: 'nome', label: 'Nome do personagem', required: true, placeholder: 'Ex.: Maria João' },
+                        { name: 'descricao', label: 'Descrição (opcional)', type: 'textarea', placeholder: 'Ex.: Protagonista, interpreta a mensagem da história...' }
+                    ]
+                }).then(function (v) {
+                    if (!v) return;
+                    var id = String(v.nome).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'personagem';
+                    AppDB.add('personagens', {
+                        id: id,
+                        nome: v.nome.trim(),
+                        descricao: v.descricao.trim()
+                    }).then(function () {
+                        AdminKit.toast('Personagem criado.', 'ok');
+                    });
+                });
+            }
+
+            function editarPersonagem(p) {
+                AdminKit.modal({
+                    title: 'Editar personagem',
+                    submitLabel: 'Salvar alterações',
+                    values: { nome: p.nome || '', descricao: p.descricao || '' },
+                    fields: [
+                        { name: 'nome', label: 'Nome do personagem', required: true, placeholder: 'Ex.: Maria João' },
+                        { name: 'descricao', label: 'Descrição (opcional)', type: 'textarea', placeholder: 'Ex.: Protagonista, interpreta a mensagem da história...' }
+                    ]
+                }).then(function (v) {
+                    if (!v) return;
+                    var id = String(v.nome).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'personagem';
+                    AppDB.update('personagens', p._id, { id: id, nome: v.nome.trim(), descricao: v.descricao.trim() }).then(function () {
+                        AdminKit.toast('Personagem atualizado.', 'ok');
+                    });
+                });
+            }
+
+            function excluirPersonagem(p) {
+                AdminKit.confirm({
+                    title: 'Excluir personagem',
+                    message: 'O personagem "' + (p.nome || p.id) + '" será removido. Quem o marcou no cadastro deixará de tê-lo.',
+                    danger: true,
+                    confirmLabel: 'Excluir'
+                }).then(function (ok) {
+                    if (!ok) return;
+                    AppDB.remove('personagens', p._id).then(function () {
+                        AdminKit.toast('Personagem excluído.', 'ok');
+                    });
+                });
+            }
+
+            document.getElementById('addPersonagemBtn').addEventListener('click', AdminKit.guard(novaPersonagem));
+
             document.getElementById('addMembroBtn').addEventListener('click', AdminKit.guard(function () {
                 if (!EQ.equipes.length) {
                     AdminKit.toast('Crie uma equipe antes de adicionar integrantes.');
@@ -548,9 +669,14 @@
                 initResumo();
             });
 
+            AppDB.onChange('personagens', function () {
+                renderPersonagens();
+            });
+
             montarChips();
             initResumo();
             renderEquipes();
+            renderPersonagens();
             renderMembros();
 
         })();

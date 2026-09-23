@@ -18,17 +18,24 @@ window.EQ = (function () {
 
     var SEED_EQUIPES = [];
 
+    var SEED_PERSONAGENS = [];
+
     var membros = SEED_MEMBROS.slice();
     var equipes = SEED_EQUIPES.slice();
+    var personagens = SEED_PERSONAGENS.slice();
 
     if (window.AppDB) {
         AppDB.register('integrantes', SEED_MEMBROS);
         AppDB.register('equipes', SEED_EQUIPES);
+        AppDB.register('personagens', SEED_PERSONAGENS);
         AppDB.onChange('integrantes', function (lista) {
             membros = lista;
         });
         AppDB.onChange('equipes', function (lista) {
             equipes = lista;
+        });
+        AppDB.onChange('personagens', function (lista) {
+            personagens = lista;
         });
     }
 
@@ -104,6 +111,7 @@ window.EQ = (function () {
     return {
         get membros() { return membros; },
         get equipes() { return equipes; },
+        get personagens() { return personagens; },
         get resumo() { return calculaResumo(); },
         get porId() { return mapaPorSlug(); },
         statusInfo: statusInfo,

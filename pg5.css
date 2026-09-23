@@ -3,6 +3,7 @@
 @font-face {
     font-family: 'Milesdane';
     src: url('assets/Milesdane Trial.otf') format('opentype');
+    unicode-range: U+0020-002F, U+003A-007E;
 }
 
 /* =====================================
@@ -337,7 +338,7 @@ a {
 .header-intro h1 {
     margin: 0.15rem 0 0.25rem;
 
-    font-family: 'Milesdane', Georgia, 'Times New Roman', serif;
+    font-family: 'Milesdane', 'Montserrat', Georgia, 'Times New Roman', serif;
     font-style: italic;
     font-weight: 400;
     font-size: clamp(30px, 2.6vw, 46px);
@@ -1302,7 +1303,7 @@ a {
 }
 
 .hero-info h2 {
-    font-family: 'Milesdane', Georgia, 'Times New Roman', serif;
+    font-family: 'Milesdane', 'Montserrat', Georgia, 'Times New Roman', serif;
     font-style: italic;
     font-weight: 400;
     font-size: clamp(22px, 1.9vw, 34px);
