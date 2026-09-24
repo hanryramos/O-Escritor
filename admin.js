@@ -54,6 +54,28 @@ window.AdminKit = (function () {
 
     /* ---------- MODAL DE FORMULÁRIO ---------- */
 
+    function compactarImagem(file, ok, err) {
+        var leitor = new FileReader();
+        leitor.onerror = function () { err && err(new Error('Falha ao ler o arquivo.')); };
+        leitor.onload = function () {
+            var img = new Image();
+            img.onerror = function () { err && err(new Error('Arquivo não é uma imagem válida.')); };
+            img.onload = function () {
+                var MAX = 1000;
+                var esc = Math.min(1, MAX / Math.max(img.width, img.height));
+                var w = Math.max(1, Math.round(img.width * esc));
+                var h = Math.max(1, Math.round(img.height * esc));
+                var c = document.createElement('canvas');
+                c.width = w;
+                c.height = h;
+                c.getContext('2d').drawImage(img, 0, 0, w, h);
+                ok(c.toDataURL('image/jpeg', 0.82));
+            };
+            img.src = leitor.result;
+        };
+        leitor.readAsDataURL(file);
+    }
+
     function campoHTML(f, valor) {
         var val = valor == null ? (f.value == null ? '' : f.value) : valor;
         var id = 'admF_' + f.name;
@@ -68,13 +90,68 @@ window.AdminKit = (function () {
                 }).join('') +
                 '</select>';
         } else if (f.type === 'textarea') {
-            inner = '<textarea id="' + id + '" name="' + f.name + '" placeholder="' + esc(f.placeholder || '') + '">' + esc(val) + '</textarea>';
+            inner = '<textarea id="' + id + '" name="' + f.name + '" placeholder="' + esc(f.placeholder || '') + '"' +
+                (f.rows ? ' rows="' + f.rows + '"' : '') + '>' + esc(val) + '</textarea>';
+        } else if (f.type === 'file') {
+            var tem = !!val;
+            inner = '<div class="adm-file">' +
+                '<span class="adm-file-prev' + (tem ? ' has-img' : '') + '">' +
+                (tem ? '<img src="' + esc(val) + '" alt="">' : '<i class="bx bx-image-add"></i>') +
+                '</span>' +
+                '<span class="adm-file-mid">' +
+                '<label class="adm-btn">' + esc(f.botao || 'Escolher imagem') +
+                '<input type="file" accept="image/*" data-destino="' + esc(f.name) + '" hidden></label>' +
+                '<button type="button" class="adm-btn link" data-limpar="' + esc(f.name) + '"' + (tem ? '' : ' style="display:none"') + '>Remover</button>' +
+                '</span>' +
+                '<input type="hidden" name="' + esc(f.name) + '" id="' + id + '" value="' + esc(val) + '">' +
+                '</div>';
         } else {
             inner = '<input id="' + id + '" name="' + f.name + '" type="' + (f.type || 'text') + '" value="' + esc(val) +
                 '" placeholder="' + esc(f.placeholder || '') + '"' + (f.required ? ' required' : '') + '>';
         }
 
-        return '<div class="adm-field" data-nome="' + f.name + '"><label for="' + id + '">' + esc(f.label || f.name) + '</label>' + inner + '</div>';
+        return '<div class="adm-field" data-nome="' + f.name + '"><label for="' + id + '">' + esc(f.label || f.name) + '</label>' + inner +
+            (f.hint ? '<small class="adm-field-hint">' + esc(f.hint) + '</small>' : '') + '</div>';
+    }
+
+    function ligarCampoArquivo(ov) {
+        function aplicar(nome, dataUrl, tem) {
+            var hidden = ov.querySelector('input[name="' + nome + '"]');
+            if (!hidden) return;
+            hidden.value = dataUrl || '';
+            var prev = ov.querySelector('.adm-file-prev');
+            if (prev) {
+                prev.innerHTML = tem ? '<img src="' + dataUrl + '" alt="">' : '<i class="bx bx-image-add"></i>';
+                prev.classList.toggle('has-img', !!tem);
+            }
+            var limpar = ov.querySelector('[data-limpar="' + nome + '"]');
+            if (limpar) limpar.style.display = tem ? '' : 'none';
+        }
+
+        ov.querySelectorAll('input[type="file"][data-destino]').forEach(function (fi) {
+            fi.addEventListener('change', function () {
+                var nome = fi.getAttribute('data-destino');
+                var file = fi.files && fi.files[0];
+                if (!file) return;
+                if (!/^image\//.test(file.type)) {
+                    toast('Envie um arquivo de imagem.');
+                    fi.value = '';
+                    return;
+                }
+                compactarImagem(file, function (dataUrl) {
+                    aplicar(nome, dataUrl, true);
+                }, function () {
+                    toast('Não foi possível ler a imagem.');
+                    fi.value = '';
+                });
+            });
+        });
+
+        ov.querySelectorAll('[data-limpar]').forEach(function (b) {
+            b.addEventListener('click', function () {
+                aplicar(b.getAttribute('data-limpar'), '', false);
+            });
+        });
     }
 
     function modal(opts) {
@@ -110,6 +187,7 @@ window.AdminKit = (function () {
 
             document.body.appendChild(ov);
             setTimeout(function () { ov.classList.add('show'); }, 20);
+            ligarCampoArquivo(ov);
 
             var primeiro = ov.querySelector('input, select, textarea');
             if (primeiro) setTimeout(function () { primeiro.focus(); }, 120);

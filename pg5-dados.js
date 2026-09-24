@@ -34,16 +34,20 @@ var SEED_SONGS = [];
 
     function coverHTML(song, cls) {
         cls = cls || 'cap';
+        if (song.capa) {
+            return '<span class="' + cls + ' cap-img" style="background-image:url(\'' + song.capa + '\')"></span>';
+        }
         return '<span class="' + cls + ' ' + song.grad + '"><i class="bx bx-music"></i></span>';
     }
 
-    function arquivosHTML(song, lista) {
+    function arquivosHTML(song, lista, remover) {
         return (lista || song.arquivos || []).map(function (a) {
             return '<div class="file-row">' +
                 '<i class="bx ' + a.icone + '"></i>' +
                 '<span class="file-name">' + a.nome + '</span>' +
                 '<span class="file-size">' + a.tam + '</span>' +
-                '<button class="dl-btn" aria-label="Baixar ' + a.nome + '"><i class="bx bx-download"></i></button>' +
+                (remover ? '<button class="rm-btn" data-rm-arquivo="' + esc(a.nome) + '" aria-label="Remover arquivo" title="Remover"><i class="bx bx-x"></i></button>' : '') +
+                '<button class="dl-btn" aria-label="Baixar ' + esc(a.nome) + '"><i class="bx bx-download"></i></button>' +
                 '</div>';
         }).join('');
     }
@@ -60,6 +64,86 @@ var SEED_SONGS = [];
         return 'st-planejada';
     }
 
+    /* ---------- FORMULÁRIO NOVO / EDITAR MÚSICA ---------- */
+
+    function formMusica(song) {
+        if (!window.AdminKit) return;
+        var ehNova = !song;
+        var s = song || {};
+        var campos = [
+            { name: 'capa', label: 'Capa da música', type: 'file', botao: 'Escolher foto', hint: 'Foto opcional. Será exibida junto à música.' },
+            { name: 'nome', label: 'Nome', required: true, placeholder: 'Ex.: Algo Novo Vindo' },
+            { name: 'artista', label: 'Artista', required: true, half: true, placeholder: 'Ex.: Get Worship' },
+            { name: 'compositor', label: 'Compositor', half: true, placeholder: 'Ex.: Christina Ebner' },
+            { name: 'cena', label: 'Cena', half: true, placeholder: 'Ex.: Cena 1' },
+            { name: 'tom', label: 'Tom', half: true, placeholder: 'Ex.: D' },
+            { name: 'bpm', label: 'BPM', type: 'number', half: true },
+            { name: 'duracao', label: 'Duração', half: true, placeholder: 'Ex.: 5:12' },
+            { name: 'status', label: 'Status', type: 'select', half: true, options: [
+                { value: 'Planejada', label: 'Planejada' },
+                { value: 'Em andamento', label: 'Em andamento' },
+                { value: 'Pronta', label: 'Pronta' }
+            ] },
+            { name: 'estilo', label: 'Estilo', half: true, placeholder: 'Ex.: Worship' },
+            { name: 'idioma', label: 'Idioma', half: true, placeholder: 'Ex.: Português' },
+            { name: 'ano', label: 'Ano', type: 'number', half: true },
+            { name: 'tags', label: 'Tags (separadas por vírgula)', placeholder: 'Ex.: Abertura, Vocal, Banda' },
+            { name: 'desc', label: 'Descrição', type: 'textarea' },
+            { name: 'sobre', label: 'Sobre a música', type: 'textarea', rows: 3, hint: 'Contexto geral para a equipe.' },
+            { name: 'trecho', label: 'Trecho marcante', type: 'textarea', rows: 2 },
+            { name: 'aplicacao', label: 'Aplicação no musical', type: 'textarea', rows: 2 },
+            { name: 'letra', label: 'Letra', type: 'textarea', rows: 8, hint: 'Digite a letra com as quebras de linha conforme a música.' },
+            { name: 'mapa', label: 'Mapa Vocal', type: 'textarea', rows: 6, hint: 'Divisão de naipe e vozes (ex.: Contralto: linha de abertura...).' }
+        ];
+        AdminKit.modal({
+            title: ehNova ? 'Nova música' : 'Editar música',
+            submitLabel: ehNova ? 'Criar música' : 'Salvar alterações',
+            values: {
+                capa: s.capa || '',
+                nome: s.nome || '',
+                artista: s.artista || '',
+                compositor: s.compositor || '',
+                cena: s.cena || '',
+                tom: s.tom || '',
+                bpm: s.bpm || 70,
+                duracao: s.duracao || '',
+                status: s.status || 'Planejada',
+                estilo: s.estilo || '',
+                idioma: s.idioma || 'Português',
+                ano: s.ano || (new Date()).getFullYear(),
+                tags: (s.tags || []).join(', '),
+                desc: s.desc || '',
+                sobre: s.sobre || '',
+                trecho: s.trecho || '',
+                aplicacao: s.aplicacao || '',
+                letra: s.letra || '',
+                mapa: s.mapa || ''
+            },
+            fields: campos
+        }).then(function (valores) {
+            if (!valores) return;
+            valores.bpm = parseInt(valores.bpm, 10) || 0;
+            valores.ano = parseInt(valores.ano, 10) || 0;
+            valores.tags = String(valores.tags || '').split(',').map(function (t) { return t.trim(); }).filter(Boolean);
+            if (ehNova) {
+                var id = slugify(valores.nome);
+                var usados = songs.map(function (m) { return m.id; });
+                var base = id, n = 2;
+                while (usados.indexOf(id) > -1) { id = base + '-' + n; n++; }
+                valores.id = id;
+                valores.grad = gradFor(id);
+                valores.arquivos = valores.arquivos || [];
+                AppDB.add('musicas', valores).then(function () {
+                    AdminKit.toast('Música criada.', 'ok');
+                });
+            } else {
+                AppDB.update('musicas', s._id, valores).then(function () {
+                    AdminKit.toast('Música atualizada.', 'ok');
+                });
+            }
+        });
+    }
+
     var esc = function (s) {
         return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     };
@@ -74,6 +158,7 @@ var SEED_SONGS = [];
         statusClass: statusClass,
         esc: esc,
         slugify: slugify,
-        gradFor: gradFor
+        gradFor: gradFor,
+        formMusica: formMusica
     };
 })();

@@ -12,7 +12,7 @@
 
       "config": {
         ".read": "auth != null",
-        ".write": "root.child('musical/admins').child('k0').val() === auth.token.email || !root.child('musical/admins').exists()"
+        ".write": "auth != null"
       },
 
       "tokens": {
@@ -40,7 +40,7 @@
 
         "$tabela": {
           ".read": "auth != null",
-          ".write": "root.child('musical/admins').child('k0').val() === auth.token.email"
+          ".write": "auth != null"
         }
       }
     }

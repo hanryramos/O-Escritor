@@ -1,45 +1,54 @@
 /* =====================================
    firebase-messaging-sw.js — SERVICE WORKER
-   Necessário para push real via Firebase Cloud
-   Messaging. Para ativar: gere a chave VAPID no
-   console do Firebase (Cloud Messaging -> Configuração
-   da Web) e cole em `auth.js` (firebaseConfig.vapidKey).
-   A geração de token e as mensagens já são tratadas
-   automaticamente pelo messaging.js.
-===================================== */
+   Service worker enxuto (Web Push nativo, sem SDK).
+   O push do FCM chega aqui e mostramos a notificação
+   mesmo com o app/aba fechados. Clicar abre a pg8.
+   ===================================== */
 
-importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js');
-
-firebase.initializeApp({
-    apiKey: 'AIzaSyCf-HXV7FV0Xom7gbbzgELbuRnd17JOIkM',
-    authDomain: 'musical-escritor.firebaseapp.com',
-    databaseURL: 'https://musical-escritor-default-rtdb.firebaseio.com',
-    projectId: 'musical-escritor',
-    storageBucket: 'musical-escritor.firebasestorage.app',
-    messagingSenderId: '946659031609',
-    appId: '1:946659031609:web:6f71a80bf7a88d7d496be8'
+self.addEventListener('install', function () {
+    self.skipWaiting();
 });
 
-const messagingPush = firebase.messaging();
+self.addEventListener('activate', function (event) {
+    event.waitUntil(self.clients.claim());
+});
 
-messagingPush.setBackgroundMessageHandler(function (payload) {
-    const dados = payload && payload.notification ? payload.notification : {};
-    const titulo = dados.title || 'Notificação';
-    const corpo = dados.body || '';
-    const opcoes = {
+self.addEventListener('push', function (event) {
+    var titulo = 'Nova notificação';
+    var corpo = '';
+    var icon = 'assets/icon.png';
+    var link = 'pg8.html';
+    var tipo = 'sistema';
+    try {
+        var dados = (event.data && event.data.json()) || {};
+        var n = dados.notification || dados.data || {};
+        titulo = dados.titulo || n.title || titulo;
+        corpo = dados.desc || dados.body || n.body || corpo;
+        if (dados.icon) icon = dados.icon;
+        if (dados.link) link = dados.link;
+        if (dados.tipo) tipo = dados.tipo;
+    } catch (e) { }
+    event.waitUntil(self.registration.showNotification(titulo, {
         body: corpo,
-        icon: 'assets/icon.png'
-    };
-    return self.registration.showNotification(titulo, opcoes);
+        icon: icon,
+        badge: 'assets/icon.png',
+        tag: 'musical-' + tipo,
+        vibrate: [200, 100, 200],
+        data: { url: link, tipo: tipo },
+        actions: [
+            { action: 'abrir', title: 'Ver agora' }
+        ]
+    }));
 });
 
 self.addEventListener('notificationclick', function (event) {
     event.notification.close();
-    event.waitUntil(clients.matchAll({ type: 'window' }).then(function (lista) {
+    var destino = (event.notification.data && event.notification.data.url) || 'pg8.html';
+    if (event.action && event.action !== 'abrir') return;
+    event.waitUntil(clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function (lista) {
         for (var i = 0; i < lista.length; i++) {
-            if ('focus' in lista[i]) return lista[i].focus();
+            if (lista[i].url.indexOf('musical-escritor') > -1 && 'focus' in lista[i]) return lista[i].focus();
         }
-        return clients.openWindow('pg8.html');
+        return clients.openWindow(destino);
     }));
 });

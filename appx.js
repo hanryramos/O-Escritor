@@ -244,6 +244,17 @@ window.AppX = (function (window, document) {
         leitor.readAsText(arquivo);
     }
 
+    /* ---------- STATUS DE SINCRONIZAÇÃO ---------- */
+
+    function atualizarStatusSync() {
+        var el = document.getElementById('syncStatus');
+        if (!el || !window.AppDB) return;
+        var ok = !!(window.AppDB.temRTDB && window.AppDB.temRTDB());
+        el.textContent = ok ? 'Compartilhado' : 'Só neste dispositivo';
+        el.classList.toggle('is-sync', !!ok);
+        el.classList.toggle('is-local', !ok);
+    }
+
     /* ---------- INICIALIZAÇÃO ---------- */
 
     function init() {
@@ -252,6 +263,7 @@ window.AppX = (function (window, document) {
 
         avatar();
         notificacoes();
+        atualizarStatusSync();
 
         document.addEventListener('click', function (e) {
             var ler = e.target.closest('[data-ler]');
@@ -275,6 +287,9 @@ window.AppX = (function (window, document) {
     } else {
         init();
     }
+
+    document.addEventListener('appauth:ready', atualizarStatusSync);
+    document.addEventListener('appdb:end', atualizarStatusSync);
 
     return {
         iniciais: iniciais,

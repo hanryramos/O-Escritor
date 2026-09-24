@@ -235,6 +235,9 @@ body.is-admin .admin-mode-flag {
 .adm-modal-body {
     padding: 1.3rem 1.4rem;
 
+    flex: 1 1 auto;
+    min-height: 0;
+
     overflow-y: auto;
 
     display: grid;
@@ -344,6 +347,16 @@ body.is-admin .admin-mode-flag {
     filter: brightness(1.08);
 }
 
+.adm-btn.ghost-danger {
+    background: transparent;
+    color: var(--adm-vermelho);
+    border-color: #F0D9D4;
+}
+
+.adm-btn.ghost-danger:hover {
+    background: #FDF0EE;
+}
+
 /* Confirmação */
 .adm-confirm .adm-modal {
     max-width: 420px;
@@ -368,4 +381,91 @@ body.is-admin .admin-mode-flag {
     .adm-grid-2 {
         grid-template-columns: 1fr;
     }
+}
+
+/* ---------- CAMPO DE IMAGEM ---------- */
+
+.adm-file {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+
+    padding: 0.8rem;
+
+    background: #FBF7F0;
+    border: 1px dashed #D9CCB8;
+    border-radius: 12px;
+}
+
+.adm-file-prev {
+    width: 64px;
+    height: 64px;
+    flex: none;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 10px;
+
+    background: #F0E8DB;
+    color: var(--adm-dourado);
+
+    font-size: 1.5rem;
+
+    overflow: hidden;
+}
+
+.adm-file-prev img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    display: block;
+}
+
+.adm-file-mid {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+}
+
+.adm-file-mid .adm-btn {
+    position: relative;
+
+    padding: 0.5rem 0.9rem;
+
+    font-size: 0.78rem;
+}
+
+.adm-file-mid .adm-btn input[type="file"] {
+    position: absolute;
+    inset: 0;
+
+    opacity: 0;
+    cursor: pointer;
+}
+
+.adm-btn.link {
+    padding: 0;
+
+    border: 0;
+    background: none;
+
+    color: var(--adm-vermelho);
+
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.adm-btn.link:hover {
+    background: none;
+    transform: none;
+
+    text-decoration: underline;
+}
+
+.adm-field-hint {
+    font-size: 0.68rem;
+    color: #9c8c78;
 }

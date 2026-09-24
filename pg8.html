@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="admin.css">
     <link rel="stylesheet" href="shared.css">
     <link rel="stylesheet" href="dark-mode.css">
+    <link rel="stylesheet" href="onboarding.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <title>Musical Escritor · Notificações</title>
 </head>
@@ -96,9 +97,11 @@
 
                     <span class="divider-v"></span>
 
-                    <button class="logout-btn" id="logoutBtn" aria-label="Sair da conta">
+<button class="logout-btn" id="logoutBtn" aria-label="Sair da conta">
                         <i class="bx bx-log-out"></i>
                     </button>
+
+                    <span id="syncStatus" class="sync-status"></span>
 
                 </div>
 
@@ -129,6 +132,13 @@
 <button class="marcar-btn" id="marcarTodas">
                 <i class="bx bx-check-double"></i>
                 <span>Marcar todas como lidas</span>
+            </button>
+
+            <span class="divider-v"></span>
+
+<button class="marcar-btn" id="ativarNotifBtn" title="Permite que este aparelho receba as notificações mesmo com o app fechado">
+                <i class="bx bx-bell-ring"></i>
+                <span>Ativar notificações neste aparelho</span>
             </button>
 
             <span class="divider-v"></span>
@@ -289,7 +299,7 @@ listaEl.querySelectorAll('.n-item').forEach(function (item) {
                         if (n && !n.lida) {
                             AppDB.update('notificacoes', n._id, { lida: true });
                         }
-                        if (n) {
+                        if (n && n.link) {
                             window.location.href = n.link;
                         }
                     });
@@ -313,7 +323,7 @@ listaEl.querySelectorAll('.row-dd button').forEach(function (b) {
 
                         var acao = b.getAttribute('data-acao');
                         if (acao === 'abrir') {
-                            window.location.href = n.link;
+                            if (n.link) window.location.href = n.link;
                             return;
                         }
                         if (acao === 'marcar') {
@@ -478,6 +488,32 @@ document.getElementById('novaNotifBtn').addEventListener('click', AdminKit.guard
 
 window.addEventListener('click', fecharMenus);
 
+            var ativarNotifBtn = document.getElementById('ativarNotifBtn');
+            if (ativarNotifBtn) {
+                ativarNotifBtn.addEventListener('click', function () {
+                    var orig = ativarNotifBtn.innerHTML;
+                    ativarNotifBtn.disabled = true;
+                    ativarNotifBtn.querySelector('span').textContent = 'Verificando...';
+                    var msg = function (txt, tipo) {
+                        ativarNotifBtn.innerHTML = orig;
+                        ativarNotifBtn.disabled = false;
+                        AdminKit.toast(txt, tipo);
+                    };
+                    if (!window.Messaging || typeof Messaging.permitir !== 'function') {
+                        msg('Este navegador não suporta notificações. Use o Chrome.', 'erro');
+                        return;
+                    }
+                    var meio = function () {
+                        return 'Notificações ativadas neste aparelho. Quando o administrador criar algo, você é avisado até com o app fechado.';
+                    };
+                    Messaging.permitir().then(function () {
+                        msg(meio(), 'ok');
+                    }).catch(function (err) {
+                        msg('Não ativou: ' + String(err && err.message || err), 'erro');
+                    });
+                });
+            }
+
             if (window.AppDB) {
                 AppDB.onChange('notificacoes', renderTodos);
             }
@@ -486,6 +522,8 @@ window.addEventListener('click', fecharMenus);
 
         })();
     </script>
+
+    <script src="onboarding.js"></script>
 
 </body>
 

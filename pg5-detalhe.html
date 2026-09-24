@@ -119,7 +119,7 @@
         <!-- ===== BARRA DE NAVEGAÇÃO DA MÚSICA ===== -->
 
         <div class="song-nav" id="songNav" data-anim="fadeUp" data-delay="0.1s">
-            <div class="song-nav-links">
+            <div class="song-nav-links" id="songNavLinks">
                 <button class="active" data-secao="visao-geral">Visão Geral</button>
                 <button data-secao="letra">Letra e Cifra</button>
                 <button data-secao="mapa">Mapa Vocal</button>
@@ -129,13 +129,14 @@
                 <button data-secao="observacoes">Observações</button>
             </div>
             <div class="song-nav-arrows">
+                <div class="mode-actions" id="acoesModo"></div>
                 <button class="nav-arrow" id="prevBtn" aria-label="Música anterior"><i class="bx bx-chevron-left"></i><span>Anterior</span></button>
                 <button class="nav-arrow" id="nextBtn" aria-label="Próxima música"><span>Próxima</span><i class="bx bx-chevron-right"></i></button>
             </div>
         </div>
 
 
-        <!-- ===== CONTEÚDO DOS DETALHES ===== -->
+        <!-- ===== CONTEÚDO DOS BLOCOS ===== -->
 
         <section class="detalhe-layout">
 
@@ -144,94 +145,58 @@
                 <!-- VISÃO GERAL -->
                 <div data-conteudo-secao="visao-geral">
 
-                    <article class="card hero-card" data-anim="fadeUp" data-delay="0.18s">
-
+                    <article class="card hero-card" data-anim="fadeUp" data-delay="0.18s" id="heroCard">
                         <div id="heroCapa"></div>
-
-<div class="hero-info">
-                            <div class="hero-status"><span class="pill" id="heroStatus"></span></div>
-<h2 id="heroNome"></h2>
-                            <p class="hero-artista" id="heroArtista"></p>
-                            <button class="read-btn" data-ler data-ler-target="detalheMain" style="margin-top:.4rem;">
-                                <i class="bx bx-volume-full"></i> Ouvir música
-                            </button>
-                            <p class="hero-desc" id="heroDesc"></p>
-
-                            <div class="info-grid">
-                                <div class="info-cell"><span>Tom</span><strong id="iTom">D</strong></div>
-                                <div class="info-cell"><span>BPM</span><strong id="iBpm">72</strong></div>
-                                <div class="info-cell"><span>Duração</span><strong id="iDura">5:12</strong></div>
-                                <div class="info-cell"><span>Cena</span><strong id="iCena">Cena 1</strong></div>
-                                <div class="info-cell"><span>Estilo</span><strong id="iEstilo">Worship</strong></div>
-                            </div>
-                        </div>
-
+                        <div class="hero-info" id="heroInfo"></div>
                     </article>
 
-                    <article class="card sobre-card" data-anim="fadeUp" data-delay="0.26s">
-
+                    <article class="card sobre-card" data-anim="fadeUp" data-delay="0.26s" id="sobreCard">
                         <h3 class="card-title">Sobre a música</h3>
-                        <p id="sobreTexto" class="sobre-texto"></p>
-
-                        <div class="sobre-item">
-                            <h4><i class="bx bx-quote-left"></i>Trecho marcante</h4>
-                            <p id="sobreTrecho"></p>
-                        </div>
-
-                        <div class="sobre-item">
-                            <h4><i class="bx bx-mask"></i>Aplicação no musical</h4>
-                            <p id="sobreAplicacao"></p>
-                        </div>
-
-                        <div class="sobre-item">
-                            <h4><i class="bx bx-purchase-tag"></i>Tags</h4>
-                            <div class="tags" id="sobreTags"></div>
-                        </div>
-
+                        <div id="sobreCorpo"></div>
                     </article>
 
                 </div>
 
-                <!-- SEÇÕES AUXILIARES (placeholder) -->
+                <!-- SEÇÕES DE CONTEÚDO -->
                 <div data-conteudo-secao="letra" style="display:none">
                     <article class="card secao-card" data-anim="fadeUp" data-delay="0.18s">
                         <h3 class="card-title">Letra e Cifra</h3>
-                        <div class="empty-mini"><i class="bx bx-music"></i><strong>Conteúdo em breve</strong><span>A letra e a cifra desta música serão adicionadas pela equipe de direção musical.</span></div>
+                        <div id="letraConteudo" class="secao-conteudo"></div>
                     </article>
                 </div>
 
                 <div data-conteudo-secao="mapa" style="display:none">
                     <article class="card secao-card" data-anim="fadeUp" data-delay="0.18s">
                         <h3 class="card-title">Mapa Vocal</h3>
-                        <div class="empty-mini"><i class="bx bx-microphone"></i><strong>Conteúdo em breve</strong><span>O mapa vocal com as divisões de naipe será disponibilizado em breve.</span></div>
+                        <div id="mapaConteudo" class="secao-conteudo"></div>
                     </article>
                 </div>
 
                 <div data-conteudo-secao="kits" style="display:none">
                     <article class="card secao-card" data-anim="fadeUp" data-delay="0.18s">
                         <h3 class="card-title">Kits de Voz</h3>
-                        <div class="file-block" id="kitsArquivos"></div>
+                        <div id="kitsConteudo"></div>
                     </article>
                 </div>
 
                 <div data-conteudo-secao="playback" style="display:none">
                     <article class="card secao-card" data-anim="fadeUp" data-delay="0.18s">
                         <h3 class="card-title">Playback e Áudios</h3>
-                        <div class="file-block" id="audioArquivos"></div>
+                        <div id="audioConteudo"></div>
                     </article>
                 </div>
 
                 <div data-conteudo-secao="partitura" style="display:none">
                     <article class="card secao-card" data-anim="fadeUp" data-delay="0.18s">
                         <h3 class="card-title">Partitura</h3>
-                        <div class="file-block" id="partituraArquivos"></div>
+                        <div id="partituraConteudo"></div>
                     </article>
                 </div>
 
                 <div data-conteudo-secao="observacoes" style="display:none">
                     <article class="card secao-card" data-anim="fadeUp" data-delay="0.18s">
                         <h3 class="card-title">Observações</h3>
-                        <div class="empty-mini"><i class="bx bx-message-rounded-dots"></i><strong>Sem observações</strong><span>Nenhuma observação registrada para esta música até o momento.</span></div>
+                        <div id="observacoesConteudo" class="secao-conteudo"></div>
                     </article>
                 </div>
 
@@ -245,19 +210,14 @@
                     <div class="card-head">
                         <h3>Downloads</h3>
                     </div>
-                    <div id="downloadsArquivos"></div>
+                    <div id="downloadsConteudo"></div>
                 </article>
 
                 <article class="card dl-card">
                     <div class="card-head">
                         <h3>Outras informações</h3>
                     </div>
-                    <div class="info-lines">
-                        <div class="info-line"><span>Artista</span><strong id="oArtista"></strong></div>
-                        <div class="info-line"><span>Compositor</span><strong id="oCompositor"></strong></div>
-                        <div class="info-line"><span>Idioma</span><strong id="oIdioma"></strong></div>
-                        <div class="info-line"><span>Ano</span><strong id="oAno"></strong></div>
-                    </div>
+                    <div id="outrasConteudo"></div>
                 </article>
 
             </aside>
@@ -270,7 +230,6 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js"></script>
 
@@ -291,93 +250,518 @@
 
     <script>
         (function () {
-var M = window.MS;
+            var M = window.MS;
             var params = new URLSearchParams(window.location.search);
-            var atual = M.byId(params.get('id'));
-            if (!atual) { window.location.replace('pg5.html'); return; }
+            var id = params.get('id');
 
-            function aplicar(s, push) {
-                if (!s) return;
-                atual = s;
-                document.title = 'Musical Escritor · ' + s.nome;
-                document.getElementById('crumbNome').textContent = s.nome;
-                document.getElementById('tituloMusica').textContent = s.nome;
-                document.getElementById('artistaMusica').textContent = s.artista;
+            /* modo: criacao | visualizacao | edicao */
+            var modo = 'criacao';
+            var atual = null;
+            var d = null;
 
-                document.getElementById('heroCapa').innerHTML = M.coverHTML(s, 'cap cap-hero');
-                var st = document.getElementById('heroStatus');
-                st.className = 'pill ' + M.statusClass(s.status);
-                st.textContent = s.status;
-                document.getElementById('heroNome').textContent = s.nome;
-                document.getElementById('heroArtista').textContent = s.artista;
-                document.getElementById('heroDesc').textContent = s.desc;
+            var CATEGORIAS = [
+                { nome: 'Playback', icone: 'bx-play-circle' },
+                { nome: 'Guia vocal', icone: 'bx-microphone' },
+                { nome: 'Kit de voz', icone: 'bx-headphone' },
+                { nome: 'Partitura', icone: 'bx-note' },
+                { nome: 'Mapa vocal', icone: 'bx-line-chart' },
+                { nome: 'Outros', icone: 'bx-file' }
+            ];
 
-                document.getElementById('iTom').textContent = s.tom;
-                document.getElementById('iBpm').textContent = s.bpm;
-                document.getElementById('iDura').textContent = s.duracao;
-                document.getElementById('iCena').textContent = s.cena;
-                document.getElementById('iEstilo').textContent = s.estilo;
-
-                document.getElementById('sobreTexto').textContent = s.sobre;
-                document.getElementById('sobreTrecho').innerHTML = s.trecho;
-                document.getElementById('sobreAplicacao').textContent = s.aplicacao || '';
-                document.getElementById('sobreTags').innerHTML = M.tagsHTML(s);
-
-                /* arquivos por seção */
-                var arquivos = s.arquivos || [];
-                var kit = arquivos.filter(function (a) { return a.icone === 'bx-headphone'; });
-                var audio = arquivos.filter(function (a) { return a.icone === 'bx-play-circle' || a.icone === 'bx-microphone'; });
-                var part = arquivos.filter(function (a) { return a.nome.indexOf('Partitura') > -1; });
-
-                document.getElementById('kitsArquivos').innerHTML = M.arquivosHTML(s, kit);
-                document.getElementById('audioArquivos').innerHTML = M.arquivosHTML(s, audio);
-                document.getElementById('partituraArquivos').innerHTML = M.arquivosHTML(s, part);
-                document.getElementById('downloadsArquivos').innerHTML = M.arquivosHTML(s);
-
-                document.getElementById('oArtista').textContent = s.artista;
-                document.getElementById('oCompositor').textContent = s.compositor || s.artista;
-                document.getElementById('oIdioma').textContent = s.idioma;
-                document.getElementById('oAno').textContent = s.ano;
-
-                if (push) {
-                    history.pushState(null, '', 'pg5-detalhe.html?id=' + s.id);
-                }
-
-                /* garante aba Visão Geral após troca de música */
-                irParaSecao('visao-geral');
+            if (id) {
+                atual = M.byId(id);
+                if (!atual) { window.location.replace('pg5.html'); return; }
+                modo = 'visualizacao';
             }
 
-            /* ---------- TABS DA MÚSICA ---------- */
+            function ehEditable() { return modo === 'criacao' || modo === 'edicao'; }
+            function esc(s) { return AdminKit.esc(s); }
+            function iconCat(nome) {
+                var r = 'bx-file';
+                CATEGORIAS.forEach(function (c) { if (c.nome === nome) r = c.icone; });
+                return r;
+            }
+            function catArquivo(a) {
+                if (a && a.cat) return a.cat;
+                var mapa = { 'bx-play-circle': 'Playback', 'bx-microphone': 'Guia vocal', 'bx-headphone': 'Kit de voz', 'bx-note': 'Partitura', 'bx-line-chart': 'Mapa vocal', 'bx-file': 'Outros' };
+                return (a && mapa[a.icone]) || 'Outros';
+            }
+            function arquivosCat(cat) {
+                var arr = ehEditable() ? (d.arquivos || []) : ((atual && atual.arquivos) || []);
+                if (!cat) return arr;
+                if (cat === 'Playback/Audio') return arr.filter(function (a) { var c = catArquivo(a); return c === 'Playback' || c === 'Guia vocal'; });
+                return arr.filter(function (a) { return catArquivo(a) === cat; });
+            }
+
+            /* ---------- RASCUNHO (draft) ---------- */
+
+            function novoRascunho(base) {
+                base = base || {};
+                return {
+                    nome: base.nome || '',
+                    artista: base.artista || '',
+                    compositor: base.compositor || '',
+                    capa: base.capa || '',
+                    status: base.status || 'Planejada',
+                    desc: base.desc || '',
+                    sobre: base.sobre || '',
+                    trecho: base.trecho || '',
+                    aplicacao: base.aplicacao || '',
+                    tom: base.tom || '',
+                    bpm: base.bpm || '',
+                    duracao: base.duracao || '',
+                    cena: base.cena || '',
+                    estilo: base.estilo || '',
+                    idioma: base.idioma || 'Português',
+                    ano: base.ano || new Date().getFullYear(),
+                    tags: (base.tags || []).slice(),
+                    letra: base.letra || '',
+                    mapa: base.mapa || '',
+                    observacoes: base.observacoes || '',
+                    arquivos: (base.arquivos || []).slice()
+                };
+            }
+
+            /* ---------- CAMPOS EDITÁVEIS (helpers) ---------- */
+
+            function ca(campo, tipo, cls) {
+                return '<input class="edit-inp' + (cls ? ' ' + cls : '') + '" type="' + tipo + '" data-campo="' + esc(campo) + '" value="' + esc(d[campo] == null ? '' : d[campo]) + '">';
+            }
+            function tx(campo, rows, ph) {
+                return '<textarea class="edit-tx" rows="' + rows + '" data-campo="' + esc(campo) + '" placeholder="' + esc(ph || '') + '">' + esc(d[campo] == null ? '' : d[campo]) + '</textarea>';
+            }
+            function selStatus() {
+                var lista = ['Planejada', 'Em andamento', 'Pronta'];
+                return '<select class="edit-sel" data-campo="status">' + lista.map(function (t) {
+                    return '<option' + (d.status === t ? ' selected' : '') + '>' + t + '</option>';
+                }).join('') + '</select>';
+            }
+            function capaEdit() {
+                return '<div class="edit-capa">' +
+                    '<input type="file" id="capaInput" accept="image/*" hidden>' +
+                    '<button type="button" class="cap-drop ' + (d.capa ? 'tem' : '') + '" id="capaDrop" aria-label="Adicionar capa">' +
+                    (d.capa ? '<img src="' + esc(d.capa) + '" alt="Capa">' : '<i class="bx bx-image-add"></i><span>Clique para adicionar capa</span>') +
+                    '</button>' +
+                    (d.capa ? '<button type="button" class="cap-limpar" id="capaLimpar" title="Remover capa" aria-label="Remover capa"><i class="bx bx-x"></i></button>' : '') +
+                    '</div>';
+            }
+            function chipsTag() {
+                return d.tags.map(function (t, i) {
+                    return '<span class="tag chip"><strong>' + esc(t) + '</strong><button type="button" data-rm-tag="' + i + '" aria-label="Remover tag" title="Remover"><i class="bx bx-x"></i></button></span>';
+                }).join('');
+            }
+
+            /* ---------- RENDERIZAÇÃO GERAL ---------- */
+
+            function renderTudo() {
+                renderTopo();
+                renderHero();
+                renderSobre();
+                renderDownloads();
+                renderOutras();
+                renderSecoes();
+                bindCampo();
+            }
+
+            function renderTopo() {
+                var tit = modo === 'criacao' ? 'Nova música' : atual.nome;
+                document.getElementById('crumbNome').textContent = tit;
+                document.getElementById('tituloMusica').textContent = tit;
+                if (modo === 'criacao') {
+                    document.getElementById('artistaMusica').textContent = 'Crie e organize todas as informações da música.';
+                } else if (modo === 'edicao') {
+                    document.getElementById('artistaMusica').textContent = 'Editando: ' + atual.nome;
+                } else {
+                    document.getElementById('artistaMusica').textContent = atual.artista;
+                }
+                document.title = 'Musical Escritor · ' + tit;
+
+                var prev = document.getElementById('prevBtn');
+                var next = document.getElementById('nextBtn');
+                var acoes = document.getElementById('acoesModo');
+                if (modo === 'criacao' || modo === 'edicao') {
+                    prev.style.display = 'none';
+                    next.style.display = 'none';
+                    acoes.innerHTML =
+                        '<button class="adm-btn adm-inline" id="btnCancelar"><i class="bx bx-x"></i> Cancelar</button>' +
+                        '<button class="adm-btn adm-inline primary" id="btnSalvar"><i class="bx bx-check"></i> ' +
+                        (modo === 'criacao' ? 'Salvar música' : 'Salvar alterações') + '</button>';
+                } else {
+                    prev.style.display = '';
+                    next.style.display = '';
+                    if (AdminKit.ehAdmin()) {
+                        acoes.innerHTML =
+                            '<button class="adm-btn adm-inline" id="btnEditar"><i class="bx bx-edit"></i> Editar música</button>' +
+                            '<button class="adm-btn adm-inline ghost-danger" id="btnExcluir"><i class="bx bx-trash"></i> Excluir</button>';
+                    } else {
+                        acoes.innerHTML = '';
+                    }
+                }
+            }
+
+            function renderHero() {
+                var capa = document.getElementById('heroCapa');
+                var info = document.getElementById('heroInfo');
+                if (ehEditable()) {
+                    capa.innerHTML = capaEdit();
+                    info.innerHTML =
+                        '<div class="edit-status"><label class="edit-lbl">Status</label>' + selStatus() + '</div>' +
+                        '<label class="edit-block"><span>Nome da música</span>' + ca('nome', 'text', 'inp-forte') + '</label>' +
+                        '<label class="edit-block"><span>Artista</span>' + ca('artista', 'text') + '</label>' +
+                        '<label class="edit-block"><span>Descrição</span>' + tx('desc', 3, 'Descrição da música...') + '</label>' +
+                        '<div class="edit-grid">' +
+                        '<label><span>Tom</span>' + ca('tom', 'text') + '</label>' +
+                        '<label><span>BPM</span>' + ca('bpm', 'number') + '</label>' +
+                        '<label><span>Duração</span>' + ca('duracao', 'text') + '</label>' +
+                        '<label><span>Cena</span>' + ca('cena', 'text') + '</label>' +
+                        '<label><span>Estilo</span>' + ca('estilo', 'text') + '</label>' +
+                        '</div>';
+                } else {
+                    capa.innerHTML = M.coverHTML(atual, 'cap cap-hero');
+                    info.innerHTML =
+                        '<div class="hero-status"><span class="pill ' + M.statusClass(atual.status) + '">' + esc(atual.status) + '</span></div>' +
+                        '<h2>' + esc(atual.nome) + '</h2>' +
+                        '<p class="hero-artista">' + esc(atual.artista) + '</p>' +
+                        '<button class="read-btn" data-ler data-ler-target="detalheMain" style="margin-top:.4rem;"><i class="bx bx-volume-full"></i> Ouvir música</button>' +
+                        (atual.desc ? '<p class="hero-desc">' + esc(atual.desc) + '</p>' : '') +
+                        '<div class="info-grid">' +
+                        '<div class="info-cell"><span>Tom</span><strong>' + esc(atual.tom || '—') + '</strong></div>' +
+                        '<div class="info-cell"><span>BPM</span><strong>' + esc(atual.bpm || '—') + '</strong></div>' +
+                        '<div class="info-cell"><span>Duração</span><strong>' + esc(atual.duracao || '—') + '</strong></div>' +
+                        '<div class="info-cell"><span>Cena</span><strong>' + esc(atual.cena || '—') + '</strong></div>' +
+                        '<div class="info-cell"><span>Estilo</span><strong>' + esc(atual.estilo || '—') + '</strong></div>' +
+                        '</div>';
+                }
+            }
+
+            function renderSobre() {
+                var el = document.getElementById('sobreCorpo');
+                if (ehEditable()) {
+                    el.innerHTML =
+                        '<label class="edit-block"><span>Descrição</span>' + tx('sobre', 3, 'Contexto geral para a equipe...') + '</label>' +
+                        '<div class="sobre-duo">' +
+                        '<div class="sobre-item"><h4>Trecho marcante</h4>' + tx('trecho', 3, 'Trecho que marca esta música...') + '</div>' +
+                        '<div class="sobre-item"><h4>Aplicação no musical</h4>' + tx('aplicacao', 3, 'Como a música é usada no musical...') + '</div>' +
+                        '</div>' +
+                        '<div class="edit-tags"><h4>Tags</h4>' +
+                        '<div class="tag-chips">' + (d.tags.length ? chipsTag() : '<span class="vazio-texto">Nenhuma tag adicionada.</span>') + '</div>' +
+                        '<div class="add-tag-row">' +
+                        '<input type="text" id="tagInput" class="edit-inp" placeholder="Nova tag" maxlength="40">' +
+                        '<button type="button" class="adm-btn adm-inline" id="addTagBtn"><i class="bx bx-plus"></i> Adicionar tag</button>' +
+                        '</div>' +
+                        '</div>';
+                } else {
+                    el.innerHTML =
+                        (atual.sobre ? '<p class="sobre-texto">' + esc(atual.sobre) + '</p>' : '') +
+                        '<div class="sobre-duo">' +
+                        '<div class="sobre-item"><h4><i class="bx bx-quote-left"></i>Trecho marcante</h4><p>' + vazioTxt(atual.trecho) + '</p></div>' +
+                        '<div class="sobre-item"><h4><i class="bx bx-mask"></i>Aplicação no musical</h4><p>' + vazioTxt(atual.aplicacao) + '</p></div>' +
+                        '</div>' +
+                        '<div class="sobre-item"><h4><i class="bx bx-purchase-tag"></i>Tags</h4>' +
+                        (atual.tags && atual.tags.length ? '<div class="tags">' + M.tagsHTML(atual) + '</div>' : '<span class="vazio-texto">Sem tags cadastradas.</span>') +
+                        '</div>';
+                }
+            }
+
+            function renderDownloads() {
+                var el = document.getElementById('downloadsConteudo');
+                if (ehEditable()) {
+                    el.innerHTML =
+                        '<button type="button" class="adm-btn adm-inline dl-add-btn" id="btnAddArquivo"><i class="bx bx-plus"></i> Adicionar arquivo</button>' +
+                        '<div class="file-block">' +
+                        (d.arquivos.length
+                            ? M.arquivosHTML(null, d.arquivos, true)
+                            : '<div class="dl-placeholder"><i class="bx bx-music"></i><span>Nenhum arquivo adicionado</span></div>') +
+                        '</div>';
+                } else {
+                    var arr = atual.arquivos || [];
+                    el.innerHTML = arr.length
+                        ? M.arquivosHTML(atual, arr)
+                        : '<div class="dl-placeholder"><i class="bx bx-music"></i><span>Nenhum arquivo adicionado</span></div>';
+                }
+            }
+
+            function renderOutras() {
+                var el = document.getElementById('outrasConteudo');
+                if (ehEditable()) {
+                    el.innerHTML =
+                        '<label class="edit-block"><span>Artista</span>' + ca('artista', 'text') + '</label>' +
+                        '<label class="edit-block"><span>Compositor</span>' + ca('compositor', 'text') + '</label>' +
+                        '<label class="edit-block"><span>Idioma</span>' + ca('idioma', 'text') + '</label>' +
+                        '<label class="edit-block"><span>Ano</span>' + ca('ano', 'number') + '</label>';
+                } else {
+                    el.innerHTML =
+                        '<div class="info-lines">' +
+                        '<div class="info-line"><span>Artista</span><strong>' + esc(atual.artista) + '</strong></div>' +
+                        '<div class="info-line"><span>Compositor</span><strong>' + esc(atual.compositor || atual.artista) + '</strong></div>' +
+                        '<div class="info-line"><span>Idioma</span><strong>' + esc(atual.idioma || '—') + '</strong></div>' +
+                        '<div class="info-line"><span>Ano</span><strong>' + esc(atual.ano || '—') + '</strong></div>' +
+                        '</div>';
+                }
+            }
+
+            function renderSecoes() {
+                var st = function (idEl, html) { var el = document.getElementById(idEl); if (el) el.innerHTML = html; };
+                if (ehEditable()) {
+                    st('letraConteudo', '<label class="edit-block"><span>Letra e Cifra</span>' + tx('letra', 14, 'Cole ou escreva a letra aqui...') + '</label>');
+                    st('mapaConteudo',
+                        '<label class="edit-block"><span>Mapa Vocal</span>' + tx('mapa', 8, 'Descreva o mapa vocal (naipes, vozes, entradas)...') + '</label>' +
+                        blocoArquivos('Mapa vocal', 'Adicionar mapa vocal'));
+                    st('kitsConteudo', blocoArquivos('Kit de voz', 'Adicionar kit de voz'));
+                    st('audioConteudo', blocoArquivos('Playback/Audio', 'Adicionar áudio'));
+                    st('partituraConteudo', blocoArquivos('Partitura', 'Adicionar partitura'));
+                    st('observacoesConteudo', '<label class="edit-block"><span>Observações</span>' + tx('observacoes', 6, 'Digite observações...') + '</label>');
+                } else {
+                    preencherTexto('letraConteudo', atual.letra, 'bx-music', 'Letra não cadastrada', 'A letra será exibida aqui quando for cadastrada.');
+                    preencherTexto('mapaConteudo', atual.mapa, 'bx-microphone', 'Mapa vocal não cadastrado', 'As divisões de naipe e vozes aparecerão aqui quando forem cadastradas.');
+                    st('kitsConteudo', listaArquivosView('Kit de voz', 'bx-headphone', 'Nenhum kit de voz adicionado'));
+                    st('audioConteudo', listaArquivosView('Playback/Audio', 'bx-play-circle', 'Nenhum áudio adicionado'));
+                    st('partituraConteudo', listaArquivosView('Partitura', 'bx-note', 'Nenhuma partitura adicionada'));
+                    preencherTexto('observacoesConteudo', atual.observacoes, 'bx-message-rounded-dots', 'Sem observações', 'Nenhuma observação registrada para esta música.');
+                }
+            }
+
+            function blocoArquivos(cat, label) {
+                var arr = arquivosCat(cat);
+                return '<button type="button" class="adm-btn adm-inline sec-add-btn" data-cat="' + esc(cat) + '"><i class="bx bx-plus"></i> ' + label + '</button>' +
+                    '<div class="file-block">' +
+                    (arr.length ? M.arquivosHTML(null, arr, true) : '<div class="dl-placeholder"><span>Nenhum arquivo nesta categoria.</span></div>') +
+                    '</div>';
+            }
+
+            function listaArquivosView(cat, icone, vazio) {
+                var arr = arquivosCat(cat);
+                if (!arr.length) {
+                    return '<div class="empty-mini"><i class="bx ' + icone + '"></i><strong>' + vazio + '</strong><span>Os arquivos cadastrados aparecerão aqui.</span></div>';
+                }
+                return M.arquivosHTML(atual, arr);
+            }
+
+            function vazioTxt(t) {
+                return (t && String(t).trim()) ? esc(String(t)).replace(/\n/g, '<br>') : '<span class="vazio-texto">Não informado.</span>';
+            }
+
+            function preencherTexto(idEl, conteudo, icone, tituloVazio, dicaVazia) {
+                var el = document.getElementById(idEl);
+                if (!el) return;
+                if (conteudo && String(conteudo).trim()) {
+                    var d = document.createElement('div');
+                    d.className = 'secao-texto';
+                    d.textContent = String(conteudo);
+                    el.innerHTML = '';
+                    el.appendChild(d);
+                } else {
+                    el.innerHTML = '<div class="empty-mini"><i class="bx ' + icone + '"></i><strong>' + esc(tituloVazio) + '</strong><span>' + esc(dicaVazia) + '</span></div>';
+                }
+            }
+
+            function bindCampo() {
+                document.querySelectorAll('[data-campo]').forEach(function (el) {
+                    el.addEventListener('input', function () { d[el.getAttribute('data-campo')] = el.value; });
+                    el.addEventListener('change', function () { d[el.getAttribute('data-campo')] = el.value; });
+                });
+            }
+
+            /* ---------- TABS ---------- */
 
             function irParaSecao(secao) {
-                document.querySelectorAll('.song-nav-links button').forEach(function (b) {
+                document.querySelectorAll('#songNavLinks button').forEach(function (b) {
                     b.classList.toggle('active', b.getAttribute('data-secao') === secao);
                 });
-                document.querySelectorAll('[data-conteudo-secao]').forEach(function (d) {
-                    d.style.display = d.getAttribute('data-conteudo-secao') === secao ? '' : 'none';
+                document.querySelectorAll('[data-conteudo-secao]').forEach(function (dv) {
+                    dv.style.display = dv.getAttribute('data-conteudo-secao') === secao ? '' : 'none';
                 });
                 document.querySelector('.content').scrollTop = 0;
+                if (typeof window.marAba === 'function') window.marAba(secao);
             }
 
-            document.querySelectorAll('.song-nav-links button').forEach(function (b) {
+            document.querySelectorAll('#songNavLinks button').forEach(function (b) {
                 b.addEventListener('click', function () { irParaSecao(b.getAttribute('data-secao')); });
             });
 
-            /* ---------- ANTERIOR / PRÓXIMA ---------- */
+            /* ---------- AÇÕES DE MODO ---------- */
 
-            function vizinho(delta) {
-                var i = M.ids.indexOf(atual.id) + delta;
-                var n = M.ids.length;
-                return M.byId(M.ids[(i + n) % n]);
+            function entrarEdicao() {
+                modo = 'edicao';
+                d = novoRascunho(atual);
+                renderTudo();
+                ligar();
             }
 
-            document.getElementById('prevBtn').addEventListener('click', function () { aplicar(vizinho(-1), true); });
-            document.getElementById('nextBtn').addEventListener('click', function () { aplicar(vizinho(1), true); });
-            window.addEventListener('popstate', function () {
-                aplicar(M.byId(params.get('id')), false);
-            });
+            function cancelar() {
+                if (modo === 'criacao') {
+                    window.location.replace('pg5.html');
+                    return;
+                }
+                modo = 'visualizacao';
+                d = null;
+                atual = M.byId(atual.id);
+                renderTudo();
+                ligar();
+            }
 
-            /* ---------- DOWNLOADS ---------- */
+            function salvar() {
+                if (!d.nome || !String(d.nome).trim()) {
+                    AdminKit.toast('Informe o nome da música.');
+                    irParaSecao('visao-geral');
+                    return;
+                }
+                if (!d.artista || !String(d.artista).trim()) {
+                    AdminKit.toast('Informe o artista.');
+                    irParaSecao('visao-geral');
+                    return;
+                }
+                var valores = JSON.parse(JSON.stringify(d));
+                valores.bpm = parseInt(valores.bpm, 10) || 0;
+                valores.ano = parseInt(valores.ano, 10) || 0;
+                valores.arquivos = valores.arquivos || [];
+                if (modo === 'criacao') {
+                    var slug = M.slugify(valores.nome);
+                    var base = slug, n = 2;
+                    while (M.ids.indexOf(slug) > -1) { slug = base + '-' + n; n++; }
+                    valores.id = slug;
+                    valores.grad = M.gradFor(slug);
+                    AdminKit.toast('Salvando...', 'aux');
+                    AppDB.add('musicas', valores).then(function () {
+                        AdminKit.toast('Música criada.', 'ok');
+                        setTimeout(function () { window.location.replace('pg5.html'); }, 650);
+                    });
+                } else {
+                    AdminKit.toast('Salvando...', 'aux');
+                    AppDB.update('musicas', atual._id, valores).then(function () {
+                        AdminKit.toast('Alterações salvas.', 'ok');
+                        modo = 'visualizacao';
+                        d = null;
+                        atual = M.byId(atual.id);
+                        renderTudo();
+                        ligar();
+                        irParaSecao('visao-geral');
+                    });
+                }
+            }
+
+            function excluirMusica() {
+                AdminKit.confirm({
+                    title: 'Excluir música',
+                    message: 'Excluir definitivamente "' + atual.nome + '"? Esta ação não pode ser desfeita.',
+                    confirmLabel: 'Excluir',
+                    danger: true
+                }).then(function (ok) {
+                    if (!ok) return;
+                    AppDB.remove('musicas', atual._id).then(function () {
+                        AdminKit.toast('Música excluída.', 'ok');
+                        setTimeout(function () { window.location.replace('pg5.html'); }, 600);
+                    });
+                });
+            }
+
+            function modalArquivo(cat) {
+                AdminKit.modal({
+                    title: 'Adicionar arquivo',
+                    submitLabel: 'Adicionar',
+                    values: { nome: '', categoria: cat, tam: '' },
+                    fields: [
+                        { name: 'nome', label: 'Nome do arquivo', required: true, placeholder: 'Ex.: Playback.mp3' },
+                        { name: 'categoria', label: 'Categoria', type: 'select', options: CATEGORIAS.map(function (c) { return { value: c.nome, label: c.nome }; }) },
+                        { name: 'tam', label: 'Tamanho', placeholder: 'Ex.: 4,2 MB' }
+                    ]
+                }).then(function (vals) {
+                    if (!vals) return;
+                    d.arquivos = d.arquivos || [];
+                    d.arquivos.push({ cat: vals.categoria, icone: iconCat(vals.categoria), nome: String(vals.nome).trim(), tam: String(vals.tam || '').trim() });
+                    renderTudo();
+                    ligar();
+                });
+            }
+
+            function addTag() {
+                var inp = document.getElementById('tagInput');
+                if (!inp) return;
+                var t = inp.value.trim();
+                if (!t) return;
+                if (d.tags.indexOf(t) > -1) { inp.value = ''; return; }
+                d.tags.push(t);
+                renderTudo();
+                ligar();
+            }
+
+            /* ---------- CAPA (imagem) ---------- */
+
+            function lerImagem(file, cb) {
+                var leitor = new FileReader();
+                leitor.onerror = function () { AdminKit.toast('Falha ao ler a imagem.'); };
+                leitor.onload = function () {
+                    var img = new Image();
+                    img.onerror = function () { AdminKit.toast('Imagem inválida.'); };
+                    img.onload = function () {
+                        var MAX = 1000;
+                        var e = Math.min(1, MAX / Math.max(img.width, img.height));
+                        var c = document.createElement('canvas');
+                        c.width = Math.max(1, Math.round(img.width * e));
+                        c.height = Math.max(1, Math.round(img.height * e));
+                        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+                        cb(c.toDataURL('image/jpeg', 0.82));
+                    };
+                    img.src = leitor.result;
+                };
+                leitor.readAsDataURL(file);
+            }
+
+            function ligar() {
+                if (modo === 'criacao' || modo === 'edicao') {
+                    var b;
+                    b = document.getElementById('btnCancelar'); if (b) b.addEventListener('click', cancelar);
+                    b = document.getElementById('btnSalvar'); if (b) b.addEventListener('click', salvar);
+                    b = document.getElementById('capaDrop');
+                    if (b) b.addEventListener('click', function () { var i = document.getElementById('capaInput'); if (i) i.click(); });
+                    b = document.getElementById('capaLimpar');
+                    if (b) b.addEventListener('click', function () { d.capa = ''; renderTudo(); ligar(); });
+                    b = document.getElementById('capaInput');
+                    if (b) b.addEventListener('change', function () {
+                        var f = b.files && b.files[0];
+                        if (!f) return;
+                        if (!/^image\//.test(f.type)) { AdminKit.toast('Envie um arquivo de imagem.'); b.value = ''; return; }
+                        lerImagem(f, function (du) { d.capa = du; renderTudo(); ligar(); });
+                    });
+                    b = document.getElementById('addTagBtn'); if (b) b.addEventListener('click', addTag);
+                    b = document.getElementById('tagInput');
+                    if (b) b.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); addTag(); } });
+                    b = document.getElementById('btnAddArquivo'); if (b) b.addEventListener('click', function () { modalArquivo('Outros'); });
+                } else {
+                    var e = document.getElementById('btnEditar');
+                    if (e) e.addEventListener('click', AdminKit.guard(entrarEdicao));
+                    var x = document.getElementById('btnExcluir');
+                    if (x) x.addEventListener('click', AdminKit.guard(excluirMusica));
+                }
+            }
+
+            /* ---------- DELEGADOS (arquivos / tags / categorias) ---------- */
+
+            document.addEventListener('click', function (e) {
+                var dl = e.target.closest('.dl-btn');
+                if (dl) {
+                    e.preventDefault();
+                    mostrarToast('Download iniciado: ' + (dl.getAttribute('aria-label') || '').replace('Baixar ', ''));
+                    return;
+                }
+                var catBtn = e.target.closest('[data-cat]');
+                if (catBtn && ehEditable()) { modalArquivo(catBtn.getAttribute('data-cat')); renderTudo(); ligar(); return; }
+                var rm = e.target.closest('[data-rm-arquivo]');
+                if (rm) {
+                    e.preventDefault();
+                    if (!ehEditable()) return;
+                    var nome = rm.getAttribute('data-rm-arquivo');
+                    d.arquivos = (d.arquivos || []).filter(function (a) { return a.nome !== nome; });
+                    renderTudo(); ligar();
+                    return;
+                }
+                var tagRm = e.target.closest('[data-rm-tag]');
+                if (tagRm && ehEditable()) {
+                    var i = parseInt(tagRm.getAttribute('data-rm-tag'), 10);
+                    d.tags.splice(i, 1);
+                    renderTudo(); ligar();
+                }
+            });
 
             function mostrarToast(txt) {
                 var el = document.createElement('div');
@@ -391,20 +775,67 @@ var M = window.MS;
                 }, 2400);
             }
 
-            document.addEventListener('click', function (e) {
-                var dl = e.target.closest('.dl-btn');
-                if (dl) {
-                    e.preventDefault();
-                    mostrarToast('Download iniciado: ' + (dl.getAttribute('aria-label') || '').replace('Baixar ', ''));
+            /* ---------- ANTERIOR / PRÓXIMA (somente visualização) ---------- */
+
+            function vizinho(delta) {
+                var i = M.ids.indexOf(atual.id) + delta;
+                var n = M.ids.length;
+                return M.byId(M.ids[(i + n) % n]);
+            }
+
+            function trocarMusica(s) {
+                if (!s || modo !== 'visualizacao') return;
+                atual = s;
+                history.pushState(null, '', 'pg5-detalhe.html?id=' + s.id);
+                renderTudo();
+                ligar();
+                irParaSecao('visao-geral');
+            }
+
+            document.getElementById('prevBtn').addEventListener('click', function () { trocarMusica(vizinho(-1)); });
+            document.getElementById('nextBtn').addEventListener('click', function () { trocarMusica(vizinho(1)); });
+
+            window.addEventListener('popstate', function () {
+                var s = M.byId(new URLSearchParams(window.location.search).get('id'));
+                if (!s) { window.location.replace('pg5.html'); return; }
+                atual = s;
+                modo = 'visualizacao';
+                d = null;
+                renderTudo();
+                ligar();
+                irParaSecao('visao-geral');
+            });
+
+            /* ---------- DADOS AO VIVO ---------- */
+
+            AppDB.onChange('musicas', function () {
+                if (modo === 'visualizacao' && atual) {
+                    var s = M.byId(atual.id);
+                    if (!s) { window.location.replace('pg5.html'); return; }
+                    atual = s;
+                    renderTudo();
+                    ligar();
                 }
             });
 
-aplicar(atual, false);
+            /* ---------- INICIAL ---------- */
 
-            /* ---------- DADOS AO VIVO ---------- */
-            AppDB.onChange('musicas', function () {
-                var s = M.byId(params.get('id'));
-                if (s) aplicar(s, false);
+            if (modo === 'criacao') {
+                d = novoRascunho();
+            } else if (modo === 'edicao') {
+                d = novoRascunho(atual);
+            } else {
+                d = null;
+            }
+
+            renderTudo();
+            ligar();
+
+            requestAnimationFrame(function () {
+                if (modo === 'criacao') {
+                    var nome = document.querySelector('[data-campo="nome"]');
+                    if (nome) nome.focus();
+                }
             });
         })();
     </script>

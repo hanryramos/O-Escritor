@@ -690,6 +690,12 @@ a {
 .g7 { background: linear-gradient(135deg, #7C6A9E, #4D3F6E); }
 .g8 { background: linear-gradient(135deg, #C59A5A, #A8792E); }
 
+.cap-img {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 /* =====================================
    TOOLBAR DE MÚSICAS
 ===================================== */
@@ -753,68 +759,117 @@ a {
     min-width: 0;
 }
 
-.table-wrap {
+/* =====================================
+   LISTA DE MÚSICAS · COMPONENTE
+   Cada música é um bloco (music-item).
+===================================== */
+
+.music-list-wrap {
     overflow: hidden;
 }
 
-.table-scroll {
-    overflow-x: auto;
+.music-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr) 64px 64px minmax(0, 1fr) 128px 40px;
+    gap: 0.6rem;
+
+    padding: 0.9rem 0.9rem 0.5rem;
 }
 
-.music-table {
-    width: 100%;
-    min-width: 760px;
-
-    border-collapse: collapse;
-}
-
-.music-table thead th {
-    padding: 0.9rem 1rem;
-
-    text-align: left;
-    font-size: 0.68rem;
+.music-head span {
+    font-size: 0.66rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.11em;
     text-transform: uppercase;
     color: var(--cinza-medio);
-
-    background: #FCFCFB;
-    border-bottom: 1px solid #F0F0F0;
-
-    white-space: nowrap;
 }
 
-.music-table tbody td {
-    padding: 0.8rem 1rem;
+.music-list {
+    display: grid;
+    gap: 0.5rem;
 
-    vertical-align: middle;
-
-    border-bottom: 1px solid #F4F4F4;
+    padding: 0 0.9rem 0.9rem;
 }
 
-.music-table tbody tr:last-child td {
-    border-bottom: none;
-}
+.music-item {
+    position: relative;
 
-.music-table tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr) 64px 64px minmax(0, 1fr) 128px 40px;
+    gap: 0.6rem;
+    align-items: center;
+
+    padding: 0.55rem 0.8rem;
+
+    background: #FFFFFF;
+    border: 1px solid #ECECEC;
+    border-radius: 12px;
+
     cursor: pointer;
-    transition: background 0.2s;
+
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
-.music-table tbody tr:hover {
-    background: #FBF9F5;
+.music-item:hover,
+.music-item:focus-visible {
+    outline: none;
+
+    border-color: var(--dourado-claro);
+    background: #FDFBF7;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
 }
 
-.song-cell {
+.music-item.menu-open {
+    border-color: var(--dourado);
+    background: #FBF8F2;
+}
+
+.mi-principal {
     display: flex;
     align-items: center;
     gap: 0.7rem;
+
+    min-width: 0;
 }
 
-.song-name {
-    font-size: 0.88rem;
+.mi-name {
+    font-size: 0.9rem;
     font-weight: 600;
     color: #202020;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mi-cell {
+    min-width: 0;
+}
+
+.mi-menu {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.cap-list {
+    width: 44px;
+    height: 44px;
+
+    font-size: 1.15rem;
+    border-radius: 11px;
+}
+
+.mi-cena-txt {
+    font-size: 0.82rem;
+    color: #59677B;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mi-capa {
+    flex: none;
 }
 
 .artista {
@@ -1367,6 +1422,20 @@ a {
     color: #59677B;
 }
 
+.secao-conteudo {
+    margin-top: 0.8rem;
+}
+
+.secao-texto {
+    font-size: clamp(12px, 0.85vw, 14px);
+    line-height: 1.75;
+    color: #3A3A3A;
+
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-width: 72ch;
+}
+
 .sobre-item {
     margin-top: 1rem;
     padding-top: 1rem;
@@ -1632,3 +1701,453 @@ a {
 .dash-empty i { font-size: 1.8rem; color: var(--dourado-claro); }
 .dash-empty strong { font-size: 0.92rem; color: #202020; }
 .dash-empty span { font-size: 0.8rem; }
+
+/* =====================================
+   SOBRE A MÚSICA · trecho / aplicação lado a lado
+===================================== */
+
+.sobre-duo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+    align-items: stretch;
+}
+
+.sobre-duo .sobre-item {
+    margin-top: 0;
+}
+
+/* =====================================
+   ARQUIVOS · remover (admin)
+===================================== */
+
+.rm-btn {
+    width: 26px;
+    height: 26px;
+    flex: none;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 1rem;
+    color: var(--cinza-medio);
+
+    border-radius: 8px;
+
+    transition: background 0.2s, color 0.2s;
+}
+
+.rm-btn:hover {
+    background: #F7E3E0;
+    color: var(--adm-vermelho);
+}
+
+/* =====================================
+   DOWNLOADS · adicionar arquivo (admin)
+===================================== */
+
+.dl-add-btn {
+    margin-top: 0.8rem;
+    width: 100%;
+
+    justify-content: center;
+}
+
+.dl-placeholder {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    padding: 0.6rem 0.7rem;
+    margin-bottom: 0.5rem;
+
+    background: #FCFBF8;
+    border: 1px dashed #E4D9C8;
+    border-radius: 10px;
+
+    color: var(--cinza-medio);
+    font-size: 0.78rem;
+}
+
+.dl-placeholder i {
+    font-size: 1.1rem;
+    color: var(--dourado-claro);
+
+    flex: none;
+}
+
+.dl-add-btn-prev {
+    margin-bottom: 0;
+}
+
+/* =====================================
+   LISTA DE MÚSICAS · cards empilhados (mobile/tablet)
+===================================== */
+
+@media (max-width: 700px) {
+    .music-head {
+        display: none;
+    }
+
+    .music-item {
+        grid-template-columns: 1fr;
+        gap: 0.35rem;
+
+        padding: 0.85rem 0.95rem;
+    }
+
+    .mi-principal {
+        padding-right: 2.3rem;
+        justify-content: flex-start;
+    }
+
+    .mi-menu {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+    }
+
+    .mi-cell {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .mi-cell::before {
+        content: attr(data-rotulo);
+
+        flex: none;
+
+        font-size: 0.64rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--cinza-medio);
+    }
+
+    .mi-cena-txt {
+        white-space: normal;
+    }
+}
+
+@media (max-width: 640px) {
+    .sobre-duo {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =====================================
+   PÁGINA COMPLETA · MODO EDIÇÃO / CRIAÇÃO
+   Campos direto na página (layout B)
+===================================== */
+
+.edit-lbl {
+    display: block;
+
+    margin-bottom: 0.3rem;
+
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cinza-medio);
+}
+
+.edit-status {
+    margin-bottom: 0.8rem;
+}
+
+.edit-inp,
+.edit-tx,
+.edit-sel {
+    width: 100%;
+
+    padding: 0.55rem 0.75rem;
+
+    background: #FFFFFF;
+    border: 1px solid #E3DDD2;
+    border-radius: 10px;
+
+    font-size: 0.86rem;
+    font-family: inherit;
+    color: #202020;
+
+    outline: none;
+
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.edit-inp:focus,
+.edit-tx:focus,
+.edit-sel:focus {
+    border-color: var(--dourado);
+    box-shadow: 0 0 0 3px rgba(185, 133, 63, 0.12);
+}
+
+.edit-tx {
+    resize: vertical;
+    line-height: 1.55;
+}
+
+.edit-sel {
+    cursor: pointer;
+}
+
+.edit-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+
+    margin-bottom: 0.8rem;
+}
+
+.edit-block > span {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--cinza-medio);
+}
+
+.edit-inp.inp-forte {
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.edit-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.6rem;
+
+    margin-top: 0.9rem;
+}
+
+.edit-grid > label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    min-width: 0;
+}
+
+.edit-grid > label > span {
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--cinza-medio);
+}
+
+.edit-grid .edit-inp {
+    padding: 0.5rem 0.6rem;
+    min-width: 0;
+}
+
+/* ---------- CAPA (upload direto) ---------- */
+
+.edit-capa {
+    position: relative;
+
+    flex: none;
+}
+
+.cap-drop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+
+    width: min(220px, 100%);
+    aspect-ratio: 4 / 3;
+
+    padding: 1rem;
+
+    background: var(--off-white);
+    border: 2px dashed #DDD1BC;
+    border-radius: 16px;
+
+    color: var(--cinza-medio);
+    font-size: 0.78rem;
+    text-align: center;
+
+    cursor: pointer;
+    overflow: hidden;
+
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.cap-drop:hover {
+    border-color: var(--dourado-claro);
+    background: var(--bege);
+}
+
+.cap-drop i {
+    font-size: 1.9rem;
+    color: var(--dourado-claro);
+}
+
+.cap-drop.tem {
+    border-style: solid;
+    border-color: #ECECEC;
+    padding: 0;
+}
+
+.cap-drop img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    display: block;
+}
+
+.cap-limpar {
+    position: absolute;
+    top: 0.45rem;
+    right: 0.45rem;
+
+    width: 28px;
+    height: 28px;
+
+    display: grid;
+    place-items: center;
+
+    background: #FFFFFF;
+    border: 1px solid #F0D9D4;
+    border-radius: 8px;
+
+    color: #C0483B;
+
+    cursor: pointer;
+
+    transition: background 0.2s;
+}
+
+.cap-limpar:hover {
+    background: #FDF0EE;
+}
+
+/* ---------- TAGS (edição) ---------- */
+
+.edit-tags {
+    margin-top: 1rem;
+    padding-top: 1rem;
+
+    border-top: 1px solid #F3F3F3;
+}
+
+.edit-tags h4 {
+    margin-bottom: 0.4rem;
+
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cinza-medio);
+}
+
+.tag-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+
+    margin: 0.4rem 0 0.7rem;
+}
+
+.tag.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+
+    padding: 0.3rem 0.5rem 0.3rem 0.75rem;
+
+    cursor: default;
+}
+
+.tag.chip button {
+    display: grid;
+    place-items: center;
+
+    padding: 0;
+
+    background: none;
+    border: none;
+    color: inherit;
+    opacity: 0.7;
+
+    font-size: 0.95rem;
+
+    cursor: pointer;
+
+    transition: opacity 0.2s;
+}
+
+.tag.chip button:hover {
+    opacity: 1;
+}
+
+.add-tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.add-tag-row .edit-inp {
+    flex: 1;
+    min-width: 140px;
+}
+
+/* ---------- SEÇÕES DE CONTEÚDO (edição) ---------- */
+
+.sec-add-btn {
+    margin-bottom: 0.7rem;
+}
+
+.vazio-texto {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--cinza-medio);
+}
+
+/* ---------- AÇÕES DO TOPO ---------- */
+
+.mode-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.song-nav-arrows .adm-btn {
+    padding: 0.55rem 0.95rem;
+}
+
+@media (max-width: 1100px) {
+    .edit-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .edit-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cap-drop {
+        margin: auto;
+    }
+
+    .song-nav-arrows {
+        align-items: stretch;
+    }
+
+    .mode-actions {
+        width: 100%;
+    }
+
+    .mode-actions .adm-btn {
+        flex: 1;
+        justify-content: center;
+    }
+}

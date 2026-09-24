@@ -14,6 +14,21 @@
     var SKIP_KEY = 'musical_onb_skip';
     var REABRIR_EM = 24 * 60 * 60 * 1000;
 
+    /* O cartão volta em TODA visita enquanto o perfil estiver incompleto:
+       faltando a equipe (quando existem equipes cadastradas) ou, se a pessoa
+       se diz ator, faltando dizer qual personagem é. */
+    function perfilCompleto(per, existeEquipes) {
+        if (!per) return false;
+        if (existeEquipes) {
+            var temEq = Array.isArray(per.equipes) && per.equipes.some(function (e) { return String(e || '').trim(); });
+            if (!temEq) return false;
+        }
+        var pd = String(per.personagem || '').trim();
+        if (per.temPersonagem === true) return !!pd;
+        if (per.temPersonagem === false) return true;
+        return !!pd;
+    }
+
     function registrarDescartar() {
         try { localStorage.setItem(SKIP_KEY, String(Date.now())); } catch (e) { }
     }
@@ -95,6 +110,8 @@
             personagemHTML = '<input type="text" id="onbQualPersonagem" placeholder="Nenhum personagem cadastrado ainda — escreva aqui" disabled>';
         }
 
+        var ehAtor = !!(perfil && (perfil.temPersonagem === true || (perfil.personagem && String(perfil.personagem).trim())));
+
         overlay = document.createElement('div');
         overlay.className = 'onboarding-overlay';
         overlay.innerHTML =
@@ -111,8 +128,8 @@
             '<div class="onb-equipes">' + eqsHTML + '</div></div>' +
             '<div class="onb-campo"><span>Você representa algum personagem?</span>' +
             '<div class="onb-personagem">' +
-            '<label><input type="radio" name="onbPersonagem" value="sim"> Sim</label>' +
-            '<label><input type="radio" name="onbPersonagem" value="nao" checked> Não</label>' +
+            '<label><input type="radio" name="onbPersonagem" value="sim"' + (ehAtor ? ' checked' : '') + '> Sim</label>' +
+            '<label><input type="radio" name="onbPersonagem" value="nao"' + (ehAtor ? '' : ' checked') + '> Não</label>' +
             '</div>' +
             personagemHTML + '</div>' +
             '<label class="onb-campo"><span>Breve resumo sobre você</span>' +
@@ -162,6 +179,7 @@
                 email: userEmail || (perfil && perfil.email) || '',
                 equipes: equipes,
                 personagem: personagem,
+                temPersonagem: !!(rSim && rSim.checked),
                 sobre: (overlay.querySelector('#onbResumo').value || '').trim(),
                 entrada: (perfil && perfil.entrada) || hoje(),
                 onboarded: true
@@ -184,21 +202,24 @@
     }
 
     window.AppAuth.ready.then(function () {
-        if (!deveMostrar()) return;
         var chave = chavePerfil();
         var per = null;
         window.AppDB.load('perfil').then(function (lista) {
             (lista || []).forEach(function (p) {
                 if (p._id === chave) per = p;
             });
-            if (per && per.onboarded) return null;
             return Promise.all([
+                Promise.resolve(per),
                 window.AppDB.load('equipes'),
                 window.AppDB.load('personagens')
             ]);
-        }).then(function (dados2) {
-            if (per && per.onboarded) return;
-            montar(per, dados2 ? dados2[0] : [], dados2 ? dados2[1] : []);
+        }).then(function (d) {
+            var perf = d[0];
+            var equipes = d[1] || [];
+            var personagens = d[2] || [];
+            var existeEquipes = equipes.length > 0;
+            if (perf && perfilCompleto(perf, existeEquipes)) return;
+            montar(perf, equipes, personagens);
         });
     });
 

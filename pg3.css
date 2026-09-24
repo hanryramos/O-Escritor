@@ -505,6 +505,10 @@ a {
     align-items: start;
 }
 
+.tasks-main {
+    min-width: 0;
+}
+
 .card {
     background: var(--branco);
     border: 1px solid var(--borda);

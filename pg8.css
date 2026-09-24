@@ -1163,7 +1163,12 @@ a {
         align-items: stretch;
     }
 
+.notif-toolbar > * {
+        min-width: 0;
+    }
+
     .notif-toolbar .tabs {
+        max-width: 100%;
         overflow-x: auto;
         flex-wrap: nowrap;
     }
